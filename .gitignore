@@ -1,0 +1,13 @@
+*.png
+*.jpg
+*.jpeg
+--full-page
+.playwright-mcp/
+hello.py
+lead_gen_business/
+olss_v2/
+node_modules/
+.env
+__pycache__/
+*.pyc
+.DS_Store
