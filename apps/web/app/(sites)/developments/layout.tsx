@@ -1,10 +1,11 @@
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { SITE_CONFIGS } from '@/lib/site-config'
+import { DEMO } from '@/lib/demo'
 
 export default function DevelopmentsLayout({ children }: { children: React.ReactNode }) {
   return <>
-    <Nav config={SITE_CONFIGS.developments} />
+    <Nav config={SITE_CONFIGS.developments} pathPrefix={DEMO ? '/developments' : ''} />
     {children}
     <Footer config={SITE_CONFIGS.developments} />
   </>

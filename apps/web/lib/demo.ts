@@ -1,4 +1,4 @@
-export const DEMO = process.env.NEXT_PUBLIC_DEMO_MODE === 'true'
+export const DEMO = (process.env.NEXT_PUBLIC_DEMO_MODE ?? 'true') !== 'false'
 
 const SITE_URLS: Record<string, string> = {
   main: '/',
@@ -11,4 +11,8 @@ const SITE_URLS: Record<string, string> = {
 
 export function siteUrl(key: string): string {
   return SITE_URLS[key] ?? '/'
+}
+
+export function subPath(siteKey: string, path: string): string {
+  return DEMO ? `/${siteKey}${path}` : path
 }

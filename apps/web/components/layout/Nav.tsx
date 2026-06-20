@@ -9,9 +9,11 @@ import type { SiteConfig } from '@/lib/site-config'
 interface Props {
   config: SiteConfig
   logoHref?: string
+  pathPrefix?: string
 }
 
-export function Nav({ config, logoHref = '/' }: Props) {
+export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
+  const href = (h: string) => (pathPrefix && h.startsWith('/') ? pathPrefix + h : h)
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -58,7 +60,7 @@ export function Nav({ config, logoHref = '/' }: Props) {
             {leftNav.map(item => (
               <li key={item.href}>
                 <Link
-                  href={item.href}
+                  href={href(item.href)}
                   className="font-body text-sm text-white/70 hover:text-white transition-colors duration-200"
                   style={{ fontWeight: 500 }}
                 >
@@ -80,7 +82,7 @@ export function Nav({ config, logoHref = '/' }: Props) {
               <li key={item.href}>
                 {isContact ? (
                   <Link
-                    href={item.href}
+                    href={href(item.href)}
                     className="font-body text-sm px-5 py-2 bg-accent text-bg hover:bg-accent-h transition-all duration-200"
                     style={{ fontWeight: 600 }}
                   >
@@ -88,7 +90,7 @@ export function Nav({ config, logoHref = '/' }: Props) {
                   </Link>
                 ) : (
                   <Link
-                    href={item.href}
+                    href={href(item.href)}
                     className="font-body text-sm text-white/60 hover:text-white transition-colors duration-200"
                     style={{ fontWeight: 500 }}
                   >
@@ -121,7 +123,7 @@ export function Nav({ config, logoHref = '/' }: Props) {
           {config.nav.map(item => (
             <li key={item.href}>
               <Link
-                href={item.href}
+                href={href(item.href)}
                 onClick={() => setOpen(false)}
                 className="font-body text-sm text-white/70 hover:text-white transition-colors"
                 style={{ fontWeight: 500 }}

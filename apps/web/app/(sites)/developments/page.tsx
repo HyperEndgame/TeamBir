@@ -2,19 +2,22 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { subPath } from '@/lib/demo'
 
 export const metadata: Metadata = {
   title: 'BIR Developments',
   description: 'Custom homes, commercial construction, renovations, excavation, and electrical in Knoxville, TN. TN Contractor License #80985.',
 }
 
+const p = (path: string) => subPath('developments', path)
+
 const SERVICES = [
-  { label: 'Custom Homes', desc: 'From design to final walkthrough — your dream home built with precision and exceptional craftsmanship.', num: '01', href: '/services' },
-  { label: 'Commercial', desc: 'Retail, office, and industrial buildings. On schedule, on budget, every time.', num: '02', href: '/services' },
-  { label: 'Renovations', desc: 'Kitchens, bathrooms, additions, full-home remodels — any size, any scope.', num: '03', href: '/services' },
-  { label: 'Excavation', desc: 'Site prep, grading, and foundation work. Real solutions for every project scale.', num: '04', href: '/services' },
-  { label: 'Electrical', desc: 'Licensed electrical services for residential and commercial projects throughout East Tennessee.', num: '05', href: '/services' },
-  { label: 'Materials Supply', desc: 'Fill dirt, topsoil, stone, and concrete for sale — direct from BIR for your jobsite needs.', num: '06', href: '/services' },
+  { label: 'Custom Homes', desc: 'From design to final walkthrough — your dream home built with precision and exceptional craftsmanship.', num: '01', href: p('/services') },
+  { label: 'Commercial', desc: 'Retail, office, and industrial buildings. On schedule, on budget, every time.', num: '02', href: p('/services') },
+  { label: 'Renovations', desc: 'Kitchens, bathrooms, additions, full-home remodels — any size, any scope.', num: '03', href: p('/services') },
+  { label: 'Excavation', desc: 'Site prep, grading, and foundation work. Real solutions for every project scale.', num: '04', href: p('/services') },
+  { label: 'Electrical', desc: 'Licensed electrical services for residential and commercial projects throughout East Tennessee.', num: '05', href: p('/services') },
+  { label: 'Materials Supply', desc: 'Fill dirt, topsoil, stone, and concrete for sale — direct from BIR for your jobsite needs.', num: '06', href: p('/services') },
 ]
 
 export default function DevelopmentsHome() {
@@ -31,8 +34,8 @@ export default function DevelopmentsHome() {
               Custom homes, commercial construction, renovations, excavation, and electrical across Knoxville and East Tennessee — built right, every time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button as="a" href="/contact" size="lg">Free Estimate</Button>
-              <Button as="a" href="/projects" variant="outline" size="lg">View Projects</Button>
+              <Button as="a" href={p('/contact')} size="lg">Free Estimate</Button>
+              <Button as="a" href={p('/projects')} variant="outline" size="lg">View Projects</Button>
             </div>
           </ScrollReveal>
         </div>
@@ -102,7 +105,7 @@ export default function DevelopmentsHome() {
               <p className="font-body text-white/40 leading-relaxed mb-10">
                 Customer-focused in cost effectiveness, quality, and delivery. Licensed general contractor in Knoxville, TN.
               </p>
-              <Button as="a" href="/projects" variant="outline">All Projects</Button>
+              <Button as="a" href={p('/projects')} variant="outline">All Projects</Button>
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
@@ -133,7 +136,7 @@ export default function DevelopmentsHome() {
               Let's Build<br />Something Great
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">Free estimate for any project — residential or commercial. TN Contractor License #80985.</p>
-            <Button as="a" href="/contact" size="lg">Request Free Estimate</Button>
+            <Button as="a" href={p('/contact')} size="lg">Request Free Estimate</Button>
           </ScrollReveal>
         </div>
       </section>

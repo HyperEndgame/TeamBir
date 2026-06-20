@@ -2,21 +2,24 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { subPath } from '@/lib/demo'
 
 export const metadata: Metadata = {
   title: 'BIR Transport',
   description: 'Tennessee-based trucking and logistics — dry van truckload, cross docking, final mile, truck parking, and boat/RV storage. USDOT 717687.',
 }
 
+const p = (path: string) => subPath('transport', path)
+
 const SERVICES = [
-  { label: 'Dry Van Truckload', desc: 'Primary freight service — reliable dry van transportation across Tennessee and the USA with on-time delivery.', num: '01', href: '/services' },
-  { label: 'Cross Docking', desc: 'Efficient inbound-to-outbound transfer. Reduces storage time and moves goods faster.', num: '02', href: '/services' },
-  { label: 'Final Mile', desc: 'Professional last-mile delivery. Fast turnaround, every shipment handled with care.', num: '03', href: '/services' },
-  { label: 'Overweight Hauls', desc: 'Oversized and overweight loads. Full permitting and escort services included.', num: '04', href: '/services' },
-  { label: 'Drop Trailer Storage', desc: 'Secure trailer storage facilities — short or long term, cost-effective rates.', num: '05', href: '/services' },
-  { label: 'Truck Parking', desc: 'Secure, spacious parking near major highways — keeping your fleet safe and accessible.', num: '06', href: '/services' },
-  { label: 'Boat & RV Storage', desc: 'Safe, accessible, weather-protected storage for your boat, RV, or motor home.', num: '07', href: '/services' },
-  { label: 'Commercial Storage', desc: 'Short and long-term warehousing solutions to keep your goods secure until needed.', num: '08', href: '/services' },
+  { label: 'Dry Van Truckload', desc: 'Primary freight service — reliable dry van transportation across Tennessee and the USA with on-time delivery.', num: '01', href: p('/services') },
+  { label: 'Cross Docking', desc: 'Efficient inbound-to-outbound transfer. Reduces storage time and moves goods faster.', num: '02', href: p('/services') },
+  { label: 'Final Mile', desc: 'Professional last-mile delivery. Fast turnaround, every shipment handled with care.', num: '03', href: p('/services') },
+  { label: 'Overweight Hauls', desc: 'Oversized and overweight loads. Full permitting and escort services included.', num: '04', href: p('/services') },
+  { label: 'Drop Trailer Storage', desc: 'Secure trailer storage facilities — short or long term, cost-effective rates.', num: '05', href: p('/services') },
+  { label: 'Truck Parking', desc: 'Secure, spacious parking near major highways — keeping your fleet safe and accessible.', num: '06', href: p('/services') },
+  { label: 'Boat & RV Storage', desc: 'Safe, accessible, weather-protected storage for your boat, RV, or motor home.', num: '07', href: p('/services') },
+  { label: 'Commercial Storage', desc: 'Short and long-term warehousing solutions to keep your goods secure until needed.', num: '08', href: p('/services') },
 ]
 
 export default function TransportHome() {
@@ -33,8 +36,8 @@ export default function TransportHome() {
               Family-owned Tennessee trucking and logistics — dry van truckload, cross-docking, final mile, overweight assistance, truck parking, and boat/RV storage. Where family matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button as="a" href="/services" size="lg">Our Services</Button>
-              <Button as="a" href="/contact" variant="outline" size="lg">Request a Quote</Button>
+              <Button as="a" href={p('/services')} size="lg">Our Services</Button>
+              <Button as="a" href={p('/contact')} variant="outline" size="lg">Request a Quote</Button>
             </div>
           </ScrollReveal>
         </div>
@@ -99,7 +102,7 @@ export default function TransportHome() {
             <p className="font-body text-white/40 leading-relaxed mb-10">
               Our smaller, selective fleet means better drivers handle your freight — resulting in an extremely high on-time delivery rate with near-zero rejection and damage rates.
             </p>
-            <Button as="a" href="/contact" variant="outline">Get a Quote</Button>
+            <Button as="a" href={p('/contact')} variant="outline">Get a Quote</Button>
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
@@ -130,7 +133,7 @@ export default function TransportHome() {
               Ready to Ship?
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">Get a quote for any load, any route — call 540-980-7530 or submit online.</p>
-            <Button as="a" href="/contact" size="lg">Request a Quote</Button>
+            <Button as="a" href={p('/contact')} size="lg">Request a Quote</Button>
           </ScrollReveal>
         </div>
       </section>

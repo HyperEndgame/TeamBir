@@ -2,19 +2,22 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { subPath } from '@/lib/demo'
 
 export const metadata: Metadata = {
   title: 'BIR Materials',
   description: 'Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable materials recycling in Knoxville, TN. Call 865-832-6247.',
 }
 
+const p = (path: string) => subPath('materials', path)
+
 const SERVICES = [
-  { label: 'Aggregates', desc: 'Multiple sizes: #57, #78, #89, #6-10 — for concrete, asphalt, drainage, and landscaping.', href: '/aggregates', num: '01' },
-  { label: 'Fill Dirt & Topsoil', desc: 'Quality fill dirt and nutrient-rich topsoil for grading, landscaping, and commercial jobsites.', href: '/fill-dirt', num: '02' },
-  { label: 'Concrete', desc: 'Concrete production and paving — foundations, slabs, walkways, and concrete paving projects.', href: '/contact', num: '03' },
-  { label: 'Rock Crushing', desc: 'Mobile and stationary crushing services. Process your own material on-site at scale.', href: '/crushing', num: '04' },
-  { label: 'Contract Crushing', desc: 'Custom contract crushing for large-scale operations — bring the crusher to your project.', href: '/crushing', num: '05' },
-  { label: 'Recycling', desc: 'Concrete and asphalt recycling — reduce waste, lower costs, source sustainable materials.', href: '/recycling', num: '06' },
+  { label: 'Aggregates', desc: 'Multiple sizes: #57, #78, #89, #6-10 — for concrete, asphalt, drainage, and landscaping.', href: p('/aggregates'), num: '01' },
+  { label: 'Fill Dirt & Topsoil', desc: 'Quality fill dirt and nutrient-rich topsoil for grading, landscaping, and commercial jobsites.', href: p('/fill-dirt'), num: '02' },
+  { label: 'Concrete', desc: 'Concrete production and paving — foundations, slabs, walkways, and concrete paving projects.', href: p('/contact'), num: '03' },
+  { label: 'Rock Crushing', desc: 'Mobile and stationary crushing services. Process your own material on-site at scale.', href: p('/crushing'), num: '04' },
+  { label: 'Contract Crushing', desc: 'Custom contract crushing for large-scale operations — bring the crusher to your project.', href: p('/crushing'), num: '05' },
+  { label: 'Recycling', desc: 'Concrete and asphalt recycling — reduce waste, lower costs, source sustainable materials.', href: p('/recycling'), num: '06' },
 ]
 
 export default function MaterialsHome() {
@@ -31,8 +34,8 @@ export default function MaterialsHome() {
               Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable recycling — serving Tennessee construction with a focus on quality and green practices.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button as="a" href="/contact" size="lg">Request a Quote</Button>
-              <Button as="a" href="/aggregates" variant="outline" size="lg">View Products</Button>
+              <Button as="a" href={p('/contact')} size="lg">Request a Quote</Button>
+              <Button as="a" href={p('/aggregates')} variant="outline" size="lg">View Products</Button>
             </div>
           </ScrollReveal>
         </div>
@@ -104,7 +107,7 @@ export default function MaterialsHome() {
               <p className="font-body text-white/45 leading-relaxed mb-10">
                 From efficient extraction to sustainable processing — every BIR Materials operation is built to be good for your project and good for Tennessee.
               </p>
-              <Button as="a" href="/contact" variant="outline">Get in Touch</Button>
+              <Button as="a" href={p('/contact')} variant="outline">Get in Touch</Button>
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
@@ -135,7 +138,7 @@ export default function MaterialsHome() {
               Ready to Order?
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">Call 865-832-6247 or get a quote for any material, any quantity, anywhere in Tennessee.</p>
-            <Button as="a" href="/contact" size="lg">Contact BIR Materials</Button>
+            <Button as="a" href={p('/contact')} size="lg">Contact BIR Materials</Button>
           </ScrollReveal>
         </div>
       </section>

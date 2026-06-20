@@ -2,18 +2,21 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { subPath } from '@/lib/demo'
 
 export const metadata: Metadata = {
   title: 'BIR Travel Plaza',
   description: "Tennessee's premier travel plaza in Dandridge — Jack in the Box, Naan Stop, 100% No Ethanol fuel, 250 parking spaces, and full-hookup RV parking.",
 }
 
+const p = (path: string) => subPath('travel', path)
+
 const AMENITIES = [
-  { label: 'Jack in the Box', desc: 'Quick-service burgers, tacos, and breakfast — familiar favorites served fast, all day long.', num: '01', href: '/amenities' },
-  { label: 'Naan Stop', desc: 'Fresh Indian-American cuisine right at the plaza — a unique dining experience on the road.', num: '02', href: '/amenities' },
-  { label: 'Fuel', desc: '100% No Ethanol fuel and propane — competitive pricing for all vehicle types.', num: '03', href: '/amenities' },
-  { label: 'Truckers Lounge', desc: '6 on-site showers, on-site laundry, and comfortable rest facilities for professional drivers.', num: '04', href: '/amenities' },
-  { label: 'RV & Truck Parking', desc: '250 total spaces with full hookups — water, electric, sewer — for overnight and extended stays.', num: '05', href: '/amenities' },
+  { label: 'Jack in the Box', desc: 'Quick-service burgers, tacos, and breakfast — familiar favorites served fast, all day long.', num: '01', href: p('/amenities') },
+  { label: 'Naan Stop', desc: 'Fresh Indian-American cuisine right at the plaza — a unique dining experience on the road.', num: '02', href: p('/amenities') },
+  { label: 'Fuel', desc: '100% No Ethanol fuel and propane — competitive pricing for all vehicle types.', num: '03', href: p('/amenities') },
+  { label: 'Truckers Lounge', desc: '6 on-site showers, on-site laundry, and comfortable rest facilities for professional drivers.', num: '04', href: p('/amenities') },
+  { label: 'RV & Truck Parking', desc: '250 total spaces with full hookups — water, electric, sewer — for overnight and extended stays.', num: '05', href: p('/amenities') },
 ]
 
 export default function TravelHome() {
@@ -30,8 +33,8 @@ export default function TravelHome() {
               Tennessee's premier travel plaza at 1217 Deep Springs Rd, Dandridge — 100% No Ethanol fuel, Jack in the Box, Naan Stop, trucker facilities, and full-hookup RV parking.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button as="a" href="/amenities" size="lg">See Amenities</Button>
-              <Button as="a" href="/location" variant="outline" size="lg">Get Directions</Button>
+              <Button as="a" href={p('/amenities')} size="lg">See Amenities</Button>
+              <Button as="a" href={p('/location')} variant="outline" size="lg">Get Directions</Button>
             </div>
           </ScrollReveal>
         </div>
@@ -97,7 +100,7 @@ export default function TravelHome() {
             <p className="font-body text-white/55 leading-relaxed mb-10">
               Strategically located at 1217 Deep Springs Rd with easy access to I-40. The perfect stop whether you're passing through or settling in for the night.
             </p>
-            <Button as="a" href="/location" variant="outline">View Map</Button>
+            <Button as="a" href={p('/location')} variant="outline">View Map</Button>
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
@@ -127,7 +130,7 @@ export default function TravelHome() {
               Plan Your Stop
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">Fuel, food, showers, and rest — all in one place just off I-40 in Dandridge.</p>
-            <Button as="a" href="/location" size="lg">Get Directions</Button>
+            <Button as="a" href={p('/location')} size="lg">Get Directions</Button>
           </ScrollReveal>
         </div>
       </section>

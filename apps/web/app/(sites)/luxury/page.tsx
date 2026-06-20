@@ -2,24 +2,27 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { subPath } from '@/lib/demo'
 
 export const metadata: Metadata = {
   title: 'BIR Luxury Landing',
   description: '12,000 sq ft luxury event venue in Oak Ridge, TN — weddings, corporate events, birthday parties, pool parties, and luxury condominiums.',
 }
 
+const p = (path: string) => subPath('luxury', path)
+
 const EVENTS = [
-  { label: 'Weddings', desc: 'Full ceremony and reception packages — customized planning, elegant spaces, and exceptional service to make your day unforgettable.', num: '01', href: '/contact' },
-  { label: 'Corporate Events', desc: 'Classy conference rooms and multi-purpose spaces for meetings, retreats, and corporate galas. Full corporate packages available.', num: '02', href: '/contact' },
-  { label: 'Birthday Parties', desc: 'Stunning celebration spaces for any age. Customizable layouts and premium amenities for a truly memorable birthday experience.', num: '03', href: '/contact' },
-  { label: 'Pool Parties', desc: 'Exclusive pool party venue with hourly and full-day options. Perfect for intimate gatherings or large celebrations.', num: '04', href: '/contact' },
+  { label: 'Weddings', desc: 'Full ceremony and reception packages — customized planning, elegant spaces, and exceptional service to make your day unforgettable.', num: '01', href: p('/contact') },
+  { label: 'Corporate Events', desc: 'Classy conference rooms and multi-purpose spaces for meetings, retreats, and corporate galas. Full corporate packages available.', num: '02', href: p('/contact') },
+  { label: 'Birthday Parties', desc: 'Stunning celebration spaces for any age. Customizable layouts and premium amenities for a truly memorable birthday experience.', num: '03', href: p('/contact') },
+  { label: 'Pool Parties', desc: 'Exclusive pool party venue with hourly and full-day options. Perfect for intimate gatherings or large celebrations.', num: '04', href: p('/contact') },
 ]
 
 const UNITS = [
-  { label: 'Condominiums', desc: 'New development — premium ownership in East Tennessee with luxury finishes and spectacular views.', href: '/condominiums', num: '01' },
-  { label: 'Townhomes', desc: '2, 3, and 4-bedroom layouts with upscale finishes and resort-style community amenities.', href: '/contact', num: '02' },
-  { label: 'Amenities', desc: 'Resort-style pool, billiards room, spa and salon, BBQ area, conference room, and more.', href: '/amenities', num: '03' },
-  { label: 'Member Portal', desc: 'Residents access accounts, pay invoices, register for events, and communicate with management online.', href: '/contact', num: '04' },
+  { label: 'Condominiums', desc: 'New development — premium ownership in East Tennessee with luxury finishes and spectacular views.', href: p('/condominiums'), num: '01' },
+  { label: 'Townhomes', desc: '2, 3, and 4-bedroom layouts with upscale finishes and resort-style community amenities.', href: p('/contact'), num: '02' },
+  { label: 'Amenities', desc: 'Resort-style pool, billiards room, spa and salon, BBQ area, conference room, and more.', href: p('/amenities'), num: '03' },
+  { label: 'Member Portal', desc: 'Residents access accounts, pay invoices, register for events, and communicate with management online.', href: p('/contact'), num: '04' },
 ]
 
 const STATS = [
@@ -43,8 +46,8 @@ export default function LuxuryHome() {
               Premier 12,000 sq ft event venue in Oak Ridge — weddings, corporate events, birthday parties, and pool gatherings. Plus new luxury condominiums and townhomes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button as="a" href="/contact" size="lg">Book an Event</Button>
-              <Button as="a" href="/amenities" variant="outline" size="lg">Explore Amenities</Button>
+              <Button as="a" href={p('/contact')} size="lg">Book an Event</Button>
+              <Button as="a" href={p('/amenities')} variant="outline" size="lg">Explore Amenities</Button>
             </div>
           </ScrollReveal>
         </div>
@@ -141,7 +144,7 @@ export default function LuxuryHome() {
               Book Your Event
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">Oak Ridge's premier luxury venue — events, parties, weddings, and corporate gatherings.</p>
-            <Button as="a" href="/contact" size="lg">Contact Us Today</Button>
+            <Button as="a" href={p('/contact')} size="lg">Contact Us Today</Button>
           </ScrollReveal>
         </div>
       </section>
