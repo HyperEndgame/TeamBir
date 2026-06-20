@@ -197,7 +197,9 @@ export default function HomePage() {
                   <div className="bg-surface/40 border border-white/[0.07] rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface hover:border-accent/20">
                     <div className="flex items-start justify-between mb-6">
                       <span className="stat-num text-4xl">{b.num}</span>
-                      <Image src={b.logo} alt={b.name} width={80} height={40} className="h-10 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative h-10 w-24 flex-shrink-0">
+                        <Image src={b.logo} alt={b.name} fill className="object-contain object-right opacity-70 group-hover:opacity-100 transition-opacity" />
+                      </div>
                     </div>
                     <h3 className="font-display text-2xl text-white mb-1 group-hover:text-accent transition-colors" style={{ fontWeight: 700 }}>
                       {b.name}
