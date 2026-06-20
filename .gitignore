@@ -1,13 +1,31 @@
-*.png
-*.jpg
-*.jpeg
+# Unrelated files
 --full-page
 .playwright-mcp/
 hello.py
 lead_gen_business/
 olss_v2/
+website_biz/
+s*.png
+s*.jpg
+
+# Dependencies
 node_modules/
+.pnpm-store/
+
+# Next.js
+apps/web/.next/
+apps/web/out/
+
+# Env
 .env
-__pycache__/
-*.pyc
+.env*.local
+!.env.example
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Build
+*.pyc
+__pycache__/
+.turbo/

@@ -1,0 +1,15 @@
+{
+  "name": "teambir",
+  "private": true,
+  "packageManager": "pnpm@11.3.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev --filter=web",
+    "start": "turbo start --filter=web",
+    "lint": "turbo lint",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  }
+}
