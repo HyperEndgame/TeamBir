@@ -7,6 +7,7 @@ export interface SiteConfig {
   url: string
   nav: { label: string; href: string }[]
   accentColor?: string
+  logoSrc?: string
   schema: {
     type: string
     locality: string
@@ -31,8 +32,9 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
   materials: {
     name: 'BIR Materials',
     tagline: 'Rock Solid Results.',
-    description: 'Premium aggregates, fill dirt, topsoil, contract crushing, and sustainable materials recycling in Tennessee.',
+    description: 'Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable materials recycling in Knoxville, TN. 865-832-6247.',
     url: 'https://materials.teambir.com',
+    logoSrc: '/images/logo-materials.png',
     nav: [
       { label: 'Aggregates', href: '/aggregates' },
       { label: 'Fill Dirt', href: '/fill-dirt' },
@@ -40,43 +42,45 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Recycling', href: '/recycling' },
       { label: 'Contact', href: '/contact' },
     ],
-    schema: { type: 'LocalBusiness', locality: 'Knoxville' },
+    schema: { type: 'LocalBusiness', locality: 'Knoxville', phone: '865-832-6247' },
   },
   luxury: {
     name: 'BIR Luxury Landing',
-    tagline: 'Elevated Living in Oak Ridge.',
-    description: 'Luxury duplexes, apartments, and condominiums in Oak Ridge, TN — 22 miles from Downtown Knoxville with resort-style amenities.',
+    tagline: 'Premier Events & Luxury Living in Oak Ridge.',
+    logoSrc: '/images/logo-luxury.png',
+    description: '12,000 sq ft luxury event venue in Oak Ridge, TN — weddings, corporate events, birthday parties, pool parties, and new luxury condominiums & townhomes.',
     url: 'https://luxury.teambir.com',
     nav: [
-      { label: 'Duplexes', href: '/duplexes' },
-      { label: 'Apartments', href: '/apartments' },
+      { label: 'Events', href: '/contact' },
       { label: 'Condominiums', href: '/condominiums' },
       { label: 'Amenities', href: '/amenities' },
       { label: 'Contact', href: '/contact' },
     ],
-    schema: { type: 'ApartmentComplex', locality: 'Oak Ridge' },
+    schema: { type: 'EventVenue', locality: 'Oak Ridge' },
   },
   transport: {
     name: 'BIR Transport',
     tagline: 'Go With the Best.',
-    description: 'Tennessee-based trucking and logistics: Cross Docking, Final Mile, Overweight Assistance, Drop Trailer Storage, and Refrigerated Storage.',
+    description: 'Family-owned Tennessee trucking and logistics — dry van truckload, cross docking, final mile, truck parking, boat/RV storage. USDOT 717687. 540-980-7530.',
     url: 'https://transport.teambir.com',
+    logoSrc: '/images/logo-transport.png',
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ],
-    schema: { type: 'MovingCompany', locality: 'Knoxville', phone: 'USDOT 717687' },
+    schema: { type: 'MovingCompany', locality: 'Knoxville', phone: '540-980-7530' },
   },
   developments: {
     name: 'BIR Developments',
     tagline: 'Your Trusted Builder in Knoxville.',
-    description: 'Custom homes, commercial construction, renovations, and excavation services in Knoxville, TN.',
+    description: 'Custom homes, commercial construction, renovations, excavation, and electrical in Knoxville, TN. TN Contractor License #80985.',
     url: 'https://developments.teambir.com',
+    logoSrc: '/images/logo-developments.png',
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'Projects', href: '/projects' },
-      { label: 'About', href: '/about' },
+      { label: 'Subcontractors', href: '/contact' },
       { label: 'Contact', href: '/contact' },
     ],
     schema: { type: 'GeneralContractor', locality: 'Knoxville' },
@@ -84,8 +88,9 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
   travel: {
     name: 'BIR Travel Plaza',
     tagline: 'Your Stop for Comfort & Convenience.',
-    description: "Tennessee's premier travel plaza in Dandridge — McDonald's, fuel, truckers lounge, and full-hookup RV parking.",
+    description: "Tennessee's premier travel plaza at 1217 Deep Springs Rd, Dandridge — Jack in the Box, Naan Stop, 100% No Ethanol fuel, 250 parking spaces, and full-hookup RV parking.",
     url: 'https://travel.teambir.com',
+    logoSrc: '/images/logo-travel.png',
     nav: [
       { label: 'Amenities', href: '/amenities' },
       { label: 'Location', href: '/location' },

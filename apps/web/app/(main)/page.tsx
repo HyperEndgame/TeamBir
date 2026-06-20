@@ -25,6 +25,7 @@ const BUSINESSES = [
     description: 'Premium aggregates, fill dirt, topsoil, contract crushing, and materials recycling across Tennessee.',
     href: siteUrl('materials'),
     badge: 'Aggregates & Crushing',
+    logo: '/images/logo-materials.png',
     num: '01',
   },
   {
@@ -34,6 +35,7 @@ const BUSINESSES = [
     description: 'Luxury duplexes, apartments, and condominiums in Oak Ridge, TN — resort-style amenities, 22 mi from Knoxville.',
     href: siteUrl('luxury'),
     badge: 'Residential Real Estate',
+    logo: '/images/logo-luxury.png',
     num: '02',
   },
   {
@@ -43,6 +45,7 @@ const BUSINESSES = [
     description: 'Cross docking, final mile, overweight assistance, drop trailer storage, and refrigerated logistics.',
     href: siteUrl('transport'),
     badge: 'Trucking & Logistics',
+    logo: '/images/logo-transport.png',
     num: '03',
   },
   {
@@ -52,15 +55,17 @@ const BUSINESSES = [
     description: 'Custom homes, commercial construction, renovations, and excavation across Knoxville and East Tennessee.',
     href: siteUrl('developments'),
     badge: 'General Contractor',
+    logo: '/images/logo-developments.png',
     num: '04',
   },
   {
     key: 'travel',
     name: 'BIR Travel Plaza',
     tagline: 'Comfort & Convenience',
-    description: "Tennessee's premier travel plaza in Dandridge — McDonald's, fuel, truckers lounge, and RV hookups.",
+    description: "Tennessee's premier travel plaza in Dandridge — Jack in the Box, Naan Stop, fuel, truckers lounge, and RV hookups.",
     href: siteUrl('travel'),
     badge: 'Travel & Hospitality',
+    logo: '/images/logo-travel.png',
     num: '05',
   },
 ]
@@ -124,12 +129,12 @@ export default function HomePage() {
 
           {/* Headline */}
           <h1
-            className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] tracking-[0.04em] text-white mb-8 uppercase hero-animate"
-            style={{ animationDelay: '0.25s', fontWeight: 800 }}
+            className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] text-white mb-8 hero-animate"
+            style={{ animationDelay: '0.25s', fontWeight: 800, letterSpacing: '-0.01em' }}
           >
             Built to Last.<br />
             <span style={{
-              background: 'linear-gradient(135deg, #F0D878 0%, #C4A44A 50%, #8A7235 100%)',
+              background: 'linear-gradient(135deg, #F5D060 0%, #E8B020 50%, #B88A18 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -180,30 +185,28 @@ export default function HomePage() {
         <div className="container-site">
           <ScrollReveal>
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">The Portfolio</p>
-            <h2 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] tracking-wider text-white leading-none mb-16 uppercase" style={{ fontWeight: 800 }}>
+            <h2 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] text-white leading-none mb-16" style={{ fontWeight: 800 }}>
               Our Companies
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {BUSINESSES.map((b, i) => (
               <ScrollReveal key={b.key} delay={i * 60} mode="scale">
                 <Link href={b.href} className="group block h-full">
-                  <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/80">
+                  <div className="bg-surface/40 border border-white/[0.07] rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface hover:border-accent/20">
                     <div className="flex items-start justify-between mb-6">
                       <span className="stat-num text-4xl">{b.num}</span>
-                      <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/60 border border-accent/20 px-2 py-1">
-                        {b.badge}
-                      </span>
+                      <Image src={b.logo} alt={b.name} width={80} height={40} className="h-10 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <h3 className="font-display text-2xl tracking-wider text-white mb-1 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                    <h3 className="font-display text-2xl text-white mb-1 group-hover:text-accent transition-colors" style={{ fontWeight: 700 }}>
                       {b.name}
                     </h3>
-                    <p className="font-body text-[0.7rem] tracking-[0.2em] uppercase text-accent/60 mb-4">{b.tagline}</p>
+                    <p className="font-body text-[0.7rem] tracking-[0.15em] uppercase text-accent/50 mb-4">{b.tagline}</p>
                     <p className="font-body text-sm text-white/50 leading-relaxed flex-1">{b.description}</p>
-                    <div className="mt-8 flex items-center gap-3 text-accent/70 group-hover:text-accent transition-colors">
-                      <div className="h-px w-8 bg-current" />
-                      <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Explore</span>
+                    <div className="mt-8 flex items-center gap-3 text-white/30 group-hover:text-accent transition-colors">
+                      <div className="h-px w-8 bg-current group-hover:w-12 transition-all" />
+                      <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase">Explore</span>
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:translate-x-1 transition-transform">
                         <path d="M2 6h8M6 2l4 4-4 4" />
                       </svg>
@@ -216,23 +219,23 @@ export default function HomePage() {
             {/* Team BIR card */}
             <ScrollReveal delay={BUSINESSES.length * 60} mode="scale">
               <Link href="/about" className="group block h-full">
-                <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/80"
-                  style={{ background: 'linear-gradient(135deg, rgba(196,164,74,0.06) 0%, rgba(8,20,28,1) 60%)' }}
+                <div className="border border-accent/15 rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:border-accent/35"
+                  style={{ background: 'linear-gradient(135deg, rgba(232,176,32,0.06) 0%, rgba(15,21,33,0.98) 70%)' }}
                 >
                   <div className="flex items-start justify-between mb-6">
                     <span className="stat-num text-4xl">06</span>
-                    <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/60 border border-accent/20 px-2 py-1">Corporate</span>
+                    <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/50 px-2 py-1">Corporate</span>
                   </div>
-                  <h3 className="font-display text-2xl tracking-wider text-white mb-1 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                  <h3 className="font-display text-2xl text-white mb-1 group-hover:text-accent transition-colors" style={{ fontWeight: 700 }}>
                     Team BIR
                   </h3>
-                  <p className="font-body text-[0.7rem] tracking-[0.2em] uppercase text-accent/60 mb-4">The Umbrella</p>
+                  <p className="font-body text-[0.7rem] tracking-[0.15em] uppercase text-accent/50 mb-4">The Umbrella</p>
                   <p className="font-body text-sm text-white/50 leading-relaxed flex-1">
                     The parent organization founded by Jimmy Bir Singh — connecting all six companies under one mission and one family.
                   </p>
-                  <div className="mt-8 flex items-center gap-3 text-accent/70 group-hover:text-accent transition-colors">
-                    <div className="h-px w-8 bg-current" />
-                    <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Our Story</span>
+                  <div className="mt-8 flex items-center gap-3 text-accent/50 group-hover:text-accent transition-colors">
+                    <div className="h-px w-8 bg-current group-hover:w-12 transition-all" />
+                    <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase">Our Story</span>
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:translate-x-1 transition-transform">
                       <path d="M2 6h8M6 2l4 4-4 4" />
                     </svg>
@@ -249,7 +252,7 @@ export default function HomePage() {
         <div className="container-site grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <ScrollReveal mode="left">
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-5">Our Story</p>
-            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-8 uppercase" style={{ fontWeight: 800 }}>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-8" style={{ fontWeight: 800 }}>
               Rooted in<br /><span className="text-accent">Tennessee.</span>
             </h2>
             <p className="font-body text-white/60 leading-relaxed mb-4 text-[1.05rem]">
@@ -270,7 +273,7 @@ export default function HomePage() {
                 ['Hospitality', 'Travel plaza, real estate'],
               ].map(([title, desc]) => (
                 <div key={title} className="p-6 border border-white/[0.07] hover:border-accent/30 transition-colors">
-                  <p className="font-display text-xl tracking-wider text-white mb-1 uppercase" style={{ fontWeight: 700 }}>{title}</p>
+                  <p className="font-display text-xl text-white mb-1" style={{ fontWeight: 700 }}>{title}</p>
                   <p className="font-body text-xs text-white/40">{desc}</p>
                 </div>
               ))}
@@ -291,7 +294,7 @@ export default function HomePage() {
         <div className="container-site text-center relative z-10">
           <ScrollReveal>
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-5">Get in Touch</p>
-            <h2 className="font-display text-[clamp(3rem,7vw,7rem)] tracking-wider text-white leading-none mb-6 uppercase" style={{ fontWeight: 800 }}>
+            <h2 className="font-display text-[clamp(3rem,7vw,7rem)] text-white leading-none mb-6" style={{ fontWeight: 800 }}>
               Let's Build<br />Something.
             </h2>
             <p className="font-body text-white/60 text-xl max-w-lg mx-auto mb-12">

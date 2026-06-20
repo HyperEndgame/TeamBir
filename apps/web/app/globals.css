@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #08141C;
-  --color-surface: #0D1E29;
-  --color-border: #162A38;
-  --color-text: #F2F5F7;
-  --color-muted: #6B8FA8;
-  --color-accent: #C4A44A;
-  --color-accent-h: #D9BB68;
+  --color-bg: #0f1521;
+  --color-surface: #161e2e;
+  --color-border: #242e45;
+  --color-text: #fafafa;
+  --color-muted: #71717a;
+  --color-accent: #E8B020;
+  --color-accent-h: #F5CC4A;
   --color-teal: #1A5F70;
 }
 
@@ -27,7 +27,7 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   line-height: 0.95;
 }
 
@@ -40,36 +40,61 @@ h1, h2, h3, h4 {
 /* ── Glass utilities ── */
 @layer utilities {
   .glass {
-    background: rgba(13, 30, 41, 0.55);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(196, 164, 74, 0.12);
+    background: rgba(15, 21, 33, 0.80);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
   }
   .glass-light {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.07);
   }
   .gold-line {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #C4A44A, transparent);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 176, 32, 0.4), transparent);
   }
   .gradient-mesh {
     background:
-      radial-gradient(ellipse 60% 50% at 20% 40%, rgba(26, 95, 112, 0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 80% 20%, rgba(196, 164, 74, 0.08) 0%, transparent 70%),
-      #08141C;
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(232, 176, 32, 0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 15% 85%, rgba(255, 255, 255, 0.015) 0%, transparent 60%),
+      #0f1521;
   }
   .gradient-gold {
-    background: linear-gradient(135deg, rgba(196,164,74,0.15) 0%, rgba(26,95,112,0.1) 100%);
+    background: linear-gradient(135deg, rgba(232,176,32,0.1) 0%, rgba(9,9,11,0) 100%);
+  }
+  .hero-materials {
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(180, 100, 20, 0.1) 0%, transparent 65%),
+      #0f1521;
+  }
+  .hero-luxury {
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(120, 60, 200, 0.08) 0%, transparent 65%),
+      #0f1521;
+  }
+  .hero-transport {
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(20, 60, 180, 0.09) 0%, transparent 65%),
+      #0f1521;
+  }
+  .hero-developments {
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(40, 120, 40, 0.08) 0%, transparent 65%),
+      #0f1521;
+  }
+  .hero-travel {
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(20, 140, 100, 0.08) 0%, transparent 65%),
+      #0f1521;
   }
 }
 
 /* ── Scroll animations ── */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(28px);
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -83,7 +108,7 @@ h1, h2, h3, h4 {
 .reveal-left.in { opacity: 1; transform: none; }
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.94);
+  transform: scale(0.96);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .reveal-scale.in { opacity: 1; transform: scale(1); }
@@ -95,31 +120,12 @@ h1, h2, h3, h4 {
 }
 .hero-animate { animation: heroFade 1s cubic-bezier(0.16,1,0.3,1) both; }
 
-/* ── Gold shimmer on hover ── */
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-.gold-shimmer:hover {
-  background: linear-gradient(
-    90deg,
-    #C4A44A 0%,
-    #F0D878 40%,
-    #C4A44A 60%,
-    #8A7235 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 1.5s linear infinite;
-}
-
 /* ── Stat counter number style ── */
 .stat-num {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  letter-spacing: 0.02em;
-  background: linear-gradient(135deg, #F0D878 0%, #C4A44A 60%, #8A7235 100%);
+  letter-spacing: 0.01em;
+  background: linear-gradient(135deg, #F5D060 0%, #E8B020 55%, #B88A18 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

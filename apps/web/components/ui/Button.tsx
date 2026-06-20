@@ -11,10 +11,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ variant = 'primary', size = 'md', as = 'button', href, className, children, ...props }: Props) {
-  const base = 'inline-flex items-center justify-center font-body tracking-[0.15em] font-semibold uppercase transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+  const base = 'inline-flex items-center justify-center font-body font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
   const variants = {
-    primary: 'bg-accent text-bg hover:bg-accent-h hover:shadow-[0_0_24px_rgba(196,164,74,0.35)]',
-    outline: 'border border-accent/60 text-accent hover:border-accent hover:bg-accent/10 hover:shadow-[0_0_20px_rgba(196,164,74,0.15)]',
+    primary: 'bg-accent text-bg hover:bg-accent-h hover:shadow-[0_0_28px_rgba(232,176,32,0.3)]',
+    outline: 'border border-white/20 text-white/80 hover:border-accent/60 hover:text-white hover:bg-white/[0.03]',
     ghost: 'text-muted hover:text-text',
   }
   const sizes = {

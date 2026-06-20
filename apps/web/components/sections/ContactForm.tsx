@@ -39,12 +39,12 @@ export function ContactForm({ siteName }: Props) {
       <div>
         <label className="block font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/70 mb-2">Which company?</label>
         <select className={inputCls + ' cursor-pointer'} style={{ appearance: 'none', WebkitAppearance: 'none' }}>
-          <option value="" style={{ background: '#08141C' }}>Team BIR (General)</option>
-          <option value="materials" style={{ background: '#08141C' }}>BIR Materials</option>
-          <option value="luxury" style={{ background: '#08141C' }}>BIR Luxury Landing</option>
-          <option value="transport" style={{ background: '#08141C' }}>BIR Transport</option>
-          <option value="developments" style={{ background: '#08141C' }}>BIR Developments</option>
-          <option value="travel" style={{ background: '#08141C' }}>BIR Travel Plaza</option>
+          <option value="" style={{ background: '#0f1521' }}>Team BIR (General)</option>
+          <option value="materials" style={{ background: '#0f1521' }}>BIR Materials</option>
+          <option value="luxury" style={{ background: '#0f1521' }}>BIR Luxury Landing</option>
+          <option value="transport" style={{ background: '#0f1521' }}>BIR Transport</option>
+          <option value="developments" style={{ background: '#0f1521' }}>BIR Developments</option>
+          <option value="travel" style={{ background: '#0f1521' }}>BIR Travel Plaza</option>
         </select>
       </div>
       <div>

@@ -16,7 +16,7 @@ const FAMILY_LINKS = [
 
 export function Footer({ config }: Props) {
   return (
-    <footer style={{ background: '#050E14' }}>
+    <footer style={{ background: '#0b101a' }}>
       <div className="gold-line" />
       <div className="container-site py-20 grid grid-cols-1 md:grid-cols-3 gap-14">
         <div>

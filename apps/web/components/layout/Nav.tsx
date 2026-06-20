@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import clsx from 'clsx'
 import { Logo } from '@/components/ui/Logo'
 import type { SiteConfig } from '@/lib/site-config'
@@ -43,7 +44,13 @@ export function Nav({ config, logoHref = '/' }: Props) {
     >
       <div className="container-site flex items-center h-16 gap-8">
         {/* Logo */}
-        <Logo href={logoHref} />
+        {config.logoSrc ? (
+          <Link href={logoHref} className="flex items-center">
+            <Image src={config.logoSrc} alt={config.name} width={120} height={48} className="h-10 w-auto object-contain" style={{ maxHeight: '2.5rem' }} />
+          </Link>
+        ) : (
+          <Logo href={logoHref} />
+        )}
 
         {/* Left nav links */}
         {!allRight && (
@@ -52,8 +59,8 @@ export function Nav({ config, logoHref = '/' }: Props) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="font-body font-semibold text-sm tracking-widest uppercase text-white/80 hover:text-accent transition-colors duration-200"
-                  style={{ fontWeight: 600, letterSpacing: '0.1em' }}
+                  className="font-body text-sm text-white/70 hover:text-white transition-colors duration-200"
+                  style={{ fontWeight: 500 }}
                 >
                   {item.label}
                 </Link>
@@ -74,16 +81,16 @@ export function Nav({ config, logoHref = '/' }: Props) {
                 {isContact ? (
                   <Link
                     href={item.href}
-                    className="font-body font-semibold text-sm tracking-widest uppercase px-5 py-2 border border-accent text-accent hover:bg-accent hover:text-bg transition-all duration-200"
-                    style={{ fontWeight: 600, letterSpacing: '0.1em' }}
+                    className="font-body text-sm px-5 py-2 bg-accent text-bg hover:bg-accent-h transition-all duration-200"
+                    style={{ fontWeight: 600 }}
                   >
                     Contact
                   </Link>
                 ) : (
                   <Link
                     href={item.href}
-                    className="font-body font-semibold text-sm tracking-widest uppercase text-white/60 hover:text-accent transition-colors duration-200"
-                    style={{ fontWeight: 600, letterSpacing: '0.1em' }}
+                    className="font-body text-sm text-white/60 hover:text-white transition-colors duration-200"
+                    style={{ fontWeight: 500 }}
                   >
                     {item.label}
                   </Link>
@@ -116,8 +123,8 @@ export function Nav({ config, logoHref = '/' }: Props) {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="font-body text-sm tracking-widest uppercase text-white/70 hover:text-accent transition-colors"
-                style={{ fontWeight: 600, letterSpacing: '0.1em' }}
+                className="font-body text-sm text-white/70 hover:text-white transition-colors"
+                style={{ fontWeight: 500 }}
               >
                 {item.label}
               </Link>

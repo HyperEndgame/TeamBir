@@ -13,18 +13,18 @@ export function Logo({ href = '/', className }: Props) {
         <path
           d="M16 3 L29 13 L24 14.5 L28 24 L19 19.5 L16 29 L13 19.5 L4 24 L8 14.5 L3 13 Z"
           fill="none"
-          stroke="#C4A44A"
+          stroke="#E8B020"
           strokeWidth="1.5"
           strokeLinejoin="round"
         />
         <path
           d="M16 3 L16 18"
-          stroke="#C4A44A"
+          stroke="#E8B020"
           strokeWidth="1.5"
           strokeLinecap="round"
           opacity="0.5"
         />
-        <circle cx="16" cy="16" r="2.5" fill="#C4A44A" opacity="0.8" />
+        <circle cx="16" cy="16" r="2.5" fill="#E8B020" opacity="0.8" />
       </svg>
 
       <div className="flex flex-col leading-none">
