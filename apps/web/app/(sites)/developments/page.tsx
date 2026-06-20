@@ -1,239 +1,119 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
-import { Card } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'BIR Developments',
-  description: 'Custom homes, commercial construction, renovations, and excavation services in Knoxville, TN.',
+  description: 'Custom homes, commercial construction, renovations, and excavation in Knoxville, TN.',
 }
 
-export default function DevelopmentsHome() {
-  const config = SITE_CONFIGS.developments
+const SERVICES = [
+  { label: 'Custom Homes', desc: 'From design to final walkthrough — your dream home built with precision.', num: '01', href: '/services' },
+  { label: 'Commercial', desc: 'Retail, office, and industrial buildings. On schedule, on budget.', num: '02', href: '/services' },
+  { label: 'Renovations', desc: 'Kitchens, bathrooms, additions, full-home remodels — any size.', num: '03', href: '/services' },
+  { label: 'Excavation', desc: 'Site prep, grading, and foundation work for projects of any scale.', num: '04', href: '/services' },
+]
 
+export default function DevelopmentsHome() {
   return (
     <main>
-      {/* Hero */}
-      <section className="pt-40 pb-24 border-b border-border bg-surface">
+      <section className="pt-48 pb-28 gradient-mesh">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Building Excellence</p>
-            <h1 className="font-display text-[clamp(3rem,8vw,7rem)] tracking-wider text-text leading-none mb-6">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Knoxville, Tennessee</p>
+            <h1 className="font-display text-[clamp(3rem,8vw,8rem)] tracking-wider text-white leading-none mb-6 uppercase" style={{ fontWeight: 800 }}>
               Your Trusted<br /><span className="text-accent">Builder</span>
             </h1>
-            <p className="text-muted text-xl max-w-2xl leading-relaxed">
-              Custom homes, commercial construction, renovations, and excavation services in Knoxville. Building exceptional projects that last.
+            <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
+              Custom homes, commercial construction, renovations, and excavation across Knoxville and East Tennessee — built right, every time.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button as="a" href="/contact" size="lg">Free Estimate</Button>
+              <Button as="a" href="/projects" variant="outline" size="lg">View Projects</Button>
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Company Overview */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <ScrollReveal>
-              <div>
-                <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">About</p>
-                <h2 className="font-display text-5xl tracking-wider text-text mb-6">Quality Construction Services</h2>
-                <p className="text-muted text-lg leading-relaxed mb-6">
-                  BIR Developments has built a reputation for excellence in Knoxville. From residential custom homes to large commercial projects, we deliver exceptional results.
-                </p>
-                <p className="text-muted text-lg leading-relaxed mb-8">
-                  Our team brings decades of construction experience, meticulous attention to detail, and a commitment to client satisfaction. We build relationships as strong as our structures.
-                </p>
-                <Button as="a" href="/services" variant="primary" size="lg">Explore Our Services</Button>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={100}>
-              <Card>
-                <Badge className="mb-4">Expertise</Badge>
-                <h3 className="font-display text-3xl text-text mb-6">Construction Specialties</h3>
-                <div className="space-y-4">
-                  <div className="border-b border-border pb-3">
-                    <p className="text-accent font-display text-lg">Custom Homes</p>
-                    <p className="text-muted text-sm">Residential excellence</p>
-                  </div>
-                  <div className="border-b border-border pt-3 pb-3">
-                    <p className="text-accent font-display text-lg">Commercial</p>
-                    <p className="text-muted text-sm">Retail & office spaces</p>
-                  </div>
-                  <div className="border-b border-border pt-3 pb-3">
-                    <p className="text-accent font-display text-lg">Renovations</p>
-                    <p className="text-muted text-sm">Remodeling & upgrades</p>
-                  </div>
-                  <div className="pt-3">
-                    <p className="text-accent font-display text-lg">Excavation</p>
-                    <p className="text-muted text-sm">Site prep & grading</p>
-                  </div>
-                </div>
-              </Card>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Overview */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <ScrollReveal>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-4">Our Services</h2>
-            <p className="text-muted text-lg mb-12 max-w-2xl">Complete construction solutions</p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ScrollReveal delay={100}>
-              <Card hover>
-                <Badge className="mb-4">Residential</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Custom Homes</h3>
-                <p className="text-muted mb-4">
-                  Build your dream home. From design consultation to final walkthrough, we bring your vision to life with quality craftsmanship and attention to detail.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card hover>
-                <Badge className="mb-4">Commercial</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Commercial Construction</h3>
-                <p className="text-muted mb-4">
-                  Retail, office, and industrial buildings. We manage complex commercial projects with precision, staying on schedule and budget.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <Card hover>
-                <Badge className="mb-4">Renovation</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Renovations & Remodeling</h3>
-                <p className="text-muted mb-4">
-                  Breathe new life into existing properties. Kitchen remodels, bathroom upgrades, room additions, and full home renovations.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={250}>
-              <Card hover>
-                <Badge className="mb-4">Sitework</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Excavation Services</h3>
-                <p className="text-muted mb-4">
-                  Site preparation, grading, foundation work. Our excavation team handles projects of any size with professional equipment and expertise.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Project */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <ScrollReveal>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-4">Featured Project</h2>
-            <p className="text-muted text-lg mb-12 max-w-2xl">See what we're building</p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={100}>
-            <Card>
-              <Badge className="mb-4">Residential Development</Badge>
-              <h3 className="font-display text-3xl text-text mb-2">Oak Ridge Condominiums</h3>
-              <p className="text-accent font-mono text-xs tracking-widest uppercase mb-6">Multi-unit residential development</p>
-              <p className="text-muted text-lg leading-relaxed mb-4">
-                A premium condominium development in Oak Ridge featuring luxury units, resort-style amenities, and thoughtful design. This project showcases our commitment to quality and customer satisfaction.
-              </p>
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="bg-bg/50 p-3 rounded">
-                  <p className="text-muted text-xs mb-1">Unit Type</p>
-                  <p className="text-text font-display text-lg">Multi-unit</p>
-                </div>
-                <div className="bg-bg/50 p-3 rounded">
-                  <p className="text-muted text-xs mb-1">Location</p>
-                  <p className="text-text font-display text-lg">Oak Ridge</p>
-                </div>
-                <div className="bg-bg/50 p-3 rounded">
-                  <p className="text-muted text-xs mb-1">Status</p>
-                  <p className="text-text font-display text-lg">Active</p>
-                </div>
-              </div>
-              <Button as="a" href="/projects" variant="outline" size="sm">View All Projects</Button>
-            </Card>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Why Choose BIR */}
       <section className="py-24">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Advantage</p>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-12">Why Choose BIR Developments</h2>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">What We Build</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-16 uppercase" style={{ fontWeight: 800 }}>
+              Our Services
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.04]">
+            {SERVICES.map((s, i) => (
+              <ScrollReveal key={s.label} delay={i * 80} mode="scale">
+                <Link href={s.href} className="group block">
+                  <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/70">
+                    <span className="stat-num text-4xl mb-6">{s.num}</span>
+                    <h3 className="font-display text-2xl tracking-wider text-white mb-3 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                      {s.label}
+                    </h3>
+                    <p className="font-body text-sm text-white/50 leading-relaxed flex-1">{s.desc}</p>
+                    <div className="mt-8 flex items-center gap-3 text-accent/60 group-hover:text-accent transition-colors">
+                      <div className="h-px w-8 bg-current group-hover:w-14 transition-all" />
+                      <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Learn More</span>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 relative">
+        <div className="absolute inset-0 gradient-mesh pointer-events-none" />
+        <div className="container-site relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+            <ScrollReveal mode="left">
+              <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Featured Project</p>
+              <h2 className="font-display text-[clamp(2rem,4vw,4.5rem)] tracking-wider text-white leading-none mb-8 uppercase" style={{ fontWeight: 800 }}>
+                Oak Ridge<br /><span className="text-accent">Condominiums</span>
+              </h2>
+              <p className="font-body text-white/55 leading-relaxed mb-5">
+                Premium multi-unit residential development in Oak Ridge, TN — luxury finishes, resort amenities, and thoughtful design throughout.
+              </p>
+              <p className="font-body text-white/40 leading-relaxed mb-10">
+                This project showcases BIR Developments' ability to deliver complex residential builds on time and on budget.
+              </p>
+              <Button as="a" href="/projects" variant="outline">All Projects</Button>
+            </ScrollReveal>
+
             <ScrollReveal delay={100}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Experience</h4>
-                <p className="text-muted">Decades of construction expertise. We've built hundreds of projects in Knoxville and surrounding areas.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Quality</h4>
-                <p className="text-muted">Superior craftsmanship and materials. Every project built to last with meticulous attention to detail.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Communication</h4>
-                <p className="text-muted">Transparent process from start to finish. Regular updates and responsive to client needs.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={250}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">On Time</h4>
-                <p className="text-muted">Reliable scheduling and project management. We meet deadlines and respect your timeline.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">On Budget</h4>
-                <p className="text-muted">Fair pricing with no surprise costs. Transparent estimates and professional budget management.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={350}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Local</h4>
-                <p className="text-muted">Knoxville-based company with deep community roots and proven track record.</p>
-              </Card>
+              <div className="space-y-3">
+                {[
+                  ['Type', 'Multi-unit Residential'],
+                  ['Location', 'Oak Ridge, TN'],
+                  ['Status', 'Active Development'],
+                  ['Scale', 'Large-format'],
+                ].map(([label, val]) => (
+                  <div key={label} className="flex items-center justify-between p-5 border border-white/[0.07] hover:border-accent/25 transition-colors">
+                    <p className="font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/60">{label}</p>
+                    <p className="font-display text-lg tracking-wider text-white uppercase">{val}</p>
+                  </div>
+                ))}
+              </div>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 border-t border-border">
-        <div className="container-site">
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 gradient-gold pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 gold-line" />
+        <div className="container-site text-center relative z-10">
           <ScrollReveal>
-            <div className="max-w-3xl">
-              <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Next Project</p>
-              <h2 className="font-display text-5xl tracking-wider text-text mb-6">Let's Build Something Great</h2>
-              <p className="text-muted text-lg leading-relaxed mb-8">
-                Whether you're planning a custom home, commercial building, renovation, or excavation project, BIR Developments is ready to help. Contact us for a free estimate.
-              </p>
-              <Button as="a" href="/contact" variant="primary" size="lg">Request Free Estimate</Button>
-            </div>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-5 uppercase" style={{ fontWeight: 800 }}>
+              Let's Build<br />Something Great
+            </h2>
+            <p className="font-body text-white/55 text-lg mb-10">Free estimate for any project — residential or commercial.</p>
+            <Button as="a" href="/contact" size="lg">Request Free Estimate</Button>
           </ScrollReveal>
         </div>
       </section>

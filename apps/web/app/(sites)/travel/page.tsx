@@ -1,191 +1,132 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
-import { Card } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'BIR Travel Plaza',
-  description: "Tennessee's premier travel plaza in Dandridge with McDonald's, fuel, truckers lounge, and full-hookup RV parking.",
+  description: "Tennessee's premier travel plaza in Dandridge — McDonald's, fuel, truckers lounge, and full-hookup RV parking.",
 }
 
-export default function TravelHome() {
-  const config = SITE_CONFIGS.travel
+const AMENITIES = [
+  { label: "McDonald's", desc: 'Quality meals for the whole family. Quick service, familiar favorites, all day.', num: '01', href: '/amenities' },
+  { label: 'Fuel', desc: 'Convenient pumps for all vehicles. Competitive pricing and easy access.', num: '02', href: '/amenities' },
+  { label: 'Truckers Lounge', desc: 'Comfortable rest area with seating and facilities for professional drivers.', num: '03', href: '/amenities' },
+  { label: 'RV Hookups', desc: 'Full hookups — water, electric, sewer. Perfect for overnight and extended stays.', num: '04', href: '/amenities' },
+]
 
+export default function TravelHome() {
   return (
     <main>
-      {/* Hero */}
-      <section className="pt-40 pb-24 border-b border-border bg-surface">
+      <section className="pt-48 pb-28 gradient-mesh">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Welcome</p>
-            <h1 className="font-display text-[clamp(3rem,8vw,7rem)] tracking-wider text-text leading-none mb-6">
-              Your Stop for<br /><span className="text-accent">Comfort & Convenience</span>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Dandridge, Tennessee</p>
+            <h1 className="font-display text-[clamp(3rem,8vw,8rem)] tracking-wider text-white leading-none mb-6 uppercase" style={{ fontWeight: 800 }}>
+              Your Stop.<br /><span className="text-accent">Every Time.</span>
             </h1>
-            <p className="text-muted text-xl max-w-2xl leading-relaxed">
-              Tennessee's premier travel plaza in Dandridge. Complete amenities for travelers including McDonald's, fuel, truckers lounge, and full-hookup RV parking.
+            <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
+              Tennessee's premier travel plaza at 1217 Deep Springs Rd, Dandridge — fuel, dining, trucker services, and full-hookup RV parking, all in one place.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button as="a" href="/amenities" size="lg">See Amenities</Button>
+              <Button as="a" href="/location" variant="outline" size="lg">Get Directions</Button>
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Plaza Overview */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <ScrollReveal>
-              <div>
-                <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">About</p>
-                <h2 className="font-display text-5xl tracking-wider text-text mb-6">Premier Travel Destination</h2>
-                <p className="text-muted text-lg leading-relaxed mb-6">
-                  BIR Travel Plaza is strategically located in Dandridge, Tennessee, offering complete amenities for travelers of all types. Whether you're a trucker, RV enthusiast, or just passing through, we have everything you need.
-                </p>
-                <p className="text-muted text-lg leading-relaxed mb-8">
-                  From quick meals and fuel to extended stays with full hookups, our plaza is designed with your comfort and convenience in mind.
-                </p>
-                <Button as="a" href="/amenities" variant="primary" size="lg">Explore Amenities</Button>
+      <section className="py-12 glass border-y border-accent/10">
+        <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/[0.06]">
+          {[
+            { value: '24/7', label: 'Open Daily' },
+            { value: 'I-40', label: 'Easy Access' },
+            { value: '4', label: 'Amenity Types' },
+            { value: 'TN', label: 'Dandridge' },
+          ].map((s, i) => (
+            <ScrollReveal key={s.label} delay={i * 80}>
+              <div className="text-center px-4">
+                <p className="stat-num text-5xl mb-1">{s.value}</p>
+                <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-white/40">{s.label}</p>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal delay={100}>
-              <Card>
-                <Badge className="mb-4">Location</Badge>
-                <h3 className="font-display text-3xl text-accent mb-6">Dandridge, TN</h3>
-                <div className="space-y-4">
-                  <div className="border-b border-border pb-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">Address</p>
-                    <p className="text-text font-display text-lg">1217 Deep Springs Rd</p>
-                  </div>
-                  <div className="border-b border-border pt-3 pb-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">City</p>
-                    <p className="text-text font-display text-lg">Dandridge</p>
-                  </div>
-                  <div className="pt-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">Distance</p>
-                    <p className="text-text font-display text-lg">Easy access to I-40</p>
-                  </div>
-                </div>
-              </Card>
-            </ScrollReveal>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Amenities Preview */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <ScrollReveal>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-4">What We Offer</h2>
-            <p className="text-muted text-lg mb-12 max-w-2xl">Everything a traveler needs in one convenient location</p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ScrollReveal delay={100}>
-              <Card hover>
-                <Badge className="mb-4">Dining</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">McDonald's</h3>
-                <p className="text-muted mb-4">Quality meals for the whole family. Quick service with familiar favorites, available throughout the day.</p>
-                <Button as="a" href="/amenities" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card hover>
-                <Badge className="mb-4">Fuel</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Fuel Services</h3>
-                <p className="text-muted mb-4">Convenient fuel pumps for all vehicles. Competitive pricing and easy access for quick refueling stops.</p>
-                <Button as="a" href="/amenities" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <Card hover>
-                <Badge className="mb-4">Comfort</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Truckers Lounge</h3>
-                <p className="text-muted mb-4">Comfortable rest area for truck drivers. Seating, facilities, and a welcoming atmosphere for weary travelers.</p>
-                <Button as="a" href="/amenities" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={250}>
-              <Card hover>
-                <Badge className="mb-4">RV Parking</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Full-Hookup RV Parking</h3>
-                <p className="text-muted mb-4">Complete RV facilities with water, electric, and sewer hookups. Perfect for overnight or extended stays.</p>
-                <Button as="a" href="/amenities" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Stop Here */}
       <section className="py-24">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Benefits</p>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-12">Why Stop at BIR Travel Plaza</h2>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Everything You Need</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-16 uppercase" style={{ fontWeight: 800 }}>
+              What We Offer
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ScrollReveal delay={100}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Complete Amenities</h4>
-                <p className="text-muted">One-stop plaza with everything travelers need. No need to stop elsewhere for fuel, food, or rest.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Clean & Safe</h4>
-                <p className="text-muted">Well-maintained facilities with security. A safe, comfortable place to rest and refuel.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Convenient Location</h4>
-                <p className="text-muted">Strategically located in Dandridge with easy access to major highways and routes.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={250}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">RV Friendly</h4>
-                <p className="text-muted">Full hookups for RVs and extended accommodations. Perfect for RV travelers and families.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Truck Driver Focused</h4>
-                <p className="text-muted">Dedicated facilities for professional truckers. Comfortable lounge area and parking designed for your needs.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={350}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Quality Service</h4>
-                <p className="text-muted">Friendly staff and well-maintained facilities. We welcome all travelers with professional service.</p>
-              </Card>
-            </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.04]">
+            {AMENITIES.map((a, i) => (
+              <ScrollReveal key={a.label} delay={i * 80} mode="scale">
+                <Link href={a.href} className="group block">
+                  <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/70">
+                    <span className="stat-num text-4xl mb-6">{a.num}</span>
+                    <h3 className="font-display text-2xl tracking-wider text-white mb-3 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                      {a.label}
+                    </h3>
+                    <p className="font-body text-sm text-white/50 leading-relaxed flex-1">{a.desc}</p>
+                    <div className="mt-8 flex items-center gap-3 text-accent/60 group-hover:text-accent transition-colors">
+                      <div className="h-px w-8 bg-current group-hover:w-14 transition-all" />
+                      <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Details</span>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 border-t border-border">
-        <div className="container-site">
-          <ScrollReveal>
-            <div className="max-w-3xl">
-              <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Ready to Visit</p>
-              <h2 className="font-display text-5xl tracking-wider text-text mb-6">Plan Your Stop</h2>
-              <p className="text-muted text-lg leading-relaxed mb-8">
-                Located at 1217 Deep Springs Rd, Dandridge TN 37725. Whether you're stopping for fuel and food or settling in for the night with full RV hookups, we're ready to welcome you.
-              </p>
-              <Button as="a" href="/location" variant="primary" size="lg">Get Directions</Button>
+      <section className="py-24 relative">
+        <div className="absolute inset-0 gradient-mesh pointer-events-none" />
+        <div className="container-site relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <ScrollReveal mode="left">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Location</p>
+            <h2 className="font-display text-[clamp(2rem,4vw,4.5rem)] tracking-wider text-white leading-none mb-8 uppercase" style={{ fontWeight: 800 }}>
+              Find Us in<br /><span className="text-accent">Dandridge</span>
+            </h2>
+            <p className="font-body text-white/55 leading-relaxed mb-10">
+              Strategically located in Dandridge with easy access to I-40. The perfect stop whether you're passing through or settling in for the night.
+            </p>
+            <Button as="a" href="/location" variant="outline">View Map</Button>
+          </ScrollReveal>
+
+          <ScrollReveal delay={100}>
+            <div className="space-y-3">
+              {[
+                ['Address', '1217 Deep Springs Rd'],
+                ['City', 'Dandridge, TN 37725'],
+                ['Highway', 'Near I-40'],
+                ['Hours', 'Open Daily'],
+              ].map(([label, val]) => (
+                <div key={label} className="flex items-center justify-between p-5 border border-white/[0.07] hover:border-accent/25 transition-colors">
+                  <p className="font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/60">{label}</p>
+                  <p className="font-display text-base tracking-wider text-white uppercase">{val}</p>
+                </div>
+              ))}
             </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 gradient-gold pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 gold-line" />
+        <div className="container-site text-center relative z-10">
+          <ScrollReveal>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-5 uppercase" style={{ fontWeight: 800 }}>
+              Plan Your Stop
+            </h2>
+            <p className="font-body text-white/55 text-lg mb-10">Open daily — fuel, food, and rest just off I-40 in Dandridge.</p>
+            <Button as="a" href="/location" size="lg">Get Directions</Button>
           </ScrollReveal>
         </div>
       </section>

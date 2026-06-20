@@ -1,23 +1,24 @@
 import type { Metadata } from 'next'
-import { Bebas_Neue, DM_Sans, JetBrains_Mono } from 'next/font/google'
+import { Barlow_Condensed, Barlow, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
-const bebas = Bebas_Neue({
-  weight: '400',
+const barlowCondensed = Barlow_Condensed({
+  weight: ['600', '700', '800'],
   subsets: ['latin'],
-  variable: '--font-bebas',
+  variable: '--font-display',
   display: 'swap',
 })
 
-const dmSans = DM_Sans({
+const barlow = Barlow({
+  weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-body',
   display: 'swap',
 })
 
 const jetbrains = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains',
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bebas.variable} ${dmSans.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${barlowCondensed.variable} ${barlow.variable} ${jetbrains.variable}`}>
       <body>{children}</body>
     </html>
   )

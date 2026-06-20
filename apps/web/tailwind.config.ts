@@ -8,19 +8,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#0B1F2A',
-        surface: '#112535',
-        border: '#1E3D50',
-        text: '#F0F4F6',
-        muted: '#7A9BB0',
-        accent: '#D46108',
-        'accent-h': '#E87A20',
-        teal: '#1E6A7A',
+        bg: '#08141C',
+        surface: '#0D1E29',
+        border: '#162A38',
+        text: '#F2F5F7',
+        muted: '#6B8FA8',
+        accent: '#C4A44A',
+        'accent-h': '#D9BB68',
+        'accent-dim': '#8A7235',
+        teal: '#1A5F70',
       },
       fontFamily: {
-        display: ['var(--font-bebas)', 'sans-serif'],
-        body: ['var(--font-dm-sans)', 'sans-serif'],
-        mono: ['var(--font-jetbrains)', 'monospace'],
+        display: ['var(--font-display)', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
       },
       maxWidth: {
         site: '1280px',

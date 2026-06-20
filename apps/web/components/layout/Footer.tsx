@@ -1,26 +1,35 @@
 import Link from 'next/link'
+import { Logo } from '@/components/ui/Logo'
 import type { SiteConfig } from '@/lib/site-config'
 import { siteUrl } from '@/lib/demo'
 
-interface Props {
-  config: SiteConfig
-}
+interface Props { config: SiteConfig }
+
+const FAMILY_LINKS = [
+  { label: 'Team BIR', href: '/' },
+  { label: 'BIR Materials', href: siteUrl('materials') },
+  { label: 'BIR Luxury Landing', href: siteUrl('luxury') },
+  { label: 'BIR Transport', href: siteUrl('transport') },
+  { label: 'BIR Developments', href: siteUrl('developments') },
+  { label: 'BIR Travel Plaza', href: siteUrl('travel') },
+]
 
 export function Footer({ config }: Props) {
   return (
-    <footer className="bg-[#080f14] border-t border-border mt-auto">
-      <div className="container-site py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <footer style={{ background: '#050E14' }}>
+      <div className="gold-line" />
+      <div className="container-site py-20 grid grid-cols-1 md:grid-cols-3 gap-14">
         <div>
-          <p className="font-display text-3xl tracking-widest text-text mb-3">{config.name}</p>
-          <p className="text-muted text-sm leading-relaxed">{config.description}</p>
+          <Logo className="mb-6" />
+          <p className="font-body text-sm text-white/35 leading-relaxed max-w-xs">{config.description}</p>
         </div>
 
         <div>
-          <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Navigation</p>
-          <ul className="space-y-2">
-            {config.nav.map((item) => (
+          <p className="font-mono text-[0.6rem] tracking-[0.3em] uppercase text-accent mb-5">Navigation</p>
+          <ul className="space-y-3">
+            {config.nav.map(item => (
               <li key={item.href}>
-                <Link href={item.href} className="text-muted text-sm hover:text-text transition-colors">
+                <Link href={item.href} className="font-body text-sm text-white/40 hover:text-accent transition-colors">
                   {item.label}
                 </Link>
               </li>
@@ -29,24 +38,25 @@ export function Footer({ config }: Props) {
         </div>
 
         <div>
-          <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">The Family</p>
-          <ul className="space-y-2 text-sm text-muted">
-            <li><Link href="/" className="hover:text-text transition-colors">Team BIR</Link></li>
-            <li><Link href={siteUrl('materials')} className="hover:text-text transition-colors">BIR Materials</Link></li>
-            <li><Link href={siteUrl('luxury')} className="hover:text-text transition-colors">BIR Luxury Landing</Link></li>
-            <li><Link href={siteUrl('transport')} className="hover:text-text transition-colors">BIR Transport</Link></li>
-            <li><Link href={siteUrl('developments')} className="hover:text-text transition-colors">BIR Developments</Link></li>
-            <li><Link href={siteUrl('travel')} className="hover:text-text transition-colors">BIR Travel Plaza</Link></li>
+          <p className="font-mono text-[0.6rem] tracking-[0.3em] uppercase text-accent mb-5">The Family</p>
+          <ul className="space-y-3">
+            {FAMILY_LINKS.map(item => (
+              <li key={item.href}>
+                <Link href={item.href} className="font-body text-sm text-white/40 hover:text-accent transition-colors">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-border">
-        <div className="container-site py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted text-xs font-mono tracking-widest">
+      <div className="border-t border-white/[0.04]">
+        <div className="container-site py-6 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="font-mono text-[0.6rem] tracking-[0.2em] text-white/20">
             © {new Date().getFullYear()} Team BIR. All rights reserved.
           </p>
-          <p className="text-muted text-xs font-mono">
+          <p className="font-mono text-[0.6rem] tracking-[0.2em] text-white/20">
             Knoxville / Dandridge, Tennessee
           </p>
         </div>

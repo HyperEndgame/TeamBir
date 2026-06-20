@@ -1,203 +1,130 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
-import { Card } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
   title: 'BIR Transport',
-  description: 'Tennessee-based trucking and logistics services. USDOT 717687.',
+  description: 'Tennessee-based trucking and logistics — cross docking, final mile, overweight assistance. USDOT 717687.',
 }
 
-export default function TransportHome() {
-  const config = SITE_CONFIGS.transport
+const SERVICES = [
+  { label: 'Cross Docking', desc: 'Efficient inbound-to-outbound transfer. Reduces storage time and moves goods faster.', num: '01', href: '/services' },
+  { label: 'Final Mile', desc: 'Professional last-mile delivery. Fast turnaround, every shipment handled with care.', num: '02', href: '/services' },
+  { label: 'Overweight Hauls', desc: 'Oversized and overweight loads. Full permitting and escort services included.', num: '03', href: '/services' },
+  { label: 'Drop Trailer Storage', desc: 'Secure trailer storage facilities — short or long term, cost-effective rates.', num: '04', href: '/services' },
+  { label: 'Refrigerated Storage', desc: 'Temperature-controlled warehousing for perishable freight.', num: '05', href: '/services' },
+  { label: 'Re-deliveries', desc: 'Missed delivery recovery and re-route services across Tennessee.', num: '06', href: '/services' },
+]
 
+export default function TransportHome() {
   return (
     <main>
-      {/* Hero */}
-      <section className="pt-40 pb-24 border-b border-border bg-surface">
+      <section className="pt-48 pb-28 gradient-mesh">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Trucking & Logistics</p>
-            <h1 className="font-display text-[clamp(3rem,8vw,7rem)] tracking-wider text-text leading-none mb-6">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">USDOT 717687</p>
+            <h1 className="font-display text-[clamp(3rem,8vw,8rem)] tracking-wider text-white leading-none mb-6 uppercase" style={{ fontWeight: 800 }}>
               Go With<br /><span className="text-accent">the Best</span>
             </h1>
-            <p className="text-muted text-xl max-w-2xl leading-relaxed">
-              Professional trucking and logistics services serving Tennessee and beyond. Cross-docking, final mile delivery, overweight assistance, and specialized storage solutions.
+            <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
+              Tennessee-based trucking and logistics — cross-docking, final mile, overweight assistance, drop trailer storage, and refrigerated freight.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button as="a" href="/services" size="lg">Our Services</Button>
+              <Button as="a" href="/contact" variant="outline" size="lg">Request a Quote</Button>
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Company Overview */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <ScrollReveal>
-              <div>
-                <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">About</p>
-                <h2 className="font-display text-5xl tracking-wider text-text mb-6">Professional Transportation Solutions</h2>
-                <p className="text-muted text-lg leading-relaxed mb-6">
-                  BIR Transport brings decades of experience in the trucking and logistics industry. We specialize in comprehensive transportation solutions that keep supply chains moving efficiently.
-                </p>
-                <p className="text-muted text-lg leading-relaxed mb-8">
-                  From specialized cross-docking services to overweight haul assistance, we have the equipment, expertise, and reliability your business needs. Licensed, insured, and committed to on-time delivery.
-                </p>
-                <Button as="a" href="/services" variant="primary" size="lg">Explore Services</Button>
+      <section className="py-12 glass border-y border-accent/10">
+        <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/[0.06]">
+          {[
+            { value: '20+', label: 'Years Experience' },
+            { value: '6', label: 'Service Types' },
+            { value: 'TN', label: 'Home State' },
+            { value: 'DOT', label: 'Licensed & Insured' },
+          ].map((s, i) => (
+            <ScrollReveal key={s.label} delay={i * 80}>
+              <div className="text-center px-4">
+                <p className="stat-num text-5xl mb-1">{s.value}</p>
+                <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-white/40">{s.label}</p>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal delay={100}>
-              <Card>
-                <Badge className="mb-4">Credentials</Badge>
-                <h3 className="font-display text-3xl text-accent mb-6">USDOT 717687</h3>
-                <div className="space-y-4">
-                  <div className="border-b border-border pb-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">USDOT Number</p>
-                    <p className="text-text font-display text-2xl">717687</p>
-                  </div>
-                  <div className="border-b border-border pt-3 pb-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">Operations</p>
-                    <p className="text-text font-display text-lg">Interstate Trucking</p>
-                  </div>
-                  <div className="border-b border-border pt-3 pb-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">Safety Rating</p>
-                    <p className="text-text font-display text-lg">Professional Fleet</p>
-                  </div>
-                  <div className="pt-3">
-                    <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">Insurance</p>
-                    <p className="text-text font-display text-lg">Fully Insured</p>
-                  </div>
-                </div>
-              </Card>
-            </ScrollReveal>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-24 border-b border-border">
-        <div className="container-site">
-          <ScrollReveal>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-4">Our Services</h2>
-            <p className="text-muted text-lg mb-12 max-w-2xl">Complete transportation and logistics solutions</p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ScrollReveal delay={100}>
-              <Card hover>
-                <Badge className="mb-4">Warehousing</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Cross Docking</h3>
-                <p className="text-muted mb-4">
-                  Efficient transfer of goods from inbound to outbound vehicles. Reduces storage time and costs while keeping goods in transit.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card hover>
-                <Badge className="mb-4">Delivery</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Final Mile Delivery</h3>
-                <p className="text-muted mb-4">
-                  Quick, reliable last-mile delivery to customers. Fast turnaround and professional handling of every shipment.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <Card hover>
-                <Badge className="mb-4">Specialized</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Overweight Assistance</h3>
-                <p className="text-muted mb-4">
-                  Expert handling of oversized and overweight hauls. Full permitting and escort services included.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={250}>
-              <Card hover>
-                <Badge className="mb-4">Storage</Badge>
-                <h3 className="font-display text-2xl text-text mb-3">Drop Trailer Storage</h3>
-                <p className="text-muted mb-4">
-                  Secure drop-trailer storage facilities. Cost-effective solution for temporary and long-term needs.
-                </p>
-                <Button as="a" href="/services" variant="outline" size="sm">Learn More</Button>
-              </Card>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose BIR */}
       <section className="py-24">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Advantage</p>
-            <h2 className="font-display text-5xl tracking-wider text-text mb-12">Why Choose BIR Transport</h2>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">What We Move</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-16 uppercase" style={{ fontWeight: 800 }}>
+              Our Services
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ScrollReveal delay={100}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Reliability</h4>
-                <p className="text-muted">On-time delivery guaranteed. Professional drivers and well-maintained equipment. Your shipment is in good hands.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Experience</h4>
-                <p className="text-muted">Decades of transportation expertise. We handle standard and specialized shipments with equal professionalism.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Compliance</h4>
-                <p className="text-muted">USDOT licensed and fully insured. We follow all regulations and safety standards for interstate commerce.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={250}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Competitive Pricing</h4>
-                <p className="text-muted">Fair, transparent rates for all services. No hidden fees. Get accurate quotes for your specific needs.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Flexibility</h4>
-                <p className="text-muted">We work around your schedule. Custom solutions for unique shipments and special requirements.</p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={350}>
-              <Card hover>
-                <h4 className="font-display text-2xl text-accent mb-3">Support</h4>
-                <p className="text-muted">Responsive customer service. Real support for real problems. We're here when you need us.</p>
-              </Card>
-            </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04]">
+            {SERVICES.map((s, i) => (
+              <ScrollReveal key={s.label} delay={i * 60} mode="scale">
+                <Link href={s.href} className="group block">
+                  <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/70">
+                    <span className="stat-num text-4xl mb-6">{s.num}</span>
+                    <h3 className="font-display text-xl tracking-wider text-white mb-3 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                      {s.label}
+                    </h3>
+                    <p className="font-body text-sm text-white/50 leading-relaxed flex-1">{s.desc}</p>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 border-t border-border">
-        <div className="container-site">
-          <ScrollReveal>
-            <div className="max-w-3xl">
-              <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Ready To Ship</p>
-              <h2 className="font-display text-5xl tracking-wider text-text mb-6">Get a Quote Today</h2>
-              <p className="text-muted text-lg leading-relaxed mb-8">
-                Contact BIR Transport for transportation and logistics solutions. We'll provide a detailed quote based on your specific shipment requirements.
-              </p>
-              <Button as="a" href="/contact" variant="primary" size="lg">Request Quote</Button>
+      <section className="py-24 relative">
+        <div className="absolute inset-0 gradient-mesh pointer-events-none" />
+        <div className="container-site relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <ScrollReveal mode="left">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Credentials</p>
+            <h2 className="font-display text-[clamp(2rem,4vw,4.5rem)] tracking-wider text-white leading-none mb-8 uppercase" style={{ fontWeight: 800 }}>
+              Licensed.<br /><span className="text-accent">Insured.</span><br />Ready.
+            </h2>
+            <p className="font-body text-white/55 leading-relaxed mb-10">
+              USDOT 717687 — we operate interstate and hold all required licenses and insurance to move your freight professionally, on time, every time.
+            </p>
+            <Button as="a" href="/contact" variant="outline">Get a Quote</Button>
+          </ScrollReveal>
+
+          <ScrollReveal delay={100}>
+            <div className="space-y-3">
+              {[
+                ['USDOT Number', '717687'],
+                ['Operations', 'Interstate Trucking'],
+                ['Equipment', 'Modern Fleet'],
+                ['Insurance', 'Fully Insured'],
+              ].map(([label, val]) => (
+                <div key={label} className="flex items-center justify-between p-5 border border-white/[0.07] hover:border-accent/25 transition-colors">
+                  <p className="font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/60">{label}</p>
+                  <p className="font-display text-lg tracking-wider text-white uppercase">{val}</p>
+                </div>
+              ))}
             </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 gradient-gold pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 gold-line" />
+        <div className="container-site text-center relative z-10">
+          <ScrollReveal>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-5 uppercase" style={{ fontWeight: 800 }}>
+              Ready to Ship?
+            </h2>
+            <p className="font-body text-white/55 text-lg mb-10">Get a quote for any load, any route, anywhere in Tennessee.</p>
+            <Button as="a" href="/contact" size="lg">Request a Quote</Button>
           </ScrollReveal>
         </div>
       </section>

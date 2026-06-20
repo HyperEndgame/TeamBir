@@ -4,9 +4,7 @@ import type { Metadata } from 'next'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
-import { SectionHeader } from '@/components/sections/SectionHeader'
 import { Card } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { SITE_CONFIGS } from '@/lib/site-config'
@@ -27,7 +25,7 @@ const BUSINESSES = [
     description: 'Premium aggregates, fill dirt, topsoil, contract crushing, and materials recycling across Tennessee.',
     href: siteUrl('materials'),
     badge: 'Aggregates & Crushing',
-    icon: '⛏',
+    num: '01',
   },
   {
     key: 'luxury',
@@ -35,8 +33,8 @@ const BUSINESSES = [
     tagline: 'Elevated Living',
     description: 'Luxury duplexes, apartments, and condominiums in Oak Ridge, TN — resort-style amenities, 22 mi from Knoxville.',
     href: siteUrl('luxury'),
-    badge: 'Residential',
-    icon: '🏛',
+    badge: 'Residential Real Estate',
+    num: '02',
   },
   {
     key: 'transport',
@@ -45,7 +43,7 @@ const BUSINESSES = [
     description: 'Cross docking, final mile, overweight assistance, drop trailer storage, and refrigerated logistics.',
     href: siteUrl('transport'),
     badge: 'Trucking & Logistics',
-    icon: '🚛',
+    num: '03',
   },
   {
     key: 'developments',
@@ -54,7 +52,7 @@ const BUSINESSES = [
     description: 'Custom homes, commercial construction, renovations, and excavation across Knoxville and East Tennessee.',
     href: siteUrl('developments'),
     badge: 'General Contractor',
-    icon: '🏗',
+    num: '04',
   },
   {
     key: 'travel',
@@ -63,15 +61,15 @@ const BUSINESSES = [
     description: "Tennessee's premier travel plaza in Dandridge — McDonald's, fuel, truckers lounge, and RV hookups.",
     href: siteUrl('travel'),
     badge: 'Travel & Hospitality',
-    icon: '⛽',
+    num: '05',
   },
 ]
 
 const STATS = [
-  { value: '20+', label: 'Years in Business', unit: '' },
-  { value: '6', label: 'Companies', unit: '' },
-  { value: '500+', label: 'Projects Delivered', unit: '' },
-  { value: 'TN', label: 'Proudly Based in', unit: '' },
+  { value: '20+', label: 'Years in Business' },
+  { value: '6', label: 'Companies' },
+  { value: '500+', label: 'Projects Delivered' },
+  { value: 'TN', label: 'Proudly Tennessee' },
 ]
 
 const LD_JSON = {
@@ -90,164 +88,214 @@ export default function HomePage() {
       <JsonLd data={LD_JSON} />
       <Nav config={SITE_CONFIGS.main} />
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Eagle image */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-eagle.jpg"
-            alt="Team BIR — Built to Last"
+            alt="Team BIR"
             fill
             priority
-            quality={90}
-            className="object-cover object-center scale-105"
-            style={{ transform: 'scale(1.05)' }}
+            quality={95}
+            className="object-cover object-center"
+            style={{ transform: 'scale(1.04)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0B1F2A]/50 via-[#0B1F2A]/30 to-[#0B1F2A]" />
+          {/* Dark vignette overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-bg/75 via-bg/40 to-bg" />
+          <div className="absolute inset-0 bg-gradient-to-r from-bg/60 via-transparent to-bg/40" />
         </div>
 
-        <div className="relative z-10 container-site text-center py-32">
-          <div className="mb-6" style={{ animation: 'fadeUp 0.8s ease forwards' }}>
-            <Badge>Knoxville & Dandridge, Tennessee</Badge>
+        {/* Grain texture */}
+        <div
+          className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")',
+          }}
+        />
+
+        <div className="relative z-10 container-site text-center py-40">
+          {/* Eyebrow */}
+          <div className="hero-animate" style={{ animationDelay: '0.1s' }}>
+            <span className="inline-block font-mono text-xs tracking-[0.3em] uppercase text-accent/80 mb-8">
+              Knoxville &amp; Dandridge, Tennessee
+            </span>
           </div>
+
+          {/* Headline */}
           <h1
-            className="font-display text-[clamp(4rem,12vw,10rem)] leading-none tracking-wider text-text mb-6 uppercase"
-            style={{ animation: 'fadeUp 0.8s ease 0.15s both' }}
+            className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] tracking-[0.04em] text-white mb-8 uppercase hero-animate"
+            style={{ animationDelay: '0.25s', fontWeight: 800 }}
           >
             Built to Last.<br />
-            <span className="text-accent">Driven to</span> Deliver.
+            <span style={{
+              background: 'linear-gradient(135deg, #F0D878 0%, #C4A44A 50%, #8A7235 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Driven to
+            </span>{' '}
+            Deliver.
           </h1>
+
           <p
-            className="text-muted text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed"
-            style={{ animation: 'fadeUp 0.8s ease 0.3s both' }}
+            className="font-body text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-12 leading-relaxed hero-animate"
+            style={{ animationDelay: '0.4s' }}
           >
             A family of Tennessee companies founded by Jimmy Bir Singh — spanning construction, transport, real estate, and hospitality.
           </p>
-          <div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            style={{ animation: 'fadeUp 0.8s ease 0.45s both' }}
-          >
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center hero-animate" style={{ animationDelay: '0.55s' }}>
             <Button as="a" href="#businesses" size="lg">Our Companies</Button>
-            <Button as="a" href="/contact" variant="outline" size="lg">Contact Us</Button>
+            <Button as="a" href="/contact" variant="outline" size="lg">Get in Touch</Button>
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-muted">
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
+        {/* Scroll cue */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hero-animate" style={{ animationDelay: '1s' }}>
+          <div className="flex flex-col items-center gap-2">
+            <span className="font-mono text-[0.6rem] tracking-[0.3em] uppercase text-white/30">Scroll</span>
+            <div className="w-px h-12 bg-gradient-to-b from-accent/60 to-transparent" />
+          </div>
         </div>
       </section>
 
-      {/* STATS BAR */}
-      <section className="bg-surface border-y border-border">
-        <div className="container-site py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* ── STATS BAR ── */}
+      <section className="relative py-12 glass border-y border-accent/10">
+        <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-white/[0.06]">
           {STATS.map((s, i) => (
-            <ScrollReveal key={s.label} delay={i * 100} className="text-center">
-              <p className="font-display text-5xl md:text-6xl text-accent tracking-wider mb-1">{s.value}</p>
-              <p className="font-mono text-xs tracking-widest uppercase text-muted">{s.label}</p>
+            <ScrollReveal key={s.label} delay={i * 80}>
+              <div className="text-center px-4">
+                <p className="stat-num text-5xl md:text-6xl mb-1">{s.value}</p>
+                <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-muted">{s.label}</p>
+              </div>
             </ScrollReveal>
           ))}
         </div>
       </section>
 
-      {/* BUSINESSES GRID */}
-      <section id="businesses" className="py-24 md:py-32">
+      {/* ── BUSINESSES GRID ── */}
+      <section id="businesses" className="py-28 md:py-36 gradient-mesh">
         <div className="container-site">
           <ScrollReveal>
-            <SectionHeader
-              eyebrow="The Family"
-              title="Our Companies"
-              subtitle="Six distinct businesses, one unified mission: building Tennessee's future."
-            />
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">The Portfolio</p>
+            <h2 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] tracking-wider text-white leading-none mb-16 uppercase" style={{ fontWeight: 800 }}>
+              Our Companies
+            </h2>
           </ScrollReveal>
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.05]">
             {BUSINESSES.map((b, i) => (
-              <ScrollReveal key={b.key} delay={i * 80}>
+              <ScrollReveal key={b.key} delay={i * 60} mode="scale">
                 <Link href={b.href} className="group block h-full">
-                  <Card hover className="h-full flex flex-col">
-                    <div className="text-4xl mb-4">{b.icon}</div>
-                    <Badge className="mb-3 w-fit">{b.badge}</Badge>
-                    <h3 className="font-display text-3xl tracking-wider text-text mb-1 group-hover:text-accent transition-colors">
+                  <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/80">
+                    <div className="flex items-start justify-between mb-6">
+                      <span className="stat-num text-4xl">{b.num}</span>
+                      <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/60 border border-accent/20 px-2 py-1">
+                        {b.badge}
+                      </span>
+                    </div>
+                    <h3 className="font-display text-2xl tracking-wider text-white mb-1 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
                       {b.name}
                     </h3>
-                    <p className="font-mono text-xs tracking-widest uppercase text-teal mb-3">{b.tagline}</p>
-                    <p className="text-muted text-sm leading-relaxed flex-1">{b.description}</p>
-                    <div className="mt-6 flex items-center gap-2 text-accent text-sm font-mono tracking-wider">
-                      <span>Learn More</span>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:translate-x-1 transition-transform">
-                        <path d="M3 8h10M9 4l4 4-4 4" />
+                    <p className="font-body text-[0.7rem] tracking-[0.2em] uppercase text-accent/60 mb-4">{b.tagline}</p>
+                    <p className="font-body text-sm text-white/50 leading-relaxed flex-1">{b.description}</p>
+                    <div className="mt-8 flex items-center gap-3 text-accent/70 group-hover:text-accent transition-colors">
+                      <div className="h-px w-8 bg-current" />
+                      <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Explore</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:translate-x-1 transition-transform">
+                        <path d="M2 6h8M6 2l4 4-4 4" />
                       </svg>
                     </div>
-                  </Card>
+                  </div>
                 </Link>
               </ScrollReveal>
             ))}
 
-            {/* Team BIR corporate card */}
-            <ScrollReveal delay={BUSINESSES.length * 80}>
-              <Card className="h-full flex flex-col justify-between bg-accent/10 border-accent/40">
-                <div>
-                  <div className="text-4xl mb-4">🦅</div>
-                  <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">Corporate</p>
-                  <h3 className="font-display text-3xl tracking-wider text-text mb-3">Team BIR</h3>
-                  <p className="text-muted text-sm leading-relaxed">
-                    The umbrella organization founded by Jimmy Bir Singh — connecting all six companies under one mission.
+            {/* Team BIR card */}
+            <ScrollReveal delay={BUSINESSES.length * 60} mode="scale">
+              <Link href="/about" className="group block h-full">
+                <div className="bg-bg p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface/80"
+                  style={{ background: 'linear-gradient(135deg, rgba(196,164,74,0.06) 0%, rgba(8,20,28,1) 60%)' }}
+                >
+                  <div className="flex items-start justify-between mb-6">
+                    <span className="stat-num text-4xl">06</span>
+                    <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/60 border border-accent/20 px-2 py-1">Corporate</span>
+                  </div>
+                  <h3 className="font-display text-2xl tracking-wider text-white mb-1 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                    Team BIR
+                  </h3>
+                  <p className="font-body text-[0.7rem] tracking-[0.2em] uppercase text-accent/60 mb-4">The Umbrella</p>
+                  <p className="font-body text-sm text-white/50 leading-relaxed flex-1">
+                    The parent organization founded by Jimmy Bir Singh — connecting all six companies under one mission and one family.
                   </p>
+                  <div className="mt-8 flex items-center gap-3 text-accent/70 group-hover:text-accent transition-colors">
+                    <div className="h-px w-8 bg-current" />
+                    <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Our Story</span>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:translate-x-1 transition-transform">
+                      <path d="M2 6h8M6 2l4 4-4 4" />
+                    </svg>
+                  </div>
                 </div>
-                <Link href="/about" className="mt-6 font-mono text-xs tracking-widest uppercase text-accent hover:text-accent-h transition-colors">
-                  Our Story →
-                </Link>
-              </Card>
+              </Link>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* ABOUT TEASER */}
-      <section className="py-24 bg-surface border-y border-border">
-        <div className="container-site grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Our Story</p>
-            <h2 className="font-display text-6xl md:text-7xl tracking-wider text-text leading-none mb-6">
+      {/* ── ABOUT TEASER ── */}
+      <section className="py-28">
+        <div className="container-site grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+          <ScrollReveal mode="left">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-5">Our Story</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] tracking-wider text-white leading-none mb-8 uppercase" style={{ fontWeight: 800 }}>
               Rooted in<br /><span className="text-accent">Tennessee.</span>
             </h2>
-            <p className="text-muted leading-relaxed mb-4">
+            <p className="font-body text-white/60 leading-relaxed mb-4 text-[1.05rem]">
               Founded by Jimmy Bir Singh in Knoxville, Team BIR has grown from a single venture into a family of six companies that together shape the landscape of East Tennessee.
             </p>
-            <p className="text-muted leading-relaxed mb-8">
-              From crushing rock to building homes, moving freight to hosting travelers — every company in the BIR family shares the same foundation: hard work, integrity, and community.
+            <p className="font-body text-white/50 leading-relaxed mb-10">
+              From crushing rock to building homes, moving freight to hosting travelers — every BIR company shares the same foundation: hard work, integrity, and community.
             </p>
-            <Button as="a" href="/about" variant="outline">Meet Jimmy Singh</Button>
+            <Button as="a" href="/about" variant="outline">Meet the Founder</Button>
           </ScrollReveal>
 
-          <ScrollReveal delay={150} className="grid grid-cols-2 gap-4">
-            {[
-              { label: 'Construction', desc: 'Homes, commercial, excavation' },
-              { label: 'Materials', desc: 'Aggregates, crushing, recycling' },
-              { label: 'Transport', desc: 'Freight & logistics' },
-              { label: 'Hospitality', desc: 'Travel plaza, real estate' },
-            ].map((item) => (
-              <div key={item.label} className="bg-bg border border-border p-6">
-                <p className="font-display text-2xl tracking-wider text-text mb-1">{item.label}</p>
-                <p className="text-muted text-sm">{item.desc}</p>
-              </div>
-            ))}
+          <ScrollReveal delay={100}>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                ['Construction', 'Homes, commercial, excavation'],
+                ['Materials', 'Aggregates, crushing, recycling'],
+                ['Transport', 'Freight & logistics'],
+                ['Hospitality', 'Travel plaza, real estate'],
+              ].map(([title, desc]) => (
+                <div key={title} className="p-6 border border-white/[0.07] hover:border-accent/30 transition-colors">
+                  <p className="font-display text-xl tracking-wider text-white mb-1 uppercase" style={{ fontWeight: 700 }}>{title}</p>
+                  <p className="font-body text-xs text-white/40">{desc}</p>
+                </div>
+              ))}
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-teal/10 pointer-events-none" />
+      {/* ── CTA ── */}
+      <section className="py-28 relative overflow-hidden">
+        <div className="absolute inset-0 gradient-gold pointer-events-none" />
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(196,164,74,0.08) 0%, transparent 70%)',
+        }} />
+        <div className="absolute top-0 left-0 right-0 gold-line" />
+        <div className="absolute bottom-0 left-0 right-0 gold-line" />
+
         <div className="container-site text-center relative z-10">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Get in Touch</p>
-            <h2 className="font-display text-6xl md:text-8xl tracking-wider text-text leading-none mb-6">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-5">Get in Touch</p>
+            <h2 className="font-display text-[clamp(3rem,7vw,7rem)] tracking-wider text-white leading-none mb-6 uppercase" style={{ fontWeight: 800 }}>
               Let's Build<br />Something.
             </h2>
-            <p className="text-muted text-xl max-w-xl mx-auto mb-10">
-              Whether you need aggregates, a new home, freight logistics, or a place to stay — we've got you covered.
+            <p className="font-body text-white/60 text-xl max-w-lg mx-auto mb-12">
+              Whether you need aggregates, a new home, freight logistics, or a place to stay.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button as="a" href="/contact" size="lg">Contact Team BIR</Button>
