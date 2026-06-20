@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: { default: 'Team BIR', template: '%s | Team BIR' },
   description: 'Team BIR is a family of Tennessee-based companies spanning construction, transport, real estate, and hospitality — founded by Jimmy Bir Singh.',
   metadataBase: new URL('https://teambir.com'),
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
