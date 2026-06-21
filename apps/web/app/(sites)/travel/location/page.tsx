@@ -49,8 +49,26 @@ export default function TravelLocationPage() {
                   <p className="font-mono text-xs tracking-widest uppercase text-accent mb-2">Address</p>
                   <p className="text-text font-display text-3xl tracking-wider mb-4">1217 Deep Springs Rd</p>
                   <p className="text-text font-display text-xl tracking-wider mb-6">Dandridge, TN 37725</p>
-                  <p className="text-muted text-lg">Easy access from I-40. Well-marked signage and convenient location for all travelers.</p>
+                  <p className="text-muted text-lg mb-6">Easy access from I-40. Well-marked signage and convenient location for all travelers.</p>
+                  <Button as="a" href="https://maps.google.com/?q=1217+Deep+Springs+Road+Dandridge+TN+37725" variant="primary" size="sm" target="_blank" rel="noopener noreferrer">Open in Google Maps</Button>
                 </div>
+
+                <h3 className="font-display text-3xl tracking-wider text-text mb-6">Location & Directions</h3>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start gap-4">
+                    <span className="font-mono text-accent text-sm mt-1 shrink-0">01</span>
+                    <span className="text-muted">Take <span className="text-text">I-40 to Exit 417</span> (Dandridge / Deep Springs Road)</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="font-mono text-accent text-sm mt-1 shrink-0">02</span>
+                    <span className="text-muted">Turn onto <span className="text-text">Deep Springs Road</span> heading south</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="font-mono text-accent text-sm mt-1 shrink-0">03</span>
+                    <span className="text-muted">BIR Travel Plaza is immediately on your right at <span className="text-text">1217 Deep Springs Road</span></span>
+                  </li>
+                </ul>
+
                 <Button as="a" href="/contact" variant="primary" size="lg">Contact Us</Button>
               </div>
             </ScrollReveal>
