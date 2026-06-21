@@ -17,6 +17,19 @@ export function ConstellationBg({ className }: { className?: string }) {
     resize()
     window.addEventListener('resize', resize)
 
+    const mouse = { x: -9999, y: -9999 }
+    const MOUSE_RADIUS = 160
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect()
+      mouse.x = e.clientX - rect.left
+      mouse.y = e.clientY - rect.top
+    }
+    const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999 }
+    canvas.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseleave', onMouseLeave)
+
     const stars = Array.from({ length: 90 }, () => ({
       x: Math.random(),
       y: Math.random(),
@@ -36,6 +49,7 @@ export function ConstellationBg({ className }: { className?: string }) {
         s.y = (s.y + s.vy + 1) % 1
       })
 
+      // Star-to-star connections
       for (let i = 0; i < stars.length; i++) {
         const a = stars[i]
         for (let j = i + 1; j < stars.length; j++) {
@@ -54,10 +68,34 @@ export function ConstellationBg({ className }: { className?: string }) {
         }
       }
 
+      // Mouse connections
       stars.forEach(s => {
+        const sx = s.x * w
+        const sy = s.y * h
+        const dx = sx - mouse.x
+        const dy = sy - mouse.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < MOUSE_RADIUS) {
+          const alpha = 0.45 * (1 - dist / MOUSE_RADIUS)
+          ctx.beginPath()
+          ctx.strokeStyle = `rgba(232,176,32,${alpha})`
+          ctx.lineWidth = 0.8
+          ctx.moveTo(mouse.x, mouse.y)
+          ctx.lineTo(sx, sy)
+          ctx.stroke()
+        }
+      })
+
+      // Draw stars
+      stars.forEach(s => {
+        const sx = s.x * w
+        const sy = s.y * h
+        const dx = sx - mouse.x
+        const dy = sy - mouse.y
+        const nearMouse = Math.sqrt(dx * dx + dy * dy) < MOUSE_RADIUS
         ctx.beginPath()
-        ctx.fillStyle = 'rgba(232,176,32,0.35)'
-        ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2)
+        ctx.fillStyle = nearMouse ? 'rgba(232,176,32,0.8)' : 'rgba(232,176,32,0.35)'
+        ctx.arc(sx, sy, nearMouse ? s.r * 1.6 : s.r, 0, Math.PI * 2)
         ctx.fill()
       })
 
@@ -68,6 +106,8 @@ export function ConstellationBg({ className }: { className?: string }) {
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener('resize', resize)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseleave', onMouseLeave)
     }
   }, [])
 
