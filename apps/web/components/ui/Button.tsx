@@ -8,9 +8,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg'
   as?: 'button' | 'a'
   href?: string
+  target?: string
+  rel?: string
 }
 
-export function Button({ variant = 'primary', size = 'md', as = 'button', href, className, children, ...props }: Props) {
+export function Button({ variant = 'primary', size = 'md', as = 'button', href, target, rel, className, children, ...props }: Props) {
   const base = 'inline-flex items-center justify-center font-body font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
   const variants = {
     primary: 'bg-accent text-bg hover:bg-accent-h hover:shadow-[0_0_28px_rgba(232,176,32,0.3)]',
@@ -26,7 +28,7 @@ export function Button({ variant = 'primary', size = 'md', as = 'button', href, 
   const cls = clsx(base, variants[variant], sizes[size], className)
 
   if (as === 'a' && href) {
-    return <Link href={href} className={cls}>{children}</Link>
+    return <Link href={href} target={target} rel={rel} className={cls}>{children}</Link>
   }
   return <button className={cls} {...props}>{children}</button>
 }
