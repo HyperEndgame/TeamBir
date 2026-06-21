@@ -29,3 +29,10 @@ Thumbs.db
 *.pyc
 __pycache__/
 .turbo/
+
+# Claude
+CLAUDE.md
+.claude/
+
+# Graphify
+graphify-out/
