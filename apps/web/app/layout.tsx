@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Barlow_Condensed, Barlow, JetBrains_Mono } from 'next/font/google'
+import { ConstellationBg } from '@/components/sections/ConstellationBg'
 import './globals.css'
 
 const barlowCondensed = Barlow_Condensed({
@@ -34,7 +35,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${barlowCondensed.variable} ${barlow.variable} ${jetbrains.variable}`}>
-      <body>{children}</body>
+      <body>
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <ConstellationBg />
+        </div>
+        {children}
+      </body>
     </html>
   )
 }
