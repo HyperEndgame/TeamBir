@@ -61,7 +61,7 @@ export default function MaterialsHome() {
               Rock Solid<br /><span className="text-accent">Results</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Aggregates, fill dirt, contract crushing, and sustainable recycling — serving East Tennessee contractors from our Knoxville yard.
+              Bulk aggregates, fill dirt, DOT-certified crushing, and concrete recycling — from our Knoxville yard straight to your jobsite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/contact')} size="lg">Request a Quote</Button>
@@ -74,10 +74,10 @@ export default function MaterialsHome() {
       <section className="py-12 glass border-y border-white/[0.06]">
         <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/[0.06]">
           {[
-            { value: '6', label: 'Service Types' },
-            { value: 'TN', label: 'Knoxville Base' },
-            { value: 'Green', label: 'Sustainable Focus' },
-            { value: 'DOT', label: 'Certified Quality' },
+            { value: '6', label: 'Product Lines' },
+            { value: 'DOT', label: 'Certified' },
+            { value: '100%', label: 'Recycled Option' },
+            { value: 'TN', label: 'Knoxville Yard' },
           ].map((s, i) => (
             <ScrollReveal key={s.label} delay={i * 80}>
               <div className="text-center px-4">
@@ -92,9 +92,9 @@ export default function MaterialsHome() {
       <section className="py-24">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">What We Offer</p>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Products & Services</p>
             <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-16" style={{ fontWeight: 800 }}>
-              Our Services
+              What We Supply
             </h2>
           </ScrollReveal>
 
@@ -165,10 +165,10 @@ export default function MaterialsHome() {
         <div className="container-site text-center relative z-10">
           <ScrollReveal>
             <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-5" style={{ fontWeight: 800 }}>
-              Ready to Order?
+              Need Material?
             </h2>
-            <p className="font-body text-white/55 text-lg mb-10">Call 865-832-6247 or get a quote for any material, any quantity, anywhere in Tennessee.</p>
-            <Button as="a" href={p('/contact')} size="lg">Contact BIR Materials</Button>
+            <p className="font-body text-white/55 text-lg mb-10">DOT-certified aggregate, fill dirt, and crushing — call 865-832-6247 or quote online. Delivery available.</p>
+            <Button as="a" href={p('/contact')} size="lg">Get a Quote</Button>
           </ScrollReveal>
         </div>
       </section>

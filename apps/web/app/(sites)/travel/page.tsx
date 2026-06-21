@@ -90,9 +90,9 @@ export default function TravelHome() {
       <section className="py-24">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Everything You Need</p>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">At the Plaza</p>
             <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-16" style={{ fontWeight: 800 }}>
-              What We Offer
+              Amenities & Services
             </h2>
           </ScrollReveal>
 
@@ -156,9 +156,9 @@ export default function TravelHome() {
         <div className="container-site text-center relative z-10">
           <ScrollReveal>
             <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-5" style={{ fontWeight: 800 }}>
-              Plan Your Stop
+              Your Next Great Stop
             </h2>
-            <p className="font-body text-white/55 text-lg mb-10">Fuel, food, showers, and rest — all in one place just off I-40 in Dandridge.</p>
+            <p className="font-body text-white/55 text-lg mb-10">100% No Ethanol fuel, two restaurants, trucker showers, and 250 spaces — just off I-40 in Dandridge, TN.</p>
             <Button as="a" href={p('/location')} size="lg">Get Directions</Button>
           </ScrollReveal>
         </div>

@@ -60,7 +60,7 @@ export default function DevelopmentsHome() {
               Your Trusted<br /><span className="text-accent">Builder</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Custom homes, commercial builds, renovations, and excavation across Knoxville and East Tennessee — built right, every time.
+              From foundation to finish — custom homes, commercial builds, renovations, and excavation across Knoxville and East Tennessee.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/contact')} size="lg">Free Estimate</Button>
@@ -74,9 +74,9 @@ export default function DevelopmentsHome() {
         <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/[0.06]">
           {[
             { value: '6', label: 'Service Types' },
-            { value: 'TN', label: 'Knoxville Base' },
+            { value: 'FREE', label: 'Estimates' },
             { value: '#80985', label: 'TN License' },
-            { value: '3', label: 'Featured Projects' },
+            { value: 'TN', label: 'Knoxville Base' },
           ].map((s, i) => (
             <ScrollReveal key={s.label} delay={i * 80}>
               <div className="text-center px-4">

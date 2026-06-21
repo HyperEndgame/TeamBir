@@ -70,7 +70,7 @@ export default function LuxuryHome() {
               Unparalleled<br /><span className="text-accent">Luxury</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              12,000 sq ft event venue in Oak Ridge — weddings, corporate events, birthday parties, and pool gatherings. New luxury condominiums and townhomes now available.
+              12,000 sq ft of curated event space in Oak Ridge — weddings, corporate gatherings, and private celebrations. Luxury condominiums and townhomes now available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/contact')} size="lg">Book an Event</Button>
@@ -131,9 +131,9 @@ export default function LuxuryHome() {
         <div className="absolute inset-0 gradient-mesh pointer-events-none" />
         <div className="container-site relative z-10">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Luxury Living</p>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Residences</p>
             <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-6" style={{ fontWeight: 800 }}>
-              Find Your Home
+              Live at the Landing
             </h2>
             <p className="font-body text-white/50 max-w-2xl mb-16">
               Our newest community development — 2, 3, and 4-bedroom condominiums and townhomes with luxury finishes, spectacular views, and resort-style amenities.
@@ -168,10 +168,10 @@ export default function LuxuryHome() {
         <div className="container-site text-center relative z-10">
           <ScrollReveal>
             <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-5" style={{ fontWeight: 800 }}>
-              Book Your Event
+              Reserve Your Date
             </h2>
-            <p className="font-body text-white/55 text-lg mb-10">Oak Ridge's premier luxury venue — events, parties, weddings, and corporate gatherings.</p>
-            <Button as="a" href={p('/contact')} size="lg">Contact Us Today</Button>
+            <p className="font-body text-white/55 text-lg mb-10">Oak Ridge's premier venue for weddings, corporate events, and private gatherings. Rates from $300/hour.</p>
+            <Button as="a" href={p('/contact')} size="lg">Reserve Your Date</Button>
           </ScrollReveal>
         </div>
       </section>

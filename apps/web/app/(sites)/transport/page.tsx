@@ -61,7 +61,7 @@ export default function TransportHome() {
               Go With<br /><span className="text-accent">the Best</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Family-owned Tennessee trucking — dry van truckload, cross docking, final mile, overweight hauls, and secure storage. Where family matters.
+              Family-owned and DOT-licensed — dry van truckload, cross docking, final mile, overweight hauls, and secure storage across Tennessee and beyond. Where family matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/services')} size="lg">Our Services</Button>
@@ -74,9 +74,9 @@ export default function TransportHome() {
       <section className="py-12 glass border-y border-white/[0.06]">
         <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x md:divide-white/[0.06]">
           {[
-            { value: '20+', label: 'Years Experience' },
-            { value: '8', label: 'Service Types' },
-            { value: 'TN', label: 'Home State' },
+            { value: '20+', label: 'Years Hauling' },
+            { value: '8', label: 'Services' },
+            { value: '717687', label: 'USDOT #' },
             { value: 'DOT', label: 'Licensed & Insured' },
           ].map((s, i) => (
             <ScrollReveal key={s.label} delay={i * 80}>
