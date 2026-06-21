@@ -23,14 +23,14 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  // Split nav: left links (Businesses, About) | right links (Careers, Contact)
+  // Split nav: left links (site-specific) | right links (Businesses, About, Careers, Contact)
   const leftNav = config.nav.filter(n =>
-    ['Businesses', 'About', 'Services', 'Aggregates', 'Fill Dirt',
+    ['Services', 'Aggregates', 'Fill Dirt',
      'Crushing', 'Recycling', 'Duplexes', 'Apartments',
      'Condominiums', 'Amenities', 'Projects'].includes(n.label)
   )
   const rightNav = config.nav.filter(n =>
-    ['Careers', 'Contact', 'Location'].includes(n.label)
+    ['Businesses', 'About', 'Careers', 'Contact', 'Location'].includes(n.label)
   )
   // Fallback: if split didn't work, put all in right
   const allRight = leftNav.length === 0
