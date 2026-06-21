@@ -1,5 +1,6 @@
 [build]
 builder = "NIXPACKS"
+nixpacksConfigPath = "nixpacks.toml"
 buildCommand = "pnpm build"
 
 [deploy]
@@ -9,3 +10,4 @@ healthcheckTimeout = 30
 
 [environments.production]
 NODE_ENV = "production"
+NIXPACKS_NODE_VERSION = "20"
