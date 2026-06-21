@@ -7,6 +7,7 @@ import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { Faq } from '@/components/sections/Faq'
 import { SITE_CONFIGS } from '@/lib/site-config'
 import { siteUrl } from '@/lib/demo'
 
@@ -283,6 +284,9 @@ export default function HomePage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ── FAQ ── */}
+      <Faq />
 
       {/* ── CTA ── */}
       <section className="py-28 relative overflow-hidden">

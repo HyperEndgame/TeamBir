@@ -12,14 +12,24 @@ export function ConstellationBg({ className }: { className?: string }) {
 
     const mouse = { x: -9999, y: -9999 }
     const MOUSE_RADIUS = 160
-    const CELL = 120
 
+    const getParams = (w: number) => ({
+      CELL: w < 500 ? 72 : 120,
+      LINE_ALPHA: w < 500 ? 0.18 : 0.08,
+      LINK_DIST: w < 500 ? 130 : 160,
+      STAR_ALPHA_NORMAL: w < 500 ? 0.55 : 0.3,
+      STAR_ALPHA_ACTIVE: w < 500 ? 0.95 : 0.6,
+      STAR_R_SCALE: w < 500 ? 1.6 : 1.0,
+    })
+
+    let p = getParams(0)
     let stars: { x: number; y: number; vx: number; vy: number; r: number }[] = []
     let frame: number | null = null
 
     const initStars = (w: number, h: number) => {
-      const COLS = Math.max(3, Math.round(w / CELL))
-      const ROWS = Math.max(2, Math.round(h / CELL))
+      p = getParams(w)
+      const COLS = Math.max(3, Math.round(w / p.CELL))
+      const ROWS = Math.max(2, Math.round(h / p.CELL))
       stars = Array.from({ length: COLS * ROWS }, (_, i) => {
         const col = i % COLS
         const row = Math.floor(i / COLS)
@@ -50,9 +60,9 @@ export function ConstellationBg({ className }: { className?: string }) {
           const dx = (a.x - b.x) * w
           const dy = (a.y - b.y) * h
           const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 160) {
+          if (dist < p.LINK_DIST) {
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(232,176,32,${0.08 * (1 - dist / 160)})`
+            ctx.strokeStyle = `rgba(232,176,32,${p.LINE_ALPHA * (1 - dist / p.LINK_DIST)})`
             ctx.lineWidth = 0.5
             ctx.moveTo(a.x * w, a.y * h)
             ctx.lineTo(b.x * w, b.y * h)
@@ -85,8 +95,8 @@ export function ConstellationBg({ className }: { className?: string }) {
         const dy = sy - mouse.y
         const nearMouse = Math.sqrt(dx * dx + dy * dy) < MOUSE_RADIUS
         ctx.beginPath()
-        ctx.fillStyle = nearMouse ? 'rgba(232,176,32,0.6)' : 'rgba(232,176,32,0.3)'
-        ctx.arc(sx, sy, nearMouse ? s.r * 1.6 : s.r, 0, Math.PI * 2)
+        ctx.fillStyle = nearMouse ? `rgba(232,176,32,${p.STAR_ALPHA_ACTIVE})` : `rgba(232,176,32,${p.STAR_ALPHA_NORMAL})`
+        ctx.arc(sx, sy, (nearMouse ? s.r * 1.6 : s.r) * p.STAR_R_SCALE, 0, Math.PI * 2)
         ctx.fill()
       })
 
