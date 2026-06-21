@@ -30,12 +30,12 @@ export function ConstellationBg({ className }: { className?: string }) {
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseleave', onMouseLeave)
 
-    const stars = Array.from({ length: 90 }, () => ({
+    const stars = Array.from({ length: 130 }, () => ({
       x: Math.random(),
       y: Math.random(),
       vx: (Math.random() - 0.5) * 0.00015,
       vy: (Math.random() - 0.5) * 0.00015,
-      r: Math.random() * 1.2 + 0.3,
+      r: Math.random() * 1.6 + 0.5,
     }))
 
     let frame: number
@@ -57,10 +57,10 @@ export function ConstellationBg({ className }: { className?: string }) {
           const dx = (a.x - b.x) * w
           const dy = (a.y - b.y) * h
           const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 140) {
+          if (dist < 160) {
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(232,176,32,${0.07 * (1 - dist / 140)})`
-            ctx.lineWidth = 0.5
+            ctx.strokeStyle = `rgba(232,176,32,${0.18 * (1 - dist / 160)})`
+            ctx.lineWidth = 0.6
             ctx.moveTo(a.x * w, a.y * h)
             ctx.lineTo(b.x * w, b.y * h)
             ctx.stroke()
@@ -94,7 +94,7 @@ export function ConstellationBg({ className }: { className?: string }) {
         const dy = sy - mouse.y
         const nearMouse = Math.sqrt(dx * dx + dy * dy) < MOUSE_RADIUS
         ctx.beginPath()
-        ctx.fillStyle = nearMouse ? 'rgba(232,176,32,0.8)' : 'rgba(232,176,32,0.35)'
+        ctx.fillStyle = nearMouse ? 'rgba(232,176,32,0.95)' : 'rgba(232,176,32,0.6)'
         ctx.arc(sx, sy, nearMouse ? s.r * 1.6 : s.r, 0, Math.PI * 2)
         ctx.fill()
       })

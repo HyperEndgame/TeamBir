@@ -48,7 +48,7 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
         {/* Logo */}
         {config.logoSrc ? (
           <Link href={logoHref} className="flex items-center">
-            <Image src={config.logoSrc} alt={config.name} width={120} height={48} className="h-10 w-auto object-contain" style={{ maxHeight: '2.5rem', filter: 'invert(1) sepia(0.9) saturate(8) hue-rotate(5deg) brightness(0.82)' }} />
+            <Image src={config.logoSrc} alt={config.name} width={120} height={48} className="h-10 w-auto object-contain" style={{ maxHeight: '2.5rem', filter: 'invert(1) brightness(0.95)' }} />
           </Link>
         ) : (
           <Logo href={logoHref} />
