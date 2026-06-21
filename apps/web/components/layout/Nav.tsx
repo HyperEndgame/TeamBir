@@ -23,18 +23,6 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  // Split nav: left links (site-specific) | right links (Businesses, About, Careers, Contact)
-  const leftNav = config.nav.filter(n =>
-    ['Services', 'Aggregates', 'Fill Dirt',
-     'Crushing', 'Recycling', 'Duplexes', 'Apartments',
-     'Condominiums', 'Amenities', 'Projects'].includes(n.label)
-  )
-  const rightNav = config.nav.filter(n =>
-    ['Businesses', 'About', 'Careers', 'Contact', 'Location'].includes(n.label)
-  )
-  // Fallback: if split didn't work, put all in right
-  const allRight = leftNav.length === 0
-
   return (
     <nav
       className={clsx(
@@ -45,7 +33,7 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
       )}
     >
       <div className="container-site flex items-center h-16 gap-8">
-        {/* Logo */}
+        {/* Logo / Home */}
         {config.logoSrc ? (
           <Link href={logoHref} className="flex items-center">
             <Image src={config.logoSrc} alt={config.name} width={180} height={72} className="h-14 w-auto object-contain" style={{ maxHeight: '3.5rem', filter: 'invert(1) brightness(0.95)' }} />
@@ -54,32 +42,15 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
           <Logo href={logoHref} />
         )}
 
-        {/* Left nav links */}
-        {!allRight && (
-          <ul className="hidden md:flex items-center gap-6">
-            {leftNav.map(item => (
-              <li key={item.href}>
-                <Link
-                  href={href(item.href)}
-                  className="font-body text-sm text-white/70 hover:text-white transition-colors duration-200"
-                  style={{ fontWeight: 500 }}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-
         {/* Spacer */}
         <div className="flex-1" />
 
-        {/* Right nav */}
+        {/* All nav links — right aligned */}
         <ul className="hidden md:flex items-center gap-6">
-          {(allRight ? config.nav : rightNav).map((item, i) => {
+          {config.nav.map((item) => {
             const isContact = item.label === 'Contact'
             return (
-              <li key={item.href}>
+              <li key={item.label}>
                 {isContact ? (
                   <Link
                     href={href(item.href)}
@@ -121,7 +92,7 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
       )}>
         <ul className="container-site flex flex-col gap-4">
           {config.nav.map(item => (
-            <li key={item.href}>
+            <li key={item.label}>
               <Link
                 href={href(item.href)}
                 onClick={() => setOpen(false)}

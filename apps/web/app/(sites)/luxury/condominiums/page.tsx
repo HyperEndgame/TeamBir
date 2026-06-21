@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'New Condominiums',
-  description: 'New condominium development with pre-sale opportunities in Oak Ridge.',
+  title: 'New Condominiums for Sale in Oak Ridge, TN | BIR Luxury Landing',
+  description: 'New luxury condominium development in Oak Ridge, TN — premium finishes, resort amenities, and pre-sale opportunities. Contact us for pricing.',
+  alternates: { canonical: 'https://luxury.teambir.com/condominiums' },
+  openGraph: {
+    type: 'website',
+    url: 'https://luxury.teambir.com/condominiums',
+    title: 'New Condominiums for Sale in Oak Ridge, TN | BIR Luxury Landing',
+    description: 'New luxury condominium development in Oak Ridge, TN — premium finishes, resort amenities, and pre-sale opportunities. Contact us for pricing.',
+  },
 }
 
 export default function CondominiumsPage() {

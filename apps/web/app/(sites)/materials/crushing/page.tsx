@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Contract Crushing Services',
-  description: 'Mobile and stationary crushing services for construction materials.',
+  title: 'Contract Rock Crushing Services in Knoxville, TN | BIR Materials',
+  description: 'Mobile and stationary rock crushing in Knoxville, TN — on-site and contract crushing at any scale. Call 865-832-6247 for a quote.',
+  alternates: { canonical: 'https://materials.teambir.com/crushing' },
+  openGraph: {
+    type: 'website',
+    url: 'https://materials.teambir.com/crushing',
+    title: 'Contract Rock Crushing Services in Knoxville, TN | BIR Materials',
+    description: 'Mobile and stationary rock crushing in Knoxville, TN — on-site and contract crushing at any scale. Call 865-832-6247 for a quote.',
+  },
 }
 
 export default function CrushingPage() {

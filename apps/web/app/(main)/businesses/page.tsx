@@ -66,16 +66,27 @@ export default function BusinessesPage() {
                 )
               })}
 
-              {/* Filler card */}
+              {/* Naanstop — coming soon */}
               <ScrollReveal delay={5 * 80} mode="scale">
-                <div className="p-10 h-full flex flex-col justify-center"
-                  style={{ background: 'linear-gradient(135deg, rgba(196,164,74,0.05) 0%, transparent 100%)' }}
-                >
-                  <p className="font-mono text-[0.6rem] tracking-[0.3em] uppercase text-accent/40 mb-4">Est. Knoxville, TN</p>
-                  <p className="font-display text-3xl tracking-wider text-white/20 uppercase" style={{ fontWeight: 800 }}>
-                    Built on<br />Integrity.
-                  </p>
-                </div>
+                <Link href="/naanstop" className="group block">
+                  <div className="bg-bg p-10 h-full flex flex-col transition-all duration-300 hover:bg-surface/60">
+                    <div className="flex items-start justify-between mb-8">
+                      <span className="stat-num text-5xl">06</span>
+                      <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/60 border border-accent/20 px-2 py-1">
+                        Food & Beverage
+                      </span>
+                    </div>
+                    <h2 className="font-display text-3xl tracking-wider text-white mb-2 group-hover:text-accent transition-colors uppercase" style={{ fontWeight: 700 }}>
+                      Naanstop
+                    </h2>
+                    <p className="font-body text-[0.7rem] tracking-[0.2em] uppercase text-accent/50 mb-5">Coming Soon</p>
+                    <p className="font-body text-white/50 leading-relaxed flex-1">Something new is on the way. Stay tuned.</p>
+                    <div className="mt-10 flex items-center gap-3 text-accent/60 group-hover:text-accent transition-all">
+                      <div className="h-px w-10 bg-current transition-all group-hover:w-16" />
+                      <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase">Learn More</span>
+                    </div>
+                  </div>
+                </Link>
               </ScrollReveal>
             </div>
           </div>

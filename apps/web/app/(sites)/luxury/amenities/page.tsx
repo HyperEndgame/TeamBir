@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Community Amenities',
-  description: 'Resort-style amenities including pool, clubhouse, fitness center, and more.',
+  title: 'Resort Amenities — Pool, Spa & Billiards | BIR Luxury Landing Oak Ridge',
+  description: 'Resort-style amenities at BIR Luxury Landing in Oak Ridge, TN — pool, billiards room, spa, BBQ area, conference room, and more.',
+  alternates: { canonical: 'https://luxury.teambir.com/amenities' },
+  openGraph: {
+    type: 'website',
+    url: 'https://luxury.teambir.com/amenities',
+    title: 'Resort Amenities — Pool, Spa & Billiards | BIR Luxury Landing Oak Ridge',
+    description: 'Resort-style amenities at BIR Luxury Landing in Oak Ridge, TN — pool, billiards room, spa, BBQ area, conference room, and more.',
+  },
 }
 
 export default function AmenitiesPage() {

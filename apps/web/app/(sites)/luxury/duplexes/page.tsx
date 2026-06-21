@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Luxury Duplexes',
-  description: 'Luxury 3BR/2.5BA duplexes with private garages and premium finishes in Oak Ridge.',
+  title: 'Luxury Duplexes in Oak Ridge, TN | BIR Luxury Landing',
+  description: 'Luxury 3BR/2.5BA duplexes with private garages and premium finishes in Oak Ridge, TN. Contact BIR Luxury Landing for availability.',
+  alternates: { canonical: 'https://luxury.teambir.com/duplexes' },
+  openGraph: {
+    type: 'website',
+    url: 'https://luxury.teambir.com/duplexes',
+    title: 'Luxury Duplexes in Oak Ridge, TN | BIR Luxury Landing',
+    description: 'Luxury 3BR/2.5BA duplexes with private garages and premium finishes in Oak Ridge, TN. Contact BIR Luxury Landing for availability.',
+  },
 }
 
 export default function DuplexesPage() {

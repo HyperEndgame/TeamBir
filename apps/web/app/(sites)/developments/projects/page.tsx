@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Featured Projects',
-  description: 'View our portfolio of completed construction projects.',
+  title: 'Construction Portfolio — Custom Homes & Commercial Projects | BIR Developments',
+  description: 'View BIR Developments portfolio of custom homes, commercial builds, and renovation projects across Knoxville and East Tennessee.',
+  alternates: { canonical: 'https://developments.teambir.com/projects' },
+  openGraph: {
+    type: 'website',
+    url: 'https://developments.teambir.com/projects',
+    title: 'Construction Portfolio — Custom Homes & Commercial Projects | BIR Developments',
+    description: 'View BIR Developments portfolio of custom homes, commercial builds, and renovation projects across Knoxville and East Tennessee.',
+  },
 }
 
 export default function DevelopmentsProjectsPage() {

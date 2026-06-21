@@ -6,8 +6,15 @@ import { ContactForm } from '@/components/sections/ContactForm'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Leasing Inquiries',
-  description: 'Contact BIR Luxury Landing for tours, pricing, and leasing information.',
+  title: 'Book an Event or Schedule a Tour | BIR Luxury Landing — Oak Ridge, TN',
+  description: 'Book your event or schedule a property tour at BIR Luxury Landing in Oak Ridge, TN. Hourly event rates from $300. Luxury residences available.',
+  alternates: { canonical: 'https://luxury.teambir.com/contact' },
+  openGraph: {
+    type: 'website',
+    url: 'https://luxury.teambir.com/contact',
+    title: 'Book an Event or Schedule a Tour | BIR Luxury Landing — Oak Ridge, TN',
+    description: 'Book your event or schedule a property tour at BIR Luxury Landing in Oak Ridge, TN. Hourly event rates from $300. Luxury residences available.',
+  },
 }
 
 export default function LuxuryContactPage() {

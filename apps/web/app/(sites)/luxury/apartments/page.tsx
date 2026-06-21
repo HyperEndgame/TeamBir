@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Luxury Apartments',
-  description: 'One to four-bedroom luxury apartments with penthouse options and mountain views.',
+  title: 'Luxury Apartments in Oak Ridge, TN | BIR Luxury Landing',
+  description: '1–4 bedroom luxury apartments in Oak Ridge, TN — penthouse options, mountain views, and resort-style amenities. Schedule a tour today.',
+  alternates: { canonical: 'https://luxury.teambir.com/apartments' },
+  openGraph: {
+    type: 'website',
+    url: 'https://luxury.teambir.com/apartments',
+    title: 'Luxury Apartments in Oak Ridge, TN | BIR Luxury Landing',
+    description: '1–4 bedroom luxury apartments in Oak Ridge, TN — penthouse options, mountain views, and resort-style amenities. Schedule a tour today.',
+  },
 }
 
 export default function ApartmentsPage() {

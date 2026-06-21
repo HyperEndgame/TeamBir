@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Fill Dirt & Topsoil',
-  description: 'Quality fill dirt and topsoil for residential and commercial grading projects.',
+  title: 'Fill Dirt & Topsoil in Knoxville, TN | BIR Materials · 865-832-6247',
+  description: 'Quality fill dirt and nutrient-rich topsoil for grading, landscaping, and commercial jobsites in Knoxville, TN. Call 865-832-6247.',
+  alternates: { canonical: 'https://materials.teambir.com/fill-dirt' },
+  openGraph: {
+    type: 'website',
+    url: 'https://materials.teambir.com/fill-dirt',
+    title: 'Fill Dirt & Topsoil in Knoxville, TN | BIR Materials · 865-832-6247',
+    description: 'Quality fill dirt and nutrient-rich topsoil for grading, landscaping, and commercial jobsites in Knoxville, TN. Call 865-832-6247.',
+  },
 }
 
 export default function FillDirtPage() {

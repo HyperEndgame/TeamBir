@@ -2,11 +2,37 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
 
+const cfg = SITE_CONFIGS.luxury
+
 export const metadata: Metadata = {
-  title: 'BIR Luxury Landing',
-  description: '12,000 sq ft luxury event venue in Oak Ridge, TN — weddings, corporate events, birthday parties, pool parties, and luxury condominiums.',
+  title: 'Luxury Event Venue & Condominiums in Oak Ridge, TN | BIR Luxury Landing',
+  description: '12,000 sq ft event venue in Oak Ridge, TN — weddings, corporate events, birthday parties, and pool gatherings. New luxury condominiums & townhomes.',
+  alternates: { canonical: cfg.url },
+  openGraph: {
+    type: 'website',
+    url: cfg.url,
+    title: 'BIR Luxury Landing — Event Venue & Condominiums | Oak Ridge, TN',
+    description: cfg.description,
+  },
+}
+
+const LD_JSON = {
+  '@context': 'https://schema.org',
+  '@type': 'EventVenue',
+  name: cfg.name,
+  description: cfg.description,
+  url: cfg.url,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Oak Ridge',
+    addressRegion: 'TN',
+    addressCountry: 'US',
+  },
+  areaServed: 'East Tennessee',
 }
 
 const p = (path: string) => subPath('luxury', path)
@@ -35,6 +61,7 @@ const STATS = [
 export default function LuxuryHome() {
   return (
     <main>
+      <JsonLd data={LD_JSON} />
       <section className="pt-48 pb-28 hero-luxury">
         <div className="container-site">
           <ScrollReveal>
@@ -43,7 +70,7 @@ export default function LuxuryHome() {
               Unparalleled<br /><span className="text-accent">Luxury</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Premier 12,000 sq ft event venue in Oak Ridge — weddings, corporate events, birthday parties, and pool gatherings. Plus new luxury condominiums and townhomes.
+              12,000 sq ft event venue in Oak Ridge — weddings, corporate events, birthday parties, and pool gatherings. New luxury condominiums and townhomes now available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/contact')} size="lg">Book an Event</Button>

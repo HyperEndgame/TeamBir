@@ -2,11 +2,38 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
 
+const cfg = SITE_CONFIGS.transport
+
 export const metadata: Metadata = {
-  title: 'BIR Transport',
-  description: 'Tennessee-based trucking and logistics — dry van truckload, cross docking, final mile, truck parking, and boat/RV storage. USDOT 717687.',
+  title: 'Trucking & Logistics in Tennessee | BIR Transport · USDOT 717687',
+  description: 'Family-owned Tennessee trucking — dry van truckload, cross docking, final mile, overweight hauls, truck parking, and boat/RV storage. Call 540-980-7530.',
+  alternates: { canonical: cfg.url },
+  openGraph: {
+    type: 'website',
+    url: cfg.url,
+    title: 'BIR Transport — Trucking & Logistics | Tennessee · USDOT 717687',
+    description: cfg.description,
+  },
+}
+
+const LD_JSON = {
+  '@context': 'https://schema.org',
+  '@type': 'MovingCompany',
+  name: cfg.name,
+  description: cfg.description,
+  url: cfg.url,
+  telephone: cfg.schema.phone,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Knoxville',
+    addressRegion: 'TN',
+    addressCountry: 'US',
+  },
+  areaServed: ['Tennessee', 'United States'],
 }
 
 const p = (path: string) => subPath('transport', path)
@@ -25,6 +52,7 @@ const SERVICES = [
 export default function TransportHome() {
   return (
     <main>
+      <JsonLd data={LD_JSON} />
       <section className="pt-48 pb-28 hero-transport">
         <div className="container-site">
           <ScrollReveal>
@@ -33,7 +61,7 @@ export default function TransportHome() {
               Go With<br /><span className="text-accent">the Best</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Family-owned Tennessee trucking and logistics — dry van truckload, cross-docking, final mile, overweight assistance, truck parking, and boat/RV storage. Where family matters.
+              Family-owned Tennessee trucking — dry van truckload, cross docking, final mile, overweight hauls, and secure storage. Where family matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/services')} size="lg">Our Services</Button>

@@ -6,8 +6,15 @@ import { ContactForm } from '@/components/sections/ContactForm'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Contact BIR Transport',
-  description: 'Get a quote for transport and logistics services. USDOT 717687.',
+  title: 'Request a Freight Quote | BIR Transport · USDOT 717687 · 540-980-7530',
+  description: 'Get a quote for trucking and logistics from BIR Transport. USDOT 717687. Call 540-980-7530 or submit your request online.',
+  alternates: { canonical: 'https://transport.teambir.com/contact' },
+  openGraph: {
+    type: 'website',
+    url: 'https://transport.teambir.com/contact',
+    title: 'Request a Freight Quote | BIR Transport · USDOT 717687 · 540-980-7530',
+    description: 'Get a quote for trucking and logistics from BIR Transport. USDOT 717687. Call 540-980-7530 or submit your request online.',
+  },
 }
 
 export default function TransportContactPage() {

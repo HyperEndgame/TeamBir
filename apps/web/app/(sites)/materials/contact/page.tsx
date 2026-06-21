@@ -6,8 +6,15 @@ import { ContactForm } from '@/components/sections/ContactForm'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Contact BIR Materials',
-  description: 'Get in touch with BIR Materials in Knoxville, Tennessee for quotes and scheduling.',
+  title: 'Get a Quote | BIR Materials — Knoxville, TN · 865-832-6247',
+  description: 'Contact BIR Materials in Knoxville, TN for quotes on aggregates, fill dirt, crushing, and recycling. Call 865-832-6247 or submit online.',
+  alternates: { canonical: 'https://materials.teambir.com/contact' },
+  openGraph: {
+    type: 'website',
+    url: 'https://materials.teambir.com/contact',
+    title: 'Get a Quote | BIR Materials — Knoxville, TN · 865-832-6247',
+    description: 'Contact BIR Materials in Knoxville, TN for quotes on aggregates, fill dirt, crushing, and recycling. Call 865-832-6247 or submit online.',
+  },
 }
 
 export default function MaterialsContactPage() {

@@ -2,11 +2,40 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
 
+const cfg = SITE_CONFIGS.materials
+
 export const metadata: Metadata = {
-  title: 'BIR Materials',
-  description: 'Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable materials recycling in Knoxville, TN. Call 865-832-6247.',
+  title: 'Aggregates, Fill Dirt & Rock Crushing in Knoxville, TN | BIR Materials',
+  description: 'Premium aggregates (#57, #78, #89), fill dirt, topsoil, contract crushing, and concrete recycling in Knoxville, TN. DOT-certified. Call 865-832-6247.',
+  alternates: { canonical: cfg.url },
+  openGraph: {
+    type: 'website',
+    url: cfg.url,
+    title: 'BIR Materials — Aggregates & Crushing | Knoxville, TN',
+    description: cfg.description,
+  },
+}
+
+const LD_JSON = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: cfg.name,
+  description: cfg.description,
+  url: cfg.url,
+  telephone: cfg.schema.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: cfg.address!.street,
+    addressLocality: cfg.address!.city,
+    addressRegion: cfg.address!.state,
+    postalCode: cfg.address!.zip,
+    addressCountry: 'US',
+  },
+  areaServed: 'East Tennessee',
 }
 
 const p = (path: string) => subPath('materials', path)
@@ -23,6 +52,7 @@ const SERVICES = [
 export default function MaterialsHome() {
   return (
     <main>
+      <JsonLd data={LD_JSON} />
       <section className="pt-48 pb-24 hero-materials">
         <div className="container-site">
           <ScrollReveal>
@@ -31,7 +61,7 @@ export default function MaterialsHome() {
               Rock Solid<br /><span className="text-accent">Results</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable recycling — serving Tennessee construction with a focus on quality and green practices.
+              Aggregates, fill dirt, contract crushing, and sustainable recycling — serving East Tennessee contractors from our Knoxville yard.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/contact')} size="lg">Request a Quote</Button>

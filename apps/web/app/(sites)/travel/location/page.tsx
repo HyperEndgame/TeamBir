@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Location & Directions',
-  description: 'Find BIR Travel Plaza in Dandridge, Tennessee. 1217 Deep Springs Rd, Dandridge TN 37725.',
+  title: 'Directions to BIR Travel Plaza | 1217 Deep Springs Rd, Dandridge TN 37725',
+  description: 'Find BIR Travel Plaza at 1217 Deep Springs Rd, Dandridge, TN 37725 — easy access from I-40. Open daily for fuel, food, and RV parking.',
+  alternates: { canonical: 'https://travel.teambir.com/location' },
+  openGraph: {
+    type: 'website',
+    url: 'https://travel.teambir.com/location',
+    title: 'Directions to BIR Travel Plaza | 1217 Deep Springs Rd, Dandridge TN 37725',
+    description: 'Find BIR Travel Plaza at 1217 Deep Springs Rd, Dandridge, TN 37725 — easy access from I-40. Open daily for fuel, food, and RV parking.',
+  },
 }
 
 export default function TravelLocationPage() {

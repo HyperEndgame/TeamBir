@@ -2,11 +2,39 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
 
+const cfg = SITE_CONFIGS.developments
+
 export const metadata: Metadata = {
-  title: 'BIR Developments',
-  description: 'Custom homes, commercial construction, renovations, excavation, and electrical in Knoxville, TN. TN Contractor License #80985.',
+  title: 'Custom Home Builder & General Contractor in Knoxville, TN | BIR Developments',
+  description: 'Custom homes, commercial construction, renovations, excavation, and electrical in Knoxville & East Tennessee. TN Contractor License #80985. Free estimates.',
+  alternates: { canonical: cfg.url },
+  openGraph: {
+    type: 'website',
+    url: cfg.url,
+    title: 'BIR Developments — General Contractor | Knoxville, TN · License #80985',
+    description: cfg.description,
+  },
+}
+
+const LD_JSON = {
+  '@context': 'https://schema.org',
+  '@type': 'GeneralContractor',
+  name: cfg.name,
+  description: cfg.description,
+  url: cfg.url,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: cfg.address!.street,
+    addressLocality: cfg.address!.city,
+    addressRegion: cfg.address!.state,
+    postalCode: cfg.address!.zip,
+    addressCountry: 'US',
+  },
+  areaServed: 'East Tennessee',
 }
 
 const p = (path: string) => subPath('developments', path)
@@ -23,6 +51,7 @@ const SERVICES = [
 export default function DevelopmentsHome() {
   return (
     <main>
+      <JsonLd data={LD_JSON} />
       <section className="pt-48 pb-28 hero-developments">
         <div className="container-site">
           <ScrollReveal>
@@ -31,7 +60,7 @@ export default function DevelopmentsHome() {
               Your Trusted<br /><span className="text-accent">Builder</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Custom homes, commercial construction, renovations, excavation, and electrical across Knoxville and East Tennessee — built right, every time.
+              Custom homes, commercial builds, renovations, and excavation across Knoxville and East Tennessee — built right, every time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/contact')} size="lg">Free Estimate</Button>

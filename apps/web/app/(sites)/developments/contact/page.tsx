@@ -6,8 +6,15 @@ import { ContactForm } from '@/components/sections/ContactForm'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Contact BIR Developments',
-  description: 'Get a free estimate for your construction project in Knoxville.',
+  title: 'Free Construction Estimate in Knoxville, TN | BIR Developments · License #80985',
+  description: 'Request a free estimate for residential or commercial construction in Knoxville, TN. TN Contractor License #80985.',
+  alternates: { canonical: 'https://developments.teambir.com/contact' },
+  openGraph: {
+    type: 'website',
+    url: 'https://developments.teambir.com/contact',
+    title: 'Free Construction Estimate in Knoxville, TN | BIR Developments · License #80985',
+    description: 'Request a free estimate for residential or commercial construction in Knoxville, TN. TN Contractor License #80985.',
+  },
 }
 
 export default function DevelopmentsContactPage() {

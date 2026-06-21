@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Transport Services',
-  description: 'Cross-docking, final mile delivery, overweight assistance, trailer storage, and refrigerated storage.',
+  title: 'Trucking Services — Dry Van, Cross Dock & Final Mile | BIR Transport TN',
+  description: 'Tennessee trucking: dry van truckload, cross docking, final mile, overweight hauls, drop trailer storage, and boat/RV storage. USDOT 717687.',
+  alternates: { canonical: 'https://transport.teambir.com/services' },
+  openGraph: {
+    type: 'website',
+    url: 'https://transport.teambir.com/services',
+    title: 'Trucking Services — Dry Van, Cross Dock & Final Mile | BIR Transport TN',
+    description: 'Tennessee trucking: dry van truckload, cross docking, final mile, overweight hauls, drop trailer storage, and boat/RV storage. USDOT 717687.',
+  },
 }
 
 export default function TransportServicesPage() {

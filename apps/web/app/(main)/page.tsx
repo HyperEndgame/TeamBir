@@ -218,26 +218,26 @@ export default function HomePage() {
               </ScrollReveal>
             ))}
 
-            {/* Team BIR card */}
+            {/* Naanstop card */}
             <ScrollReveal delay={BUSINESSES.length * 60} mode="scale">
-              <Link href="/about" className="group block h-full">
+              <Link href="/naanstop" className="group block h-full">
                 <div className="border border-accent/15 rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:border-accent/35"
                   style={{ background: 'linear-gradient(135deg, rgba(232,176,32,0.06) 0%, rgba(15,21,33,0.98) 70%)' }}
                 >
                   <div className="flex items-start justify-between mb-6">
                     <span className="stat-num text-4xl">06</span>
-                    <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/50 px-2 py-1">Corporate</span>
+                    <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/50 px-2 py-1">Food & Beverage</span>
                   </div>
                   <h3 className="font-display text-2xl text-white mb-1 group-hover:text-accent transition-colors" style={{ fontWeight: 700 }}>
-                    Team BIR
+                    Naanstop
                   </h3>
-                  <p className="font-body text-[0.7rem] tracking-[0.15em] uppercase text-accent/50 mb-4">The Umbrella</p>
+                  <p className="font-body text-[0.7rem] tracking-[0.15em] uppercase text-accent/50 mb-4">Coming Soon</p>
                   <p className="font-body text-sm text-white/50 leading-relaxed flex-1">
-                    The parent organization founded by Jimmy Bir Singh — connecting all six companies under one mission and one family.
+                    Something new is on the way. Stay tuned.
                   </p>
                   <div className="mt-8 flex items-center gap-3 text-accent/50 group-hover:text-accent transition-colors">
                     <div className="h-px w-8 bg-current group-hover:w-12 transition-all" />
-                    <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase">Our Story</span>
+                    <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase">Learn More</span>
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:translate-x-1 transition-transform">
                       <path d="M2 6h8M6 2l4 4-4 4" />
                     </svg>

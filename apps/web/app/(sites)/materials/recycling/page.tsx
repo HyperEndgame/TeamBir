@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Materials Recycling',
-  description: 'Sustainable concrete and asphalt recycling services for construction waste.',
+  title: 'Concrete & Asphalt Recycling in Knoxville, TN | BIR Materials',
+  description: 'Sustainable concrete and asphalt recycling in Knoxville, TN — reduce demolition waste, lower project costs, and source recycled materials. Call 865-832-6247.',
+  alternates: { canonical: 'https://materials.teambir.com/recycling' },
+  openGraph: {
+    type: 'website',
+    url: 'https://materials.teambir.com/recycling',
+    title: 'Concrete & Asphalt Recycling in Knoxville, TN | BIR Materials',
+    description: 'Sustainable concrete and asphalt recycling in Knoxville, TN — reduce demolition waste, lower project costs, and source recycled materials. Call 865-832-6247.',
+  },
 }
 
 export default function RecyclingPage() {

@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Plaza Amenities',
-  description: "McDonald's, fuel, truckers lounge, and full-hookup RV parking.",
+  title: 'Amenities — Jack in the Box, Fuel & RV Parking | BIR Travel Plaza Dandridge TN',
+  description: 'BIR Travel Plaza amenities in Dandridge, TN — Jack in the Box, Naan Stop, 100% No Ethanol fuel, trucker showers, and 250 full-hookup RV spaces near I-40.',
+  alternates: { canonical: 'https://travel.teambir.com/amenities' },
+  openGraph: {
+    type: 'website',
+    url: 'https://travel.teambir.com/amenities',
+    title: 'Amenities — Jack in the Box, Fuel & RV Parking | BIR Travel Plaza Dandridge TN',
+    description: 'BIR Travel Plaza amenities in Dandridge, TN — Jack in the Box, Naan Stop, 100% No Ethanol fuel, trucker showers, and 250 full-hookup RV spaces near I-40.',
+  },
 }
 
 export default function TravelAmenitiesPage() {

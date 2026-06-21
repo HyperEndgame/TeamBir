@@ -6,8 +6,15 @@ import { ContactForm } from '@/components/sections/ContactForm'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Contact BIR Travel Plaza',
-  description: 'Get in touch with BIR Travel Plaza for inquiries and reservations.',
+  title: 'Contact BIR Travel Plaza | Dandridge, TN · Near I-40',
+  description: 'Contact BIR Travel Plaza in Dandridge, TN for questions about fuel, RV hookups, dining, or trucker facilities. Open daily.',
+  alternates: { canonical: 'https://travel.teambir.com/contact' },
+  openGraph: {
+    type: 'website',
+    url: 'https://travel.teambir.com/contact',
+    title: 'Contact BIR Travel Plaza | Dandridge, TN · Near I-40',
+    description: 'Contact BIR Travel Plaza in Dandridge, TN for questions about fuel, RV hookups, dining, or trucker facilities. Open daily.',
+  },
 }
 
 export default function TravelContactPage() {

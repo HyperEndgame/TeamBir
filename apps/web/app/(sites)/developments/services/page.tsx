@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Construction Services',
-  description: 'Custom homes, commercial construction, renovations, and excavation services.',
+  title: 'Construction Services in Knoxville, TN | BIR Developments · License #80985',
+  description: 'Custom homes, commercial construction, renovations, excavation, electrical, and materials in Knoxville, TN. TN Contractor License #80985.',
+  alternates: { canonical: 'https://developments.teambir.com/services' },
+  openGraph: {
+    type: 'website',
+    url: 'https://developments.teambir.com/services',
+    title: 'Construction Services in Knoxville, TN | BIR Developments · License #80985',
+    description: 'Custom homes, commercial construction, renovations, excavation, electrical, and materials in Knoxville, TN. TN Contractor License #80985.',
+  },
 }
 
 export default function DevelopmentsServicesPage() {

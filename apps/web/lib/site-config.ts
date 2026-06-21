@@ -8,6 +8,7 @@ export interface SiteConfig {
   nav: { label: string; href: string }[]
   accentColor?: string
   logoSrc?: string
+  address?: { street: string; city: string; state: string; zip: string }
   schema: {
     type: string
     locality: string
@@ -43,6 +44,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Recycling', href: '/recycling' },
       { label: 'Contact', href: '/contact' },
     ],
+    address: { street: '2601 Western Avenue', city: 'Knoxville', state: 'TN', zip: '37921' },
     schema: { type: 'LocalBusiness', locality: 'Knoxville', phone: '865-832-6247' },
   },
   luxury: {
@@ -84,6 +86,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Subcontractors', href: '/contact' },
       { label: 'Contact', href: '/contact' },
     ],
+    address: { street: '2225 Sycamore Drive', city: 'Knoxville', state: 'TN', zip: '37921' },
     schema: { type: 'GeneralContractor', locality: 'Knoxville' },
   },
   travel: {
@@ -97,6 +100,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Location', href: '/location' },
       { label: 'Contact', href: '/contact' },
     ],
+    address: { street: '1217 Deep Springs Rd', city: 'Dandridge', state: 'TN', zip: '37725' },
     schema: { type: 'TravelAgency', locality: 'Dandridge' },
   },
 }

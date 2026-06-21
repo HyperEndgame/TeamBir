@@ -2,11 +2,39 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
 
+const cfg = SITE_CONFIGS.travel
+
 export const metadata: Metadata = {
-  title: 'BIR Travel Plaza',
-  description: "Tennessee's premier travel plaza in Dandridge — Jack in the Box, Naan Stop, 100% No Ethanol fuel, 250 parking spaces, and full-hookup RV parking.",
+  title: 'Travel Plaza in Dandridge, TN — Fuel, Food & RV Parking near I-40 | BIR Travel',
+  description: "Premier travel plaza at 1217 Deep Springs Rd, Dandridge, TN — 100% No Ethanol fuel, Jack in the Box, Naan Stop, 250 parking spaces & full-hookup RV.",
+  alternates: { canonical: cfg.url },
+  openGraph: {
+    type: 'website',
+    url: cfg.url,
+    title: 'BIR Travel Plaza — Fuel, Food & RV Parking | Dandridge, TN near I-40',
+    description: cfg.description,
+  },
+}
+
+const LD_JSON = {
+  '@context': 'https://schema.org',
+  '@type': 'GasStation',
+  name: cfg.name,
+  description: cfg.description,
+  url: cfg.url,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: cfg.address!.street,
+    addressLocality: cfg.address!.city,
+    addressRegion: cfg.address!.state,
+    postalCode: cfg.address!.zip,
+    addressCountry: 'US',
+  },
+  openingHours: 'Mo-Su 00:00-23:59',
 }
 
 const p = (path: string) => subPath('travel', path)
@@ -22,15 +50,16 @@ const AMENITIES = [
 export default function TravelHome() {
   return (
     <main>
+      <JsonLd data={LD_JSON} />
       <section className="pt-48 pb-28 hero-travel">
         <div className="container-site">
           <ScrollReveal>
-            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Dandridge, Tennessee</p>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Dandridge, Tennessee · Near I-40</p>
             <h1 className="font-display text-[clamp(3rem,8vw,8rem)] text-white leading-none mb-6" style={{ fontWeight: 800 }}>
               Your Stop.<br /><span className="text-accent">Every Time.</span>
             </h1>
             <p className="font-body text-white/60 text-xl max-w-2xl leading-relaxed mb-10">
-              Tennessee's premier travel plaza at 1217 Deep Springs Rd, Dandridge — 100% No Ethanol fuel, Jack in the Box, Naan Stop, trucker facilities, and full-hookup RV parking.
+              100% No Ethanol fuel, Jack in the Box, Naan Stop, trucker showers, and 250 spaces with full-hookup RV parking — all off I-40 in Dandridge.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button as="a" href={p('/amenities')} size="lg">See Amenities</Button>

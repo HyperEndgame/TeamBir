@@ -6,8 +6,15 @@ import { Button } from '@/components/ui/Button'
 import { SITE_CONFIGS } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Premium Aggregates',
-  description: 'Multiple sizes of premium aggregates for concrete, asphalt, and construction projects.',
+  title: 'Premium Aggregates #57 #78 #89 in Knoxville, TN | BIR Materials',
+  description: 'DOT-certified aggregates — #57, #78, #89, #6-10 — for concrete, asphalt, drainage, and landscaping in Knoxville, TN. Call 865-832-6247.',
+  alternates: { canonical: 'https://materials.teambir.com/aggregates' },
+  openGraph: {
+    type: 'website',
+    url: 'https://materials.teambir.com/aggregates',
+    title: 'Premium Aggregates #57 #78 #89 in Knoxville, TN | BIR Materials',
+    description: 'DOT-certified aggregates — #57, #78, #89, #6-10 — for concrete, asphalt, drainage, and landscaping in Knoxville, TN. Call 865-832-6247.',
+  },
 }
 
 export default function AggregatesPage() {
