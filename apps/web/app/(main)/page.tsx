@@ -170,9 +170,9 @@ export default function HomePage() {
       <section className="relative py-12 glass border-y border-accent/10 overflow-hidden">
         <ConstellationBg className="opacity-50" />
         <div className="ticker-track flex items-center gap-0 w-max">
-          {[...STATS, ...STATS].map((s, i) => (
+          {Array(8).fill(STATS).flat().map((s, i) => (
             <div key={i} className="flex items-center">
-              <div className="text-center px-12">
+              <div className="text-center px-16">
                 <p className="stat-num text-5xl md:text-6xl mb-1">{s.value}</p>
                 <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-muted">{s.label}</p>
               </div>
