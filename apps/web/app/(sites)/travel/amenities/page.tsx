@@ -225,6 +225,53 @@ export default function TravelAmenitiesPage() {
         </div>
       </section>
 
+      {/* Directions */}
+      <section className="py-24 border-b border-border">
+        <div className="container-site">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">Getting Here</p>
+            <h2 className="font-display text-5xl tracking-wider text-text mb-4">Directions</h2>
+            <p className="text-muted text-lg mb-12 max-w-2xl">BIR Travel Plaza is conveniently located just off I-40 in Dandridge, TN.</p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <ScrollReveal>
+              <Card>
+                <Badge className="mb-4">Address</Badge>
+                <h3 className="font-display text-2xl text-text mb-4">BIR Travel Plaza</h3>
+                <p className="text-muted text-lg leading-relaxed mb-6">
+                  1217 Deep Springs Road<br />
+                  Dandridge, TN 37725<br />
+                  United States
+                </p>
+                <Button as="a" href="https://maps.google.com/?q=1217+Deep+Springs+Road+Dandridge+TN+37725" variant="primary" size="sm" target="_blank" rel="noopener noreferrer">Open in Google Maps</Button>
+              </Card>
+            </ScrollReveal>
+
+            <ScrollReveal delay={100}>
+              <div>
+                <p className="font-mono text-xs tracking-widest uppercase text-accent mb-4">From I-40</p>
+                <h3 className="font-display text-3xl tracking-wider text-text mb-6">Step-by-Step</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-4">
+                    <span className="font-mono text-accent text-sm mt-1 shrink-0">01</span>
+                    <span className="text-muted">Take <span className="text-text">I-40 to Exit 417</span> (Dandridge / Deep Springs Road)</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="font-mono text-accent text-sm mt-1 shrink-0">02</span>
+                    <span className="text-muted">Turn onto <span className="text-text">Deep Springs Road</span> heading south</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="font-mono text-accent text-sm mt-1 shrink-0">03</span>
+                    <span className="text-muted">BIR Travel Plaza is immediately on your right at <span className="text-text">1217 Deep Springs Road</span></span>
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-24">
         <div className="container-site">
@@ -235,7 +282,7 @@ export default function TravelAmenitiesPage() {
               <p className="text-muted text-lg leading-relaxed mb-8">
                 BIR Travel Plaza offers complete amenities for travelers. Stop by today and experience convenient, quality service at every facility.
               </p>
-              <Button as="a" href="/location" variant="primary" size="lg">Get Directions</Button>
+              <Button as="a" href="https://maps.google.com/?q=1217+Deep+Springs+Road+Dandridge+TN+37725" variant="primary" size="lg" target="_blank" rel="noopener noreferrer">Get Directions</Button>
             </div>
           </ScrollReveal>
         </div>
