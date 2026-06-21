@@ -7,6 +7,6 @@ export default function DevelopmentsLayout({ children }: { children: React.React
   return <>
     <Nav config={SITE_CONFIGS.developments} pathPrefix={DEMO ? '/developments' : ''} />
     {children}
-    <Footer config={SITE_CONFIGS.developments} />
+    <Footer config={SITE_CONFIGS.developments} pathPrefix={DEMO ? '/developments' : ''} />
   </>
 }

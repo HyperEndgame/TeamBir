@@ -7,6 +7,6 @@ export default function LuxuryLayout({ children }: { children: React.ReactNode }
   return <>
     <Nav config={SITE_CONFIGS.luxury} pathPrefix={DEMO ? '/luxury' : ''} />
     {children}
-    <Footer config={SITE_CONFIGS.luxury} />
+    <Footer config={SITE_CONFIGS.luxury} pathPrefix={DEMO ? '/luxury' : ''} />
   </>
 }

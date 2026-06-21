@@ -7,6 +7,6 @@ export default function MaterialsLayout({ children }: { children: React.ReactNod
   return <>
     <Nav config={SITE_CONFIGS.materials} pathPrefix={DEMO ? '/materials' : ''} />
     {children}
-    <Footer config={SITE_CONFIGS.materials} />
+    <Footer config={SITE_CONFIGS.materials} pathPrefix={DEMO ? '/materials' : ''} />
   </>
 }

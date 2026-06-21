@@ -7,6 +7,6 @@ export default function TransportLayout({ children }: { children: React.ReactNod
   return <>
     <Nav config={SITE_CONFIGS.transport} pathPrefix={DEMO ? '/transport' : ''} />
     {children}
-    <Footer config={SITE_CONFIGS.transport} />
+    <Footer config={SITE_CONFIGS.transport} pathPrefix={DEMO ? '/transport' : ''} />
   </>
 }

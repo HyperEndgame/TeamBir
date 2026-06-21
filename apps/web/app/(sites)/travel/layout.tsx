@@ -7,6 +7,6 @@ export default function TravelLayout({ children }: { children: React.ReactNode }
   return <>
     <Nav config={SITE_CONFIGS.travel} pathPrefix={DEMO ? '/travel' : ''} />
     {children}
-    <Footer config={SITE_CONFIGS.travel} />
+    <Footer config={SITE_CONFIGS.travel} pathPrefix={DEMO ? '/travel' : ''} />
   </>
 }

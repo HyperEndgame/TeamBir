@@ -104,7 +104,7 @@ export default function HomePage() {
             priority
             sizes="100vw"
             quality={95}
-            className="object-cover object-left"
+            className="object-cover object-center md:object-left"
             style={{ transform: 'scale(1.04)' }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-bg/75 via-bg/40 to-bg" />

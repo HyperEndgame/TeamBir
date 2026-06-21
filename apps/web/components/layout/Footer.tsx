@@ -3,7 +3,7 @@ import { Logo } from '@/components/ui/Logo'
 import type { SiteConfig } from '@/lib/site-config'
 import { siteUrl } from '@/lib/demo'
 
-interface Props { config: SiteConfig }
+interface Props { config: SiteConfig; pathPrefix?: string }
 
 const FAMILY_LINKS = [
   { label: 'Team BIR', href: '/' },
@@ -14,7 +14,8 @@ const FAMILY_LINKS = [
   { label: 'BIR Travel Plaza', href: siteUrl('travel') },
 ]
 
-export function Footer({ config }: Props) {
+export function Footer({ config, pathPrefix = '' }: Props) {
+  const href = (h: string) => (pathPrefix && h.startsWith('/') ? pathPrefix + h : h)
   return (
     <footer style={{ background: '#0b101a', position: 'relative', zIndex: 1 }}>
       <div className="gold-line" />
@@ -29,7 +30,7 @@ export function Footer({ config }: Props) {
           <ul className="space-y-3">
             {config.nav.map(item => (
               <li key={item.href}>
-                <Link href={item.href} className="font-body text-sm text-white/40 hover:text-accent transition-colors">
+                <Link href={href(item.href)} className="font-body text-sm text-white/40 hover:text-accent transition-colors">
                   {item.label}
                 </Link>
               </li>
@@ -56,12 +57,17 @@ export function Footer({ config }: Props) {
           <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
             © {new Date().getFullYear()} Team BIR. All rights reserved.
           </p>
-          <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
-            Powered by{' '}
-            <a href="https://zectron.net" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
-              Zectron Industries
-            </a>
-          </p>
+          <div className="flex items-center gap-6">
+            <Link href={href('/privacy')} className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25 hover:text-accent transition-colors">
+              Privacy Policy
+            </Link>
+            <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
+              Powered by{' '}
+              <a href="https://zectron.net" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                Zectron Industries
+              </a>
+            </p>
+          </div>
           <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
             Knoxville / Dandridge, Tennessee
           </p>
