@@ -113,6 +113,13 @@ h1, h2, h3, h4 {
 }
 .reveal-scale.in { opacity: 1; transform: scale(1); }
 
+/* ── Infinite ticker ── */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track { animation: ticker 18s linear infinite; }
+
 /* ── Hero fade-in keyframes ── */
 @keyframes heroFade {
   from { opacity: 0; transform: translateY(20px); }

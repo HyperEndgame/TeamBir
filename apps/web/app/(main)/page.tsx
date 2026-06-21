@@ -167,16 +167,17 @@ export default function HomePage() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="relative py-12 glass border-y border-accent/10">
+      <section className="relative py-12 glass border-y border-accent/10 overflow-hidden">
         <ConstellationBg className="opacity-50" />
-        <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-white/[0.06]">
-          {STATS.map((s, i) => (
-            <ScrollReveal key={s.label} delay={i * 80}>
-              <div className="text-center px-4">
+        <div className="ticker-track flex items-center gap-0 w-max">
+          {[...STATS, ...STATS].map((s, i) => (
+            <div key={i} className="flex items-center">
+              <div className="text-center px-12">
                 <p className="stat-num text-5xl md:text-6xl mb-1">{s.value}</p>
                 <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-muted">{s.label}</p>
               </div>
-            </ScrollReveal>
+              <div className="w-px h-10 bg-white/[0.06]" />
+            </div>
           ))}
         </div>
       </section>
