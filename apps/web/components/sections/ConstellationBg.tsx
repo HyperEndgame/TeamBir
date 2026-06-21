@@ -30,8 +30,10 @@ export function ConstellationBg({ className }: { className?: string }) {
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseleave', onMouseLeave)
 
-    // Grid-based placement: divide canvas into cells, one star per cell
-    const COLS = 13, ROWS = 10
+    // Grid-based placement: cell size ~120px so density scales with canvas size
+    const CELL = 120
+    const COLS = Math.max(3, Math.round(canvas.width / CELL))
+    const ROWS = Math.max(2, Math.round(canvas.height / CELL))
     const stars = Array.from({ length: COLS * ROWS }, (_, i) => {
       const col = i % COLS
       const row = Math.floor(i / COLS)
