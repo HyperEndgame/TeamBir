@@ -87,8 +87,8 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
 
       {/* Mobile drawer */}
       <div className={clsx(
-        'md:hidden glass border-t border-white/5 overflow-hidden transition-all duration-300',
-        open ? 'max-h-80 py-5' : 'max-h-0'
+        'md:hidden overflow-hidden transition-all duration-300',
+        open ? 'glass border-t border-white/5 max-h-80 py-5' : 'max-h-0'
       )}>
         <ul className="container-site flex flex-col gap-4">
           {config.nav.map(item => (
