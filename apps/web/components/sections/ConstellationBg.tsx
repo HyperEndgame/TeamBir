@@ -40,9 +40,9 @@ export function ConstellationBg({ className }: { className?: string }) {
       return {
         x: (col + 0.15 + Math.random() * 0.7) / COLS,
         y: (row + 0.15 + Math.random() * 0.7) / ROWS,
-        vx: (Math.random() - 0.5) * 0.00015,
-        vy: (Math.random() - 0.5) * 0.00015,
-        r: Math.random() * 1.6 + 0.5,
+        vx: (Math.random() - 0.5) * 0.00008,
+        vy: (Math.random() - 0.5) * 0.00008,
+        r: Math.random() * 0.8 + 0.3,
       }
     })
 
@@ -67,8 +67,8 @@ export function ConstellationBg({ className }: { className?: string }) {
           const dist = Math.sqrt(dx * dx + dy * dy)
           if (dist < 160) {
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(232,176,32,${0.18 * (1 - dist / 160)})`
-            ctx.lineWidth = 0.6
+            ctx.strokeStyle = `rgba(232,176,32,${0.08 * (1 - dist / 160)})`
+            ctx.lineWidth = 0.5
             ctx.moveTo(a.x * w, a.y * h)
             ctx.lineTo(b.x * w, b.y * h)
             ctx.stroke()
@@ -84,10 +84,10 @@ export function ConstellationBg({ className }: { className?: string }) {
         const dy = sy - mouse.y
         const dist = Math.sqrt(dx * dx + dy * dy)
         if (dist < MOUSE_RADIUS) {
-          const alpha = 0.45 * (1 - dist / MOUSE_RADIUS)
+          const alpha = 0.2 * (1 - dist / MOUSE_RADIUS)
           ctx.beginPath()
           ctx.strokeStyle = `rgba(232,176,32,${alpha})`
-          ctx.lineWidth = 0.8
+          ctx.lineWidth = 0.6
           ctx.moveTo(mouse.x, mouse.y)
           ctx.lineTo(sx, sy)
           ctx.stroke()
@@ -102,7 +102,7 @@ export function ConstellationBg({ className }: { className?: string }) {
         const dy = sy - mouse.y
         const nearMouse = Math.sqrt(dx * dx + dy * dy) < MOUSE_RADIUS
         ctx.beginPath()
-        ctx.fillStyle = nearMouse ? 'rgba(232,176,32,0.95)' : 'rgba(232,176,32,0.6)'
+        ctx.fillStyle = nearMouse ? 'rgba(232,176,32,0.6)' : 'rgba(232,176,32,0.3)'
         ctx.arc(sx, sy, nearMouse ? s.r * 1.6 : s.r, 0, Math.PI * 2)
         ctx.fill()
       })
