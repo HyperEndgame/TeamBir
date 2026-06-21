@@ -4,7 +4,7 @@ nixpacksConfigPath = "nixpacks.toml"
 buildCommand = "pnpm build"
 
 [deploy]
-startCommand = "pnpm start"
+startCommand = "pnpm --dir apps/web exec next start -H 0.0.0.0 -p $PORT"
 healthcheckPath = "/"
 healthcheckTimeout = 30
 
