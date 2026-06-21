@@ -98,11 +98,12 @@ export default function HomePage() {
         {/* Eagle image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-eagle.jpg"
+            src="/images/hero-eagle-2400.jpg"
             alt="Team BIR"
             fill
             priority
-            quality={95}
+            sizes="100vw"
+            quality={82}
             className="object-cover object-center"
             style={{ transform: 'scale(1.04)' }}
           />
