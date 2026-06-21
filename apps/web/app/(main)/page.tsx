@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
+import { ConstellationBg } from '@/components/sections/ConstellationBg'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -167,6 +168,7 @@ export default function HomePage() {
 
       {/* ── STATS BAR ── */}
       <section className="relative py-12 glass border-y border-accent/10">
+        <ConstellationBg className="opacity-50" />
         <div className="container-site grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-white/[0.06]">
           {STATS.map((s, i) => (
             <ScrollReveal key={s.label} delay={i * 80}>
@@ -180,7 +182,8 @@ export default function HomePage() {
       </section>
 
       {/* ── BUSINESSES GRID ── */}
-      <section id="businesses" className="py-28 md:py-36 gradient-mesh">
+      <section id="businesses" className="relative py-28 md:py-36 gradient-mesh">
+        <ConstellationBg />
         <div className="container-site">
           <ScrollReveal>
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">The Portfolio</p>
@@ -249,7 +252,8 @@ export default function HomePage() {
       </section>
 
       {/* ── ABOUT TEASER ── */}
-      <section className="py-28">
+      <section className="relative py-28">
+        <ConstellationBg />
         <div className="container-site grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <ScrollReveal mode="left">
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-5">Our Story</p>
