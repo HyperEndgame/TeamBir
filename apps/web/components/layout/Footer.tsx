@@ -52,11 +52,17 @@ export function Footer({ config }: Props) {
       </div>
 
       <div className="border-t border-white/[0.04]">
-        <div className="container-site py-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="font-mono text-[0.6rem] tracking-[0.2em] text-white/20">
+        <div className="container-site py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
             © {new Date().getFullYear()} Team BIR. All rights reserved.
           </p>
-          <p className="font-mono text-[0.6rem] tracking-[0.2em] text-white/20">
+          <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
+            Powered by{' '}
+            <a href="https://zectron.net" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+              Zectron Industries
+            </a>
+          </p>
+          <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
             Knoxville / Dandridge, Tennessee
           </p>
         </div>

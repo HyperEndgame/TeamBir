@@ -29,7 +29,7 @@ export function Logo({ href = '/', className }: Props) {
 
       <div className="flex flex-col leading-none">
         <span
-          className="font-display font-800 text-[1.35rem] tracking-[0.18em] text-white group-hover:text-accent transition-colors duration-300"
+          className="font-display font-800 text-[1.35rem] tracking-[0.18em] text-accent group-hover:text-white transition-colors duration-300"
           style={{ fontWeight: 800, letterSpacing: '0.18em' }}
         >
           TEAM BIR

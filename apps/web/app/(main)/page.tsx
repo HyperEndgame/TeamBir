@@ -11,7 +11,7 @@ import { SITE_CONFIGS } from '@/lib/site-config'
 import { siteUrl } from '@/lib/demo'
 
 export const metadata: Metadata = {
-  title: 'Team BIR — Built to Last. Driven to Deliver.',
+  title: 'Team BIR — Go With the Best.',
   description: SITE_CONFIGS.main.description,
   openGraph: { type: 'website', title: 'Team BIR', description: SITE_CONFIGS.main.description },
   alternates: { canonical: 'https://teambir.com' },
@@ -98,16 +98,15 @@ export default function HomePage() {
         {/* Eagle image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-eagle-2400.jpg"
+            src="/images/hero-eagle.avif"
             alt="Team BIR"
             fill
             priority
             sizes="100vw"
-            quality={82}
-            className="object-cover object-center"
+            quality={95}
+            className="object-cover object-left"
             style={{ transform: 'scale(1.04)' }}
           />
-          {/* Dark vignette overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-bg/75 via-bg/40 to-bg" />
           <div className="absolute inset-0 bg-gradient-to-r from-bg/60 via-transparent to-bg/40" />
         </div>
@@ -133,16 +132,15 @@ export default function HomePage() {
             className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] text-white mb-8 hero-animate"
             style={{ animationDelay: '0.25s', fontWeight: 800, letterSpacing: '-0.01em' }}
           >
-            Built to Last.<br />
+            Go With<br />
             <span style={{
               background: 'linear-gradient(135deg, #F5D060 0%, #E8B020 50%, #B88A18 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
             }}>
-              Driven to
-            </span>{' '}
-            Deliver.
+              the Best.
+            </span>
           </h1>
 
           <p

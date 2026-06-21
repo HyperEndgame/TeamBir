@@ -18,7 +18,8 @@ export interface SiteConfig {
 export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
   main: {
     name: 'Team BIR',
-    tagline: 'Built to Last. Driven to Deliver.',
+    tagline: 'Go With the Best.',
+    logoSrc: '/images/mainlogo.png',
     description: 'Team BIR is a family of Tennessee-based companies spanning construction, transport, real estate, and hospitality — founded by Jimmy Bir Singh.',
     url: 'https://teambir.com',
     nav: [
