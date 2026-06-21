@@ -30,13 +30,19 @@ export function ConstellationBg({ className }: { className?: string }) {
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseleave', onMouseLeave)
 
-    const stars = Array.from({ length: 130 }, () => ({
-      x: Math.random(),
-      y: Math.random(),
-      vx: (Math.random() - 0.5) * 0.00015,
-      vy: (Math.random() - 0.5) * 0.00015,
-      r: Math.random() * 1.6 + 0.5,
-    }))
+    // Grid-based placement: divide canvas into cells, one star per cell
+    const COLS = 13, ROWS = 10
+    const stars = Array.from({ length: COLS * ROWS }, (_, i) => {
+      const col = i % COLS
+      const row = Math.floor(i / COLS)
+      return {
+        x: (col + 0.15 + Math.random() * 0.7) / COLS,
+        y: (row + 0.15 + Math.random() * 0.7) / ROWS,
+        vx: (Math.random() - 0.5) * 0.00015,
+        vy: (Math.random() - 0.5) * 0.00015,
+        r: Math.random() * 1.6 + 0.5,
+      }
+    })
 
     let frame: number
     const draw = () => {
