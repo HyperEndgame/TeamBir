@@ -128,7 +128,7 @@ export function ConstellationBg({ className }: { className?: string }) {
     window.addEventListener('touchend', onTouchEnd)
 
     return () => {
-      cancelAnimationFrame(frame)
+      if (frame !== null) cancelAnimationFrame(frame)
       ro.disconnect()
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseleave', onMouseLeave)
