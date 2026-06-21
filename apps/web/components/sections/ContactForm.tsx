@@ -7,6 +7,7 @@ interface Props { siteName: string }
 export function ContactForm({ siteName }: Props) {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [fields, setFields] = useState({ name: '', email: '', phone: '', company: '', message: '' })
 
   const set = (k: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -15,13 +16,21 @@ export function ContactForm({ siteName }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError(null)
     try {
-      const res = await fetch('https://formsubmit.co/ajax/zectronempire@gmail.com', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ _subject: `New contact from ${siteName}`, ...fields }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ _subject: `New contact from ${siteName}`, _hp: '', ...fields }),
       })
-      if (res.ok) setSent(true)
+      if (res.ok) {
+        setSent(true)
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setError(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Unable to send message. Please check your connection and try again.')
     } finally {
       setLoading(false)
     }
@@ -41,6 +50,9 @@ export function ContactForm({ siteName }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {/* honeypot — hidden from real users, bots fill it */}
+      <input type="text" name="_hp" tabIndex={-1} aria-hidden="true" className="hidden" />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label className="block font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/70 mb-2">Name</label>
@@ -70,6 +82,11 @@ export function ContactForm({ siteName }: Props) {
         <label className="block font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/70 mb-2">Message</label>
         <textarea required rows={5} className={inputCls + ' resize-none'} placeholder="How can we help?" value={fields.message} onChange={set('message')} />
       </div>
+      {error && (
+        <div className="border border-red-500/30 p-4 text-center" style={{ background: 'rgba(239,68,68,0.04)' }}>
+          <p className="font-body text-sm text-red-400">{error}</p>
+        </div>
+      )}
       <Button type="submit" size="lg" className="w-full md:w-auto" disabled={loading}>
         {loading ? 'Sending…' : 'Send Message'}
       </Button>

@@ -59,8 +59,9 @@ export function ConstellationBg({ className }: { className?: string }) {
           const b = stars[j]
           const dx = (a.x - b.x) * w
           const dy = (a.y - b.y) * h
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < p.LINK_DIST) {
+          const dist2 = dx * dx + dy * dy
+          if (dist2 < p.LINK_DIST * p.LINK_DIST) {
+            const dist = Math.sqrt(dist2)
             ctx.beginPath()
             ctx.strokeStyle = `rgba(232,176,32,${p.LINE_ALPHA * (1 - dist / p.LINK_DIST)})`
             ctx.lineWidth = 0.5
