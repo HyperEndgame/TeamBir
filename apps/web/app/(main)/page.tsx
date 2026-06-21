@@ -288,6 +288,20 @@ export default function HomePage() {
       {/* ── FAQ ── */}
       <Faq />
 
+      {/* ── QUOTE ── */}
+      <section className="py-24 border-t border-white/[0.06]">
+        <div className="container-site">
+          <ScrollReveal>
+            <blockquote className="max-w-3xl mx-auto text-center">
+              <p className="font-display text-[clamp(1.5rem,3.5vw,2.75rem)] tracking-wider text-white leading-snug mb-8 uppercase" style={{ fontWeight: 700 }}>
+                "Opportunity does not come when you are ready for it, you must be ready for the opportunity when it arrives."
+              </p>
+              <cite className="font-mono text-xs tracking-[0.25em] uppercase text-accent not-italic">— Jimmy Singh</cite>
+            </blockquote>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="py-28 relative overflow-hidden">
         <div className="absolute inset-0 gradient-gold pointer-events-none" />
