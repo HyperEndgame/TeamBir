@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   description: 'Team BIR is a family of Tennessee-based companies spanning construction, transport, real estate, and hospitality — founded by Jimmy Bir Singh.',
   metadataBase: new URL('https://teambir.com'),
   icons: {
-    icon: '/images/mainlogo.png',
-    apple: '/images/mainlogo.png',
+    icon: '/images/mainlogo-gold.png',
+    apple: '/images/mainlogo-gold.png',
   },
 }
 
