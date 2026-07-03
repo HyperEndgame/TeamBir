@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Barlow_Condensed, Barlow, JetBrains_Mono } from 'next/font/google'
 import { ConstellationBg } from '@/components/sections/ConstellationBg'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 import './globals.css'
 
 const barlowCondensed = Barlow_Condensed({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ConstellationBg />
         </div>
         {children}
+        <ChatWidget />
       </body>
     </html>
   )
