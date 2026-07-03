@@ -191,7 +191,7 @@ export function ChatWidget() {
           transition={{ duration: 1.1, repeat: open ? 0 : Infinity, repeatDelay: 2.4, ease: 'easeInOut' }}
           className="relative w-16 h-16 rounded-full bg-accent flex items-center justify-center shadow-[0_4px_28px_rgba(232,176,32,0.55)] hover:bg-accent-h hover:scale-105 transition-colors duration-200 overflow-hidden p-3"
         >
-          <Image src="/images/eaglebot-logo.png" alt="EagleBot" width={44} height={44} className="w-full h-full object-contain" />
+          <Image src="/images/eaglebot-logo-navy.png" alt="EagleBot" width={44} height={44} className="w-full h-full object-contain" />
         </motion.button>
       </div>
     </div>
