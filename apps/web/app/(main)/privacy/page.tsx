@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           </h1>
 
           <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/30 mb-16">
-            Effective: June 21, 2026
+            Effective: July 3, 2026
           </p>
 
           <div className="space-y-12 font-body text-white/60 leading-relaxed">
@@ -49,7 +49,24 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>3. How We Use Your Information</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>3. EagleBot Chat Assistant</h2>
+              <p className="mb-4">
+                Our website includes EagleBot, an AI chat assistant that answers questions about Team BIR and its
+                companies. When you use EagleBot:
+              </p>
+              <ul className="list-none space-y-2 pl-4 border-l border-accent/20">
+                <li>Your messages are sent to OpenRouter, a third-party AI service provider, to generate a response</li>
+                <li>Chat messages are not stored on our servers after your session ends</li>
+                <li>Do not share sensitive personal information (e.g., financial or health details) in the chat</li>
+              </ul>
+              <p className="mt-4">
+                EagleBot is limited to answering questions about Team BIR and its companies and does not provide
+                legal, financial, or professional advice.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>4. How We Use Your Information</h2>
               <ul className="list-none space-y-2 pl-4 border-l border-accent/20">
                 <li>To respond to your inquiries and service requests</li>
                 <li>To provide quotes, schedule services, or follow up on business matters</li>
@@ -59,7 +76,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>4. Cookies</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>5. Cookies</h2>
               <p>
                 Our websites use only essential cookies required for site functionality (e.g., session management).
                 We do not use advertising cookies or cross-site tracking.
@@ -67,7 +84,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>5. Data Retention</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>6. Data Retention</h2>
               <p>
                 Contact form submissions are retained for up to 2 years to support ongoing business relationships,
                 then deleted unless required for legal or contractual reasons.
@@ -75,7 +92,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>6. Your Rights</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>7. Your Rights</h2>
               <p>
                 You may request access to, correction of, or deletion of your personal data at any time by
                 contacting us at the address below. We will respond within 30 days.
@@ -83,7 +100,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>7. Security</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>8. Security</h2>
               <p>
                 All data is transmitted over HTTPS. We implement reasonable technical and organizational measures
                 to protect your information against unauthorized access or disclosure.
@@ -91,7 +108,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>8. Contact</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>9. Contact</h2>
               <p>Questions about this policy? Reach us at:</p>
               <div className="mt-4 pl-4 border-l border-accent/20 space-y-1">
                 <p>Team BIR</p>
@@ -103,7 +120,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>9. Changes to This Policy</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>10. Changes to This Policy</h2>
               <p>
                 We may update this policy periodically. The effective date at the top of this page reflects
                 the most recent revision. Continued use of our sites after changes constitutes acceptance.
