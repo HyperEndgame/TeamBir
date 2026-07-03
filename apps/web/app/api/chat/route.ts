@@ -5,6 +5,17 @@ export const runtime = 'nodejs'
 
 const FALLBACK_REPLY = "I'm having trouble connecting right now. Please try again shortly, or reach us directly via the Contact page."
 
+// Free OpenRouter models 429 constantly (shared upstream pool). Try them in
+// order until one answers. ponytail: add paid model as last entry if free tier
+// proves too flaky in production.
+const MODELS = [
+  'openai/gpt-oss-20b:free',
+  'meta-llama/llama-3.3-70b-instruct:free',
+  'qwen/qwen3-next-80b-a3b-instruct:free',
+  'openai/gpt-oss-120b:free',
+  'google/gemma-4-31b-it:free',
+]
+
 // ponytail: in-memory single-instance fixed-window limiter. Fine for one
 // Railway replica; move to Redis (INCR + TTL) if the app scales to >1 instance.
 const WINDOW_MS = 5 * 60 * 1000
@@ -67,6 +78,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'messages must be a non-empty array of { role, content }.' }, { status: 400 })
   }
 
+  const payload = [{ role: 'system', content: SYSTEM_PROMPT }, ...messages]
+  for (const model of MODELS) {
+    const reply = await tryModel(apiKey, model, payload)
+    if (reply) return NextResponse.json({ reply })
+  }
+  return NextResponse.json({ reply: FALLBACK_REPLY })
+}
+
+async function tryModel(apiKey: string, model: string, messages: unknown): Promise<string | null> {
   try {
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -76,27 +96,17 @@ export async function POST(request: NextRequest) {
         'HTTP-Referer': 'https://teambir.com',
         'X-Title': 'Team BIR',
       },
-      body: JSON.stringify({
-        model: 'meta-llama/llama-3.3-70b-instruct:free',
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
-        max_tokens: 500,
-        temperature: 0.4,
-      }),
+      body: JSON.stringify({ model, messages, max_tokens: 600, temperature: 0.4 }),
     })
-
     if (!res.ok) {
-      console.error('OpenRouter error:', res.status, await res.text())
-      return NextResponse.json({ reply: FALLBACK_REPLY })
+      console.error('OpenRouter error:', model, res.status)
+      return null
     }
-
     const data = await res.json()
     const reply = data?.choices?.[0]?.message?.content
-    if (typeof reply !== 'string') {
-      return NextResponse.json({ reply: FALLBACK_REPLY })
-    }
-    return NextResponse.json({ reply })
+    return typeof reply === 'string' && reply.trim() ? reply : null
   } catch (err) {
-    console.error('Chat route error:', err)
-    return NextResponse.json({ reply: FALLBACK_REPLY })
+    console.error('Chat route error:', model, err)
+    return null
   }
 }

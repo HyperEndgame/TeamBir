@@ -99,4 +99,14 @@ Both SHOULD-FIX items resolved:
 
 Re-verified: `node lib/chatbot-knowledge.test.mjs` OK; `tsc --noEmit` clean (only pre-existing nodemailer error). Loop converged — no breaking errors remained.
 
-**Deploy note:** `OPENROUTER_API_KEY` must be set on Railway for the `testing` deploy, else the bot returns the graceful fallback message instead of real answers. End-to-end browser test runs against the Railway `testing` URL (project rule: no local dev server).
+**Deploy note:** `OPENROUTER_API_KEY` must be set on Railway for the `testing` deploy, else the bot returns the graceful fallback message instead of real answers.
+
+### Iteration 2 — live test + model fallback (Opus)
+
+Ran local `next start` + browser test. Found the single free model (`llama-3.3-70b:free`) 429s constantly (shared upstream pool) → bot showed only the fallback message. Fix: `route.ts` now iterates an ordered `MODELS` list, trying each until one returns a usable reply (extracted into `tryModel()`). First-working entry today: `openai/gpt-oss-20b:free`.
+
+**Verified end-to-end (localhost:3000, real OpenRouter):**
+- "Where can I apply for a job?" → bot replied + browser auto-redirected to `/careers` ✓ (bubble→panel→send→sentinel-strip→router.push all confirmed via Playwright)
+- Off-topic ("write me a scraper") → politely refused (scope guardrail holds) ✓
+- "Tell me about the travel plaza" → accurate address/amenities from SITE_CONFIGS + nav to `/travel` ✓
+- Bubble renders bottom-right on every page, expands, persists across navigation ✓
