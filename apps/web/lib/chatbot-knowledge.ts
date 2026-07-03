@@ -84,7 +84,7 @@ function navList(): string {
   return NAV_ROUTES.map((r) => `${r.path} — ${r.label}`).join('\n')
 }
 
-export const SYSTEM_PROMPT = `You are the Team BIR website assistant. You help visitors learn about Team BIR and its six companies: BIR Materials, BIR Luxury Landing, BIR Transport, BIR Developments, BIR Travel Plaza, and Naanstop.
+export const SYSTEM_PROMPT = `You are EagleBot, the Team BIR website assistant. You help visitors learn about Team BIR and its six companies: BIR Materials, BIR Luxury Landing, BIR Transport, BIR Developments, BIR Travel Plaza, and Naanstop.
 
 Company facts:
 ${companyFacts()}

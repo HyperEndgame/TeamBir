@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import clsx from 'clsx'
 import { parseNavigation } from '@/lib/chatbot-knowledge'
@@ -12,7 +13,7 @@ interface Msg {
 
 const WELCOME: Msg = {
   role: 'assistant',
-  content: "Hi! I'm the Team BIR assistant. Ask me about our companies, careers, or how to get in touch.",
+  content: "Hi! I'm EagleBot, the Team BIR assistant. Ask me about our companies, careers, or how to get in touch.",
 }
 
 const MAX_INPUT = 1000
@@ -98,7 +99,10 @@ export function ChatWidget() {
             className="w-[92vw] max-w-[360px] h-[500px] max-h-[75vh] bg-surface border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-              <p className="font-display tracking-wider text-text">Team BIR Assistant</p>
+              <div className="flex items-center gap-2">
+                <Image src="/images/eaglebot-logo.png" alt="" width={22} height={22} />
+                <p className="font-display tracking-wider text-text">EagleBot</p>
+              </div>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
@@ -156,15 +160,40 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Open chat"
-        className="w-14 h-14 rounded-full bg-accent text-bg flex items-center justify-center shadow-[0_4px_20px_rgba(232,176,32,0.4)] hover:bg-accent-h hover:scale-105 transition-all duration-200"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" />
-        </svg>
-      </button>
+      <AnimatePresence>
+        {!open && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.18 }}
+            className="relative bg-surface border border-accent/40 text-text text-sm font-display tracking-wide px-4 py-2 rounded-lg shadow-lg"
+          >
+            Need help?
+            <div className="absolute -bottom-1 right-6 w-2 h-2 bg-surface border-r border-b border-accent/40 rotate-45" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="relative w-16 h-16">
+        {!open && (
+          <motion.span
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: [0, 0.45, 0], scale: [1, 1.35, 1.35] }}
+            transition={{ duration: 1.1, repeat: Infinity, repeatDelay: 2.4, ease: 'easeOut' }}
+            className="absolute inset-0 rounded-full bg-accent"
+          />
+        )}
+        <motion.button
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Open chat"
+          animate={open ? { scale: 1 } : { scale: [1, 1.08, 1] }}
+          transition={{ duration: 1.1, repeat: open ? 0 : Infinity, repeatDelay: 2.4, ease: 'easeInOut' }}
+          className="relative w-16 h-16 rounded-full bg-accent flex items-center justify-center shadow-[0_4px_28px_rgba(232,176,32,0.55)] hover:bg-accent-h hover:scale-105 transition-colors duration-200 overflow-hidden p-3"
+        >
+          <Image src="/images/eaglebot-logo.png" alt="EagleBot" width={44} height={44} className="w-full h-full object-contain" />
+        </motion.button>
+      </div>
     </div>
   )
 }
