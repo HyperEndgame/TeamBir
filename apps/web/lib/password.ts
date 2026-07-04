@@ -8,6 +8,15 @@ export function hashPassword(plain: string): string {
   return `${salt}:${hash}`
 }
 
+export function verifyUsername(plain: string): boolean {
+  const expected = process.env.ADMIN_USERNAME
+  if (!expected) return false
+  const pad = (s: string) => Buffer.from(s.slice(0, 128).padEnd(128, '\0'))
+  const lengthMatches = plain.length === expected.length
+  const bytesMatch = timingSafeEqual(pad(plain), pad(expected))
+  return lengthMatches && bytesMatch
+}
+
 export async function verifyPassword(plain: string): Promise<boolean> {
   const stored = process.env.ADMIN_PASSWORD_HASH
   if (!stored) return false

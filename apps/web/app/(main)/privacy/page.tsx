@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           </h1>
 
           <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/30 mb-16">
-            Effective: July 3, 2026
+            Effective: July 4, 2026
           </p>
 
           <div className="space-y-12 font-body text-white/60 leading-relaxed">
@@ -38,13 +38,17 @@ export default function PrivacyPage() {
               <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>2. Information We Collect</h2>
               <p className="mb-4">We collect information you provide directly, including:</p>
               <ul className="list-none space-y-2 pl-4 border-l border-accent/20">
-                <li>Name, email address, and phone number submitted via contact forms</li>
+                <li>Name, email address, phone number, project location, timeline, and budget submitted via contact
+                  forms or our guided quote assistant</li>
                 <li>Message content submitted through our contact pages</li>
                 <li>Business inquiries and quote requests</li>
               </ul>
               <p className="mt-4">
-                We also collect standard server logs (IP address, browser type, pages visited) through our hosting
-                infrastructure. We do not use third-party analytics trackers.
+                This information is stored in a database on our hosting infrastructure so our team can respond to
+                and track inquiries. We also record which pages are visited on our site (page path, referring page,
+                and timestamp) via a lightweight first-party beacon — this does not use cookies, does not track you
+                across other websites, and does not build an advertising profile. We do not use third-party
+                analytics trackers.
               </p>
             </section>
 
@@ -62,6 +66,13 @@ export default function PrivacyPage() {
               <p className="mt-4">
                 EagleBot is limited to answering questions about Team BIR and its companies and does not provide
                 legal, financial, or professional advice.
+              </p>
+              <p className="mt-4">
+                If you request a quote through EagleBot's guided assistant, the project details you provide
+                (department, location, timeline, budget, phone, and email) are stored as an inquiry and routed to
+                the relevant Team BIR department, as described in Section 2. With your inquiry, authorized staff may
+                also generate a short AI-written summary of your request via OpenRouter to speed up internal
+                triage — this uses the same inquiry details already described above and is only visible to our team.
               </p>
             </section>
 
@@ -84,7 +95,16 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>6. Data Retention</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>6. Who Can See Your Information</h2>
+              <p>
+                Inquiry data is only accessible to authorized Team BIR staff through a password-protected internal
+                dashboard. We do not sell or share it with third parties, other than the AI providers described
+                above who process it solely to generate a response or summary on our behalf.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>7. Data Retention</h2>
               <p>
                 Contact form submissions are retained for up to 2 years to support ongoing business relationships,
                 then deleted unless required for legal or contractual reasons.
@@ -92,7 +112,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>7. Your Rights</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>8. Your Rights</h2>
               <p>
                 You may request access to, correction of, or deletion of your personal data at any time by
                 contacting us at the address below. We will respond within 30 days.
@@ -100,7 +120,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>8. Security</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>9. Security</h2>
               <p>
                 All data is transmitted over HTTPS. We implement reasonable technical and organizational measures
                 to protect your information against unauthorized access or disclosure.
@@ -108,7 +128,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>9. Contact</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>10. Contact</h2>
               <p>Questions about this policy? Reach us at:</p>
               <div className="mt-4 pl-4 border-l border-accent/20 space-y-1">
                 <p>Team BIR</p>
@@ -120,7 +140,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>10. Changes to This Policy</h2>
+              <h2 className="font-display text-xl text-white mb-4" style={{ fontWeight: 700 }}>11. Changes to This Policy</h2>
               <p>
                 We may update this policy periodically. The effective date at the top of this page reflects
                 the most recent revision. Continued use of our sites after changes constitutes acceptance.

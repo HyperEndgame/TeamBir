@@ -23,6 +23,16 @@ const stored = hashPassword('correct-horse')
 assert.strictEqual(verifyPassword('correct-horse', stored), true)
 assert.strictEqual(verifyPassword('wrong', stored), false)
 
+// --- verifyUsername (lib/password.ts) ---
+function verifyUsername(plain, expected) {
+  if (!expected) return false
+  const pad = (s) => Buffer.from(s.slice(0, 128).padEnd(128, '\0'))
+  return timingSafeEqual(pad(plain), pad(expected)) && plain.length === expected.length
+}
+assert.strictEqual(verifyUsername('admin', 'admin'), true)
+assert.strictEqual(verifyUsername('Admin', 'admin'), false)
+assert.strictEqual(verifyUsername('', 'admin'), false)
+
 // --- session.ts (Web Crypto, mirrors lib/session.ts) ---
 function b64url(bytes) {
   let binary = ''

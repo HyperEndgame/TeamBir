@@ -27,6 +27,69 @@ interface Stats {
   totalViews30d: number
 }
 
+function greeting(): string {
+  const h = new Date().getHours()
+  if (h < 12) return 'Good morning'
+  if (h < 18) return 'Good afternoon'
+  return 'Good evening'
+}
+
+const DEPT_COLORS: Record<Dept, string> = {
+  materials: '#d4a94a',
+  developments: '#4a90d4',
+  transport: '#4ad48f',
+  luxury: '#d44a8f',
+  travel: '#a94ad4',
+}
+
+function DonutChart({ leads }: { leads: Lead[] }) {
+  const total = leads.length
+  const counts = DEPT_CHOICES.map((d) => ({ d, count: leads.filter((l) => l.department === d).length }))
+  const withCounts = counts.filter((c) => c.count > 0)
+
+  if (total === 0) return <p className="text-muted text-sm">No leads yet.</p>
+
+  const r = 40
+  const c = 2 * Math.PI * r
+  let offset = 0
+
+  return (
+    <div className="flex items-center gap-6 flex-wrap">
+      <svg width="120" height="120" viewBox="0 0 100 100" className="-rotate-90">
+        <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="14" />
+        {withCounts.map(({ d, count }) => {
+          const frac = count / total
+          const dash = frac * c
+          const el = (
+            <circle
+              key={d}
+              cx="50"
+              cy="50"
+              r={r}
+              fill="none"
+              stroke={DEPT_COLORS[d]}
+              strokeWidth="14"
+              strokeDasharray={`${dash} ${c - dash}`}
+              strokeDashoffset={-offset}
+            />
+          )
+          offset += dash
+          return el
+        })}
+      </svg>
+      <div className="space-y-1.5">
+        {withCounts.map(({ d, count }) => (
+          <div key={d} className="flex items-center gap-2 text-sm font-body">
+            <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: DEPT_COLORS[d] }} />
+            <span className="text-text">{DEPT_LABELS[d]}</span>
+            <span className="text-muted font-mono text-xs">{count}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function timeAgo(iso: string): string {
   const ms = Date.now() - new Date(iso + 'Z').getTime()
   const mins = Math.floor(ms / 60000)
@@ -118,7 +181,10 @@ export default function AdminDashboard() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl tracking-wider text-accent">Team BIR Admin</h1>
+        <div>
+          <p className="text-sm text-muted font-body">{greeting()}, Mr. Singh</p>
+          <h1 className="font-display text-2xl tracking-wider text-accent">Team BIR Admin</h1>
+        </div>
         <div className="flex gap-3">
           <button onClick={exportCsv} className="text-sm font-body px-3 py-2 rounded-lg border border-border text-text hover:border-accent transition-colors">
             Export CSV
@@ -137,6 +203,11 @@ export default function AdminDashboard() {
             <StatTile label="New Leads" value={String(newLeads.length)} />
             <StatTile label="Page Views (30d)" value={String(stats?.totalViews30d ?? 0)} />
             <StatTile label="Top Page" value={stats?.topPages[0]?.path ?? '—'} />
+          </div>
+
+          <div className="bg-surface border border-border rounded-2xl p-5">
+            <p className="font-display tracking-wide text-text text-sm mb-3">Leads by Department</p>
+            <DonutChart leads={leads} />
           </div>
 
           {stats && stats.daily.length > 0 && (

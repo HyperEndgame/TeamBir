@@ -178,3 +178,40 @@ Ran local `next start` + browser test. Found the single free model (`llama-3.3-7
 - Off-topic ("write me a scraper") → politely refused (scope guardrail holds) ✓
 - "Tell me about the travel plaza" → accurate address/amenities from SITE_CONFIGS + nav to `/travel` ✓
 - Bubble renders bottom-right on every page, expands, persists across navigation ✓
+
+### Deploy fix — Railway build was crash-looping (Opus/Sonnet)
+
+The Task 2 deploy failed after push: `better-sqlite3`'s native build had no Python in the Nixpacks Node-20 image (`gyp ERR! find Python`), so `pnpm i --frozen-lockfile` failed outright. Fix: `nixpacks.toml` now declares a custom `[phases.setup]` with `nixPkgs = ["nodejs_20", "python3", "gcc", "gnumake"]` — first attempt omitted `nodejs_20` and broke `npm`/`node` entirely (custom `nixPkgs` replaces the provider's default package list, doesn't merge), second attempt fixed by re-including it explicitly.
+
+Also fixed via Railway CLI (`railway variables`, `railway volume add`):
+- `ADMIN_PASSWORD_HASH` had been set to the literal string `"123"` (not a hash) — regenerated via `scripts/hash-password.mjs`.
+- `SESSION_SECRET` had been set to the literal string `"openssl rand -hex32"` (command never run) — regenerated a real random hex value.
+- `DB_PATH` got mangled to a Windows path (`C:/Program Files/Git/data/teambir.db`) by Git Bash's MSYS path auto-conversion — fixed with `MSYS_NO_PATHCONV=1`.
+- Mounted a Railway Volume (`teambir-volume`, 500MB) at `/data` via `railway volume add --mount-path /data`.
+
+Deploy confirmed **Online** after these fixes, volume writable (DB file created on first request).
+
+### Iteration 3 — Dashboard v2 + lead-flow polish (Opus plan / Sonnet / Haiku)
+
+**Opus plan:** seed script for demo data (hard-guarded against non-empty DB), hand-rolled SVG donut chart (no new dep), username+password login (single hardcoded `ADMIN_USERNAME`, reuse existing rate limiter), time-of-day greeting (client `Date.getHours()`), hide EagleBot on `/admin*` (`usePathname` early-return in `ChatWidget`), privacy policy rewrite to reflect real data practices.
+
+**Sonnet implementation:**
+- `scripts/seed.mjs` — seeds 10 demo leads (varied dept/location/status) + ~30 days of realistic page_views; refuses to run against a non-empty `leads` table unless `--force`. `lib/db.ts`'s `insertLead`/`insertPageView` gained an optional `created_at` override to let the seed backdate rows.
+- `app/admin/page.tsx` — added `greeting()` (Good morning/afternoon/evening, Mr. Singh) and a hand-rolled `DonutChart` (SVG `stroke-dasharray`/`stroke-dashoffset`, one slice per department, `DEPT_COLORS` const) — zero new dependencies.
+- `lib/password.ts` — added `verifyUsername()` (scrypt-style timing-safe compare via zero-padded fixed-length buffers), wired into `app/api/admin/login/route.ts` alongside the existing password check; login page gained a username field. New env var `ADMIN_USERNAME`.
+- `components/chat/ChatWidget.tsx` — `usePathname()` + early `return null` when path starts with `/admin`, so EagleBot never renders on the dashboard.
+- `app/(main)/privacy/page.tsx` — updated §2 (SQLite storage of lead fields, cookieless page-view beacon), §3 (AI summarization via OpenRouter for lead triage), new §6 "Who Can See Your Information" (password-gated staff-only access), renumbered subsequent sections, bumped effective date.
+
+**Live verification (agent-driven):** POST `/api/lead` with a full lead payload → 200, row inserted (id 11); logged into `/api/admin/login` with `admin`/`123`; GET `/api/admin/leads` confirmed the lead present with correct department/location/phone. Confirms EagleBot → lead-flow → API → DB → dashboard end-to-end.
+
+**Haiku findings:**
+- *Real, fixed:* `verifyUsername`'s `&&` ordering ran the length check after `timingSafeEqual` — reordered so length is checked first (timingSafeEqual already ran in constant time regardless due to fixed-length padding, so this was a minor defense-in-depth fix, not an exploitable leak).
+- *False positive, dismissed:* claimed the `ChatWidget` early-return violated React's rules of hooks — verified all 7 `useState`/2 `useRef`/3 `useEffect` calls occur before the early return with no hooks after it; this is a standard safe pattern.
+- *False positive, dismissed (deploy target mismatch):* flagged the login route's in-memory rate-limiter `Map` as broken under serverless — this app runs as a persistent Node container on Railway (`next start`), not serverless/Lambda, so in-memory state persists correctly between requests.
+- *Moot, already proven:* flagged uncertainty about whether the custom Nixpacks `nixPkgs` list drops other provider packages (openssl, ca-certificates) — the actual Railway deploy already succeeded end-to-end, so this is resolved in practice.
+
+**Ponytail-audit (repo-wide complexity scan):** found `framer-motion` used only in `ChatWidget.tsx` for simple fades/pulses (CSS-doable, ~1 dependency removable), a permanent `NEXT_PUBLIC_DEMO_MODE=true` branching `lib/demo.ts`/`lib/subdomain.ts` that's never flipped off in any env file. **Not applied** — both touch live UX/routing (chat animations, multi-tenant subdomain architecture that's intentionally staged for later, not accidental cruft) and need dedicated visual/functional testing before removal. Logged as deferred tech debt, not urgent.
+
+**Applied without a full review cycle (safe, mechanical):** deleted 4 unreferenced hero image files (`hero-eagle.jpg` 6.3MB, `hero-eagle-2400.jpg` 104KB, `hero-eagle.jxl` 2.3MB, `hero-eagle-lossless.jxl` 3.9MB) — none were referenced anywhere in the codebase; the live hero image is `hero-eagle.avif` (80KB). Cut `public/images/` from ~13.6MB to ~885KB, directly reducing mobile page weight and repo/deploy storage.
+
+Loop converged — `tsc --noEmit` clean, all `.mjs` self-checks pass.

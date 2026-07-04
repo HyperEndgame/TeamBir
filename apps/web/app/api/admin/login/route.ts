@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyPassword } from '@/lib/password'
+import { verifyPassword, verifyUsername } from '@/lib/password'
 import { createSession, COOKIE_NAME } from '@/lib/session'
 
 export const runtime = 'nodejs'
@@ -25,9 +25,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Too many attempts. Please wait and try again.' }, { status: 429 })
   }
 
-  const { password } = await request.json().catch(() => ({}))
-  if (typeof password !== 'string' || !(await verifyPassword(password))) {
-    return NextResponse.json({ error: 'Incorrect password.' }, { status: 401 })
+  const { username, password } = await request.json().catch(() => ({}))
+  const validUsername = typeof username === 'string' && verifyUsername(username)
+  const validPassword = typeof password === 'string' && (await verifyPassword(password))
+  if (!validUsername || !validPassword) {
+    return NextResponse.json({ error: 'Incorrect username or password.' }, { status: 401 })
   }
 
   const session = await createSession()

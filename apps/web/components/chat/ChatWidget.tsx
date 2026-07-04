@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import clsx from 'clsx'
@@ -55,6 +55,7 @@ export function ChatWidget() {
   const [leadError, setLeadError] = useState('')
   const [hp, setHp] = useState('')
   const router = useRouter()
+  const pathname = usePathname()
   const inputRef = useRef<HTMLInputElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -183,6 +184,8 @@ export function ChatWidget() {
     setMessages((m) => [...m, { role: 'user', content: value }])
     advanceLead({ [lead.step]: value } as Partial<LeadState>)
   }
+
+  if (pathname?.startsWith('/admin')) return null
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">

@@ -67,12 +67,13 @@ export interface NewLead {
   message?: string | null
   phone?: string | null
   email: string
+  created_at?: string
 }
 
 export function insertLead(row: NewLead): number {
   const stmt = getDb().prepare(`
-    INSERT INTO leads (source, department, property_type, location, timeline, budget, name, message, phone, email)
-    VALUES (@source, @department, @property_type, @location, @timeline, @budget, @name, @message, @phone, @email)
+    INSERT INTO leads (source, department, property_type, location, timeline, budget, name, message, phone, email${row.created_at ? ', created_at' : ''})
+    VALUES (@source, @department, @property_type, @location, @timeline, @budget, @name, @message, @phone, @email${row.created_at ? ', @created_at' : ''})
   `)
   const result = stmt.run({
     source: row.source,
@@ -85,6 +86,7 @@ export function insertLead(row: NewLead): number {
     message: row.message ?? null,
     phone: row.phone ?? null,
     email: row.email,
+    ...(row.created_at ? { created_at: row.created_at } : {}),
   })
   return Number(result.lastInsertRowid)
 }
@@ -105,8 +107,12 @@ export function updateLead(id: number, patch: { department?: string; status?: st
   return getLead(id)
 }
 
-export function insertPageView(path: string, referrer: string | null): void {
-  getDb().prepare('INSERT INTO page_views (path, referrer) VALUES (?, ?)').run(path, referrer)
+export function insertPageView(path: string, referrer: string | null, createdAt?: string): void {
+  if (createdAt) {
+    getDb().prepare('INSERT INTO page_views (path, referrer, created_at) VALUES (?, ?, ?)').run(path, referrer, createdAt)
+  } else {
+    getDb().prepare('INSERT INTO page_views (path, referrer) VALUES (?, ?)').run(path, referrer)
+  }
 }
 
 export function trafficStats(): { daily: { day: string; count: number }[]; topPages: { path: string; count: number }[]; totalViews30d: number } {
