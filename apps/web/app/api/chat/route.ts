@@ -1,20 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { SYSTEM_PROMPT } from '@/lib/chatbot-knowledge'
+import { complete } from '@/lib/openrouter'
 
 export const runtime = 'nodejs'
 
 const FALLBACK_REPLY = "I'm having trouble connecting right now. Please try again shortly, or reach us directly via the Contact page."
-
-// Free OpenRouter models 429 constantly (shared upstream pool). Try them in
-// order until one answers. ponytail: add paid model as last entry if free tier
-// proves too flaky in production.
-const MODELS = [
-  'openai/gpt-oss-20b:free',
-  'meta-llama/llama-3.3-70b-instruct:free',
-  'qwen/qwen3-next-80b-a3b-instruct:free',
-  'openai/gpt-oss-120b:free',
-  'google/gemma-4-31b-it:free',
-]
 
 // ponytail: in-memory single-instance fixed-window limiter. Fine for one
 // Railway replica; move to Redis (INCR + TTL) if the app scales to >1 instance.
@@ -61,8 +51,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Too many messages. Please wait a few minutes and try again.' }, { status: 429 })
   }
 
-  const apiKey = process.env.OPENROUTER_API_KEY
-  if (!apiKey) {
+  if (!process.env.OPENROUTER_API_KEY) {
     return NextResponse.json({ reply: FALLBACK_REPLY })
   }
 
@@ -78,35 +67,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'messages must be a non-empty array of { role, content }.' }, { status: 400 })
   }
 
-  const payload = [{ role: 'system', content: SYSTEM_PROMPT }, ...messages]
-  for (const model of MODELS) {
-    const reply = await tryModel(apiKey, model, payload)
-    if (reply) return NextResponse.json({ reply })
-  }
-  return NextResponse.json({ reply: FALLBACK_REPLY })
-}
-
-async function tryModel(apiKey: string, model: string, messages: unknown): Promise<string | null> {
-  try {
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://teambir.com',
-        'X-Title': 'Team BIR',
-      },
-      body: JSON.stringify({ model, messages, max_tokens: 600, temperature: 0.4 }),
-    })
-    if (!res.ok) {
-      console.error('OpenRouter error:', model, res.status)
-      return null
-    }
-    const data = await res.json()
-    const reply = data?.choices?.[0]?.message?.content
-    return typeof reply === 'string' && reply.trim() ? reply : null
-  } catch (err) {
-    console.error('Chat route error:', model, err)
-    return null
-  }
+  const payload = [{ role: 'system' as const, content: SYSTEM_PROMPT }, ...messages]
+  const reply = await complete(payload)
+  return NextResponse.json({ reply: reply ?? FALLBACK_REPLY })
 }

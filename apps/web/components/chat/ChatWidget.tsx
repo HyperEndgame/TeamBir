@@ -4,7 +4,19 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import clsx from 'clsx'
-import { parseNavigation } from '@/lib/chatbot-knowledge'
+import { parseNavigation, parseLead } from '@/lib/chatbot-knowledge'
+import {
+  DEPT_CHOICES,
+  DEPT_LABELS,
+  TIMELINE_CHOICES,
+  BUDGET_CHOICES,
+  nextStep,
+  promptFor,
+  validPhone,
+  validEmail,
+  type LeadState,
+  type LeadStep,
+} from '@/lib/lead-flow'
 
 interface Msg {
   role: 'user' | 'assistant'
@@ -17,6 +29,14 @@ const WELCOME: Msg = {
 }
 
 const MAX_INPUT = 1000
+
+const FREE_TEXT_STEPS: ReadonlySet<LeadStep> = new Set(['location', 'phone', 'email'])
+
+const STEP_PLACEHOLDER: Partial<Record<LeadStep, string>> = {
+  location: 'City / area…',
+  phone: 'Your phone number…',
+  email: 'Your email address…',
+}
 
 function go(router: ReturnType<typeof useRouter>, path: string) {
   if (path.startsWith('http')) {
@@ -31,6 +51,9 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Msg[]>([WELCOME])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [lead, setLead] = useState<LeadState | null>(null)
+  const [leadError, setLeadError] = useState('')
+  const [hp, setHp] = useState('')
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -75,16 +98,90 @@ export function ChatWidget() {
         setMessages((m) => [...m, { role: 'assistant', content: 'Something went wrong. Please try again.' }])
         return
       }
-      const { text: cleaned, path } = parseNavigation(data.reply)
+      const { text: navCleaned, path } = parseNavigation(data.reply)
+      const { text: cleaned, lead: triggerLead } = parseLead(navCleaned)
       setMessages((m) => [...m, { role: 'assistant', content: cleaned }])
       if (path) {
         setTimeout(() => go(router, path), 700)
       }
+      if (triggerLead) startLead()
     } catch {
       setMessages((m) => [...m, { role: 'assistant', content: 'Something went wrong. Please try again.' }])
     } finally {
       setLoading(false)
     }
+  }
+
+  function startLead() {
+    const state: LeadState = { step: 'department' }
+    setLead(state)
+    setLeadError('')
+    setMessages((m) => [...m, { role: 'assistant', content: promptFor('department', state) }])
+  }
+
+  async function submitLead(state: LeadState) {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...state, _hp: hp }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setMessages((m) => [...m, { role: 'assistant', content: data.error || 'Something went wrong submitting your request. Please try again.' }])
+        return
+      }
+      setMessages((m) => [...m, { role: 'assistant', content: promptFor('done', state) }])
+    } catch {
+      setMessages((m) => [...m, { role: 'assistant', content: 'Something went wrong submitting your request. Please try again.' }])
+    } finally {
+      setLoading(false)
+      setLead(null)
+    }
+  }
+
+  function advanceLead(patch: Partial<LeadState>) {
+    if (!lead) return
+    const merged: LeadState = { ...lead, ...patch }
+    const step = nextStep(merged)
+    merged.step = step
+    setLeadError('')
+    if (step === 'done') {
+      setMessages((m) => [...m, { role: 'assistant', content: `Got it, thanks!` }])
+      submitLead(merged)
+      return
+    }
+    setLead(merged)
+    setMessages((m) => [...m, { role: 'assistant', content: promptFor(step, merged) }])
+  }
+
+  function chooseLead(field: 'department' | 'propertyType', value: string) {
+    if (!lead) return
+    setMessages((m) => [...m, { role: 'user', content: value }])
+    if (field === 'department') advanceLead({ department: value as LeadState['department'] })
+    else advanceLead({ propertyType: value as LeadState['propertyType'] })
+  }
+
+  function submitLeadField() {
+    if (!lead) return
+    const value = input.trim()
+    if (!value) return
+    if (lead.step === 'phone' && !validPhone(value)) {
+      setLeadError('Please enter a valid phone number.')
+      return
+    }
+    if (lead.step === 'email' && !validEmail(value)) {
+      setLeadError('Please enter a valid email address.')
+      return
+    }
+    if (lead.step === 'location' && value.length > 120) {
+      setLeadError('Location must be 120 characters or less.')
+      return
+    }
+    setInput('')
+    setMessages((m) => [...m, { role: 'user', content: value }])
+    advanceLead({ [lead.step]: value } as Partial<LeadState>)
   }
 
   return (
@@ -133,21 +230,91 @@ export function ChatWidget() {
                   <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse [animation-delay:0.3s]" />
                 </div>
               )}
+              {leadError && <div className="text-xs text-red-400 font-body">{leadError}</div>}
+              {!lead && messages.length === 1 && (
+                <button
+                  onClick={startLead}
+                  className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
+                >
+                  Request a quote
+                </button>
+              )}
+              {lead && lead.step === 'department' && (
+                <div className="flex flex-wrap gap-2">
+                  {DEPT_CHOICES.map((d) => (
+                    <button
+                      key={d}
+                      onClick={() => chooseLead('department', d)}
+                      className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
+                    >
+                      {DEPT_LABELS[d]}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {lead && lead.step === 'propertyType' && (
+                <div className="flex flex-wrap gap-2">
+                  {(['commercial', 'residential'] as const).map((v) => (
+                    <button
+                      key={v}
+                      onClick={() => chooseLead('propertyType', v)}
+                      className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors capitalize"
+                    >
+                      {v}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {lead && lead.step === 'timeline' && (
+                <div className="flex flex-wrap gap-2">
+                  {TIMELINE_CHOICES.map((v) => (
+                    <button
+                      key={v}
+                      onClick={() => { setMessages((m) => [...m, { role: 'user', content: v }]); advanceLead({ timeline: v }) }}
+                      className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
+                    >
+                      {v}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {lead && lead.step === 'budget' && (
+                <div className="flex flex-wrap gap-2">
+                  {BUDGET_CHOICES.map((v) => (
+                    <button
+                      key={v}
+                      onClick={() => { setMessages((m) => [...m, { role: 'user', content: v }]); advanceLead({ budget: v }) }}
+                      className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
+                    >
+                      {v}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-2 p-3 border-t border-border">
+              <input
+                value={hp}
+                onChange={(e) => setHp(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <input
                 ref={inputRef}
                 value={input}
                 maxLength={MAX_INPUT}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && send()}
-                placeholder="Ask about Team BIR..."
-                className="flex-1 bg-bg border border-border rounded-lg px-3 py-2 text-sm font-body text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+                onKeyDown={(e) => e.key === 'Enter' && (lead ? submitLeadField() : send())}
+                disabled={!!lead && !FREE_TEXT_STEPS.has(lead.step)}
+                placeholder={lead ? STEP_PLACEHOLDER[lead.step] ?? '' : 'Ask about Team BIR...'}
+                className="flex-1 bg-bg border border-border rounded-lg px-3 py-2 text-sm font-body text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40"
               />
               <button
-                onClick={send}
-                disabled={loading || !input.trim()}
+                onClick={() => (lead ? submitLeadField() : send())}
+                disabled={loading || !input.trim() || (!!lead && !FREE_TEXT_STEPS.has(lead.step))}
                 aria-label="Send message"
                 className="bg-accent text-bg rounded-lg w-9 h-9 flex items-center justify-center hover:bg-accent-h transition-colors disabled:opacity-40"
               >

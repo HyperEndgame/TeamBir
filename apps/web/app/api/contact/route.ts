@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import { insertLead } from '@/lib/db'
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -16,6 +17,8 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
+
+    insertLead({ source: 'contact', name, message, phone: phone ?? null, email, department: null })
 
     if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
       return NextResponse.json({ success: true })

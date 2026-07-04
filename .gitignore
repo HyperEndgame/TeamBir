@@ -21,6 +21,9 @@ apps/web/out/
 .env*.local
 !.env.example
 
+# SQLite (local dev)
+apps/web/.data/
+
 # OS
 .DS_Store
 Thumbs.db

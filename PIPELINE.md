@@ -99,6 +99,74 @@ Both SHOULD-FIX items resolved:
 
 Re-verified: `node lib/chatbot-knowledge.test.mjs` OK; `tsc --noEmit` clean (only pre-existing nodemailer error). Loop converged — no breaking errors remained.
 
+---
+
+## Feature: Lead Assistant (guided quote flow)
+
+### Opus plan
+
+Deterministic client-side state machine embedded in `ChatWidget`, not LLM-parsed fields (reliability over free-text extraction). Entry: a "Request a quote" quick-reply chip, or the LLM emits a new `[[lead]]` sentinel (mirrors existing `[[navigate:/path]]`) when a user expresses a project need. Flow: department → propertyType (materials/developments only) → location → timeline → budget → phone → email → POST `/api/lead` → emails the department inbox (`DEPT_EMAIL_<DEPT>` env var, falls back to `CONTACT_TO_EMAIL`). Departments: materials, developments (construction), transport, luxury, travel (naanstop excluded — coming soon). Non-goals: no persistence/DB, no admin dashboard (separate task), no LLM field parsing, no back-navigation.
+
+### Sonnet implementation
+
+- `apps/web/lib/lead-flow.ts` (new) — `LeadState`/`LeadStep` types, `DEPT_LABELS`, `NEEDS_PROPERTY_TYPE` set, `TIMELINE_CHOICES`/`BUDGET_CHOICES`, `nextStep()` (pure transition, skips propertyType per dept), `promptFor()` (deterministic assistant-voiced questions), `validPhone`/`validEmail`, `isComplete`.
+- `apps/web/app/api/lead/route.ts` (new) — cloned `contact/route.ts`'s nodemailer pattern (no shared abstraction — 2 call sites, not worth it). Re-validates every field server-side (department allowlist, propertyType required iff needed, location ≤120 chars, phone/email format), honeypot `_hp`, department→inbox via `DEPT_EMAIL_${DEPT}` env fallback to `CONTACT_TO_EMAIL`.
+- `apps/web/lib/chatbot-knowledge.ts` (edited) — `SYSTEM_PROMPT` gained a "Lead protocol" instructing the model to emit `[[lead]]` on project/quote intent; added `parseLead()` (strips sentinel, returns `{text, lead}`), mirrors `parseNavigation`.
+- `apps/web/components/chat/ChatWidget.tsx` (edited) — `lead`/`leadError`/`hp` state; `startLead`, `advanceLead`, `chooseLead` (button steps), `submitLeadField` (free-text steps: location/phone/email, repurposes the existing chat input with a dynamic placeholder), `submitLead` (POSTs to `/api/lead`). Quick-reply button rows per step (department, propertyType, timeline, budget). Hidden honeypot input wired into the POST body.
+- `apps/web/lib/lead-flow.test.mjs` (new) — plain-assert self-check (no test deps, mirrors `chatbot-knowledge.test.mjs` convention): propertyType skip logic per department, full-path walks for both branches, phone/email validators, department→env-var-key derivation.
+
+Verification: `node lib/lead-flow.test.mjs` OK, `node lib/chatbot-knowledge.test.mjs` OK, `npx tsc --noEmit` clean (exit 0, no pre-existing errors this time).
+
+### Haiku review findings
+
+**PASS.** State machine, server-side validation, XSS escaping, honeypot, sentinel regex all correct on inspection + re-run tests/tsc.
+
+**MINOR (1):** `ChatWidget.tsx` location field had no client-side 120-char cap (API enforces it server-side, but UX let users type past the limit before getting a 400). Fixed: added a `submitLeadField` check rejecting >120 chars with an inline error, matching the phone/email pattern already there.
+
+Loop converged — no breaking errors remained after the one minor fix.
+
+### Deploy note
+
+New optional env vars (fallback to existing `CONTACT_TO_EMAIL`): `DEPT_EMAIL_MATERIALS`, `DEPT_EMAIL_DEVELOPMENTS`, `DEPT_EMAIL_TRANSPORT`, `DEPT_EMAIL_LUXURY`, `DEPT_EMAIL_TRAVEL`.
+
+---
+
+## Feature: Admin Dashboard / Client Portal
+
+### Fable plan
+
+SQLite (`better-sqlite3`) on a Railway Volume mounted at `/data` (`DB_PATH` env) — no second managed service, sync API, lead volume is tiny. **Deploy prerequisite: Railway Volume at `/data`, else every restart wipes leads.** Auth: single shared employee password (no NextAuth — one user, no OAuth needed), `scrypt` hash in `ADMIN_PASSWORD_HASH` env + HMAC-signed httpOnly session cookie via Web Crypto (works in both Edge middleware and Node routes). Traffic: no analytics product existed — laid the minimal real hook (`page_views` table + `/api/track` beacon) rather than faking numbers. AI summaries: on-demand per lead (cheaper than batch), reusing OpenRouter via a new shared `lib/openrouter.ts` (extracted from the chat route). CSV export: client-side Blob download, no lib. Reply = real email via existing nodemailer pattern; Assign department = `<select>` + PATCH. Non-goals: per-user accounts, 2FA, real analytics product, Postgres/ORM, pagination beyond 500-row cap.
+
+### Sonnet implementation
+
+- **DB:** `lib/db.ts` (new) — lazy-init `better-sqlite3` singleton, `leads` + `page_views` tables, `insertLead`/`listLeads`/`getLead`/`updateLead`/`insertPageView`/`trafficStats`. Added `better-sqlite3` + `@types/better-sqlite3` deps; native module required `pnpm-workspace.yaml`'s `onlyBuiltDependencies: [better-sqlite3]` + a manual `node-gyp rebuild` locally (Node 24 dev vs. Node 20 Railway target — flagged as a deploy risk, see below).
+- **Auth:** `lib/session.ts` (Web Crypto HMAC-SHA256 cookie, `createSession`/`verifySession`, manual base64url + timing-safe compare — no Node-only APIs, so it runs in Edge middleware), `lib/password.ts` (Node `scryptSync` + `timingSafeEqual` vs. `ADMIN_PASSWORD_HASH`), `scripts/hash-password.mjs` (generates the env value).
+- **Middleware:** `middleware.ts` (edited, pre-existing subdomain-rewrite logic preserved) — now also gates `/admin/*` + `/api/admin/*` via `verifySession`, `/admin/login` + `/api/admin/login` public.
+- **Routes:** `app/api/admin/login`, `logout`, `leads` (GET), `leads/[id]` (PATCH dept/status, validates against `validDept`), `leads/[id]/reply` (POST, nodemailer), `leads/[id]/summary` (POST, OpenRouter, cached in `ai_summary`), `app/api/admin/stats` (GET), `app/api/track` (POST, public beacon).
+- **Reuse/refactor:** `lib/openrouter.ts` (new) extracted `MODELS`/`complete()` out of `app/api/chat/route.ts` (pure refactor, no behavior change) so the summary route reuses it. `app/api/lead/route.ts` and `app/api/contact/route.ts` now call `insertLead()` before the email send (insert-first so an SMTP failure doesn't lose the row).
+- **UI:** `app/admin/layout.tsx`, `app/admin/login/page.tsx`, `app/admin/page.tsx` (stat tiles, traffic bar list — no chart lib, lead cards with dept `<select>`, AI-summary button, Reply modal, CSV export via `lib/csv.ts` + Blob download, logout). `components/TrackBeacon.tsx` mounted in `app/layout.tsx` (skips `/admin` paths).
+- **Test:** `lib/admin.test.mjs` (new, mirrors existing `.test.mjs` convention) — password hash/verify, session sign/verify/tamper/expiry, CSV escaping, summary-prompt truncation, `validDept` allowlist.
+
+Verification: `node lib/admin.test.mjs`, `node lib/lead-flow.test.mjs`, `node lib/chatbot-knowledge.test.mjs`, `npx tsc --noEmit` all clean. Manual curl smoke test against a running dev server: unauth `/admin` → 307 redirect; wrong password → 401; correct password → cookie set; `/api/admin/leads` 200 authed / 401 unauthed; lead submitted via `/api/lead` persisted and visible; PATCH dept valid/invalid; `/api/track` → 204, shows in `/api/admin/stats`; `/admin` page loads 200 authed.
+
+### Haiku review findings
+
+**PASS.** Auth (scrypt + timing-safe compare, HMAC session, httpOnly/sameSite cookie), middleware merge (auth gate doesn't break subdomain rewrite, Edge/Node crypto correctly scoped), SQL (dynamic `SET` clause in `updateLead` only ever built from hardcoded field names, never attacker input), email injection (esc() used throughout) all confirmed correct on inspection + re-run tests/tsc.
+
+**MINOR (2, both fixed):**
+1. `lib/lead-flow.ts` — `validDept` used `in` operator (prototype-pollution-adjacent: `__proto__` would pass). Fixed: `Object.hasOwn(DEPT_LABELS, v)`.
+2. `app/api/admin/leads/[id]/reply/route.ts` — subject field had no newline check (theoretical SMTP header injection, nodemailer likely already sanitizes). Fixed: reject subjects containing `\r`/`\n`.
+
+**Accepted as-is (tech debt, not a blocker):** `/api/track` has no rate limit — public beacon, low risk at current scale; revisit if abused.
+
+Loop converged — no breaking errors remained after the two minor fixes.
+
+### Deploy prerequisites (manual, before this goes live)
+
+1. **Railway Volume** mounted at `/data` on the web service — without it, SQLite data is wiped on every deploy/restart.
+2. Env vars: `DB_PATH=/data/teambir.db`, `ADMIN_PASSWORD_HASH` (from `node scripts/hash-password.mjs <password>`), `SESSION_SECRET` (`openssl rand -hex 32`).
+3. **Native module risk:** `better-sqlite3` needed a manual `node-gyp rebuild` in local dev (Node 24) after `pnpm install` skipped its build script by default; Nixpacks pins Node 20 on Railway and should run the build script automatically via `onlyBuiltDependencies` in `pnpm-workspace.yaml` — **verify the Railway build logs show `better-sqlite3` compiling successfully on first deploy**; if the Nixpacks image lacks build tools (python3/make/g++), fall back to Railway Postgres + `postgres` lib per the original plan's contingency.
+
 **Deploy note:** `OPENROUTER_API_KEY` must be set on Railway for the `testing` deploy, else the bot returns the graceful fallback message instead of real answers.
 
 ### Iteration 2 — live test + model fallback (Opus)

@@ -98,10 +98,13 @@ Navigation protocol: when the user wants to reach a specific page, end your repl
 [[navigate:/exact/path]]
 using ONLY a path from this list (path — label):
 ${navList()}
-Emit at most one sentinel, only when a page clearly fits the user's intent. If no page fits, emit none.`
+Emit at most one sentinel, only when a page clearly fits the user's intent. If no page fits, emit none.
+
+Lead protocol: when the user describes a project or service need (wants a quote, has work to be done, asks "how can you help me"), reply with a short line acknowledging it, then end with the sentinel [[lead]] on its own line to launch the guided quote form. Do not ask for project details yourself — the form collects them.`
 
 const NAV_SENTINEL = /\[\[navigate:([^\]]+)\]\]/
 const NAV_SENTINEL_ALL = /\[\[navigate:[^\]]+\]\]/g
+const LEAD_SENTINEL_ALL = /\[\[lead\]\]/g
 
 export function isAllowedPath(p: string): boolean {
   return NAV_ROUTES.some((r) => r.path === p)
@@ -113,4 +116,10 @@ export function parseNavigation(text: string): { text: string; path: string | nu
   if (!match) return { text: cleaned, path: null }
   const candidate = match[1].trim()
   return { text: cleaned, path: isAllowedPath(candidate) ? candidate : null }
+}
+
+export function parseLead(text: string): { text: string; lead: boolean } {
+  const lead = LEAD_SENTINEL_ALL.test(text)
+  LEAD_SENTINEL_ALL.lastIndex = 0
+  return { text: text.replace(LEAD_SENTINEL_ALL, '').trim(), lead }
 }
