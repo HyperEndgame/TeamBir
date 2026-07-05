@@ -182,7 +182,7 @@ export default function AdminDashboard() {
     <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-muted font-body">{greeting()}, Mr. Singh</p>
+          <p className="text-xl text-muted font-body">{greeting()}, Mr. Singh</p>
           <h1 className="font-display text-2xl tracking-wider text-accent">Team BIR Admin</h1>
         </div>
         <div className="flex gap-3">
