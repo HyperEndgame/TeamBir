@@ -92,6 +92,20 @@ export function validDept(v: string): v is Dept {
   return Object.hasOwn(DEPT_LABELS, v)
 }
 
+const DEPT_KEYWORDS: Record<Dept, string[]> = {
+  materials: ['material', 'aggregate', 'gravel', 'rock', 'crushing', 'dirt', 'topsoil', 'concrete'],
+  developments: ['construction', 'build', 'contractor', 'renovation', 'excavation', 'development'],
+  transport: ['transport', 'trucking', 'logistics', 'freight', 'driver', 'cdl', 'haul'],
+  luxury: ['luxury', 'apartment', 'condo', 'duplex', 'lease', 'rent', 'venue', 'wedding'],
+  travel: ['travel plaza', 'fuel', 'gas station', 'rv parking', 'truck stop'],
+}
+
+// ponytail: keyword match on free-text fields, good enough for a display hint. Swap for an LLM call if it misses too often.
+export function inferDepts(text: string): Dept[] {
+  const lower = text.toLowerCase()
+  return DEPT_CHOICES.filter((d) => DEPT_KEYWORDS[d].some((k) => lower.includes(k)))
+}
+
 export function isComplete(s: LeadState): boolean {
   if (!s.department || !s.location || !s.timeline || !s.budget || !s.phone || !s.email) return false
   if (NEEDS_PROPERTY_TYPE.has(s.department) && !s.propertyType) return false

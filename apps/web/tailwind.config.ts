@@ -22,6 +22,7 @@ const config: Config = {
         display: ['var(--font-display)', 'sans-serif'],
         body: ['var(--font-body)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
+        anthropic: ['var(--font-anthropic)', 'sans-serif'],
       },
       maxWidth: {
         site: '1280px',

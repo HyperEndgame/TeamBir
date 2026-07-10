@@ -1,7 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { DEPT_CHOICES, DEPT_LABELS, type Dept } from '@/lib/lead-flow'
+import Link from 'next/link'
+import { DEPT_CHOICES, DEPT_LABELS, inferDepts, type Dept } from '@/lib/lead-flow'
 import { toCsv } from '@/lib/csv'
 
 interface Lead {
@@ -49,26 +50,26 @@ function DonutChart({ leads }: { leads: Lead[] }) {
 
   if (total === 0) return <p className="text-muted text-sm">No leads yet.</p>
 
-  const r = 40
+  const r = 52
   const c = 2 * Math.PI * r
   let offset = 0
 
   return (
     <div className="flex items-center gap-6 flex-wrap">
-      <svg width="120" height="120" viewBox="0 0 100 100" className="-rotate-90">
-        <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="14" />
+      <svg width="160" height="160" viewBox="0 0 120 120" className="-rotate-90">
+        <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="16" />
         {withCounts.map(({ d, count }) => {
           const frac = count / total
           const dash = frac * c
           const el = (
             <circle
               key={d}
-              cx="50"
-              cy="50"
+              cx="60"
+              cy="60"
               r={r}
               fill="none"
               stroke={DEPT_COLORS[d]}
-              strokeWidth="14"
+              strokeWidth="16"
               strokeDasharray={`${dash} ${c - dash}`}
               strokeDashoffset={-offset}
             />
@@ -109,6 +110,7 @@ export default function AdminDashboard() {
   const [summaries, setSummaries] = useState<Record<number, string>>({})
   const [summaryLoading, setSummaryLoading] = useState<number | null>(null)
   const [replyFor, setReplyFor] = useState<Lead | null>(null)
+  const [replyAs, setReplyAs] = useState<Record<number, Dept | ''>>({})
   const router = useRouter()
 
   useEffect(() => {
@@ -131,13 +133,15 @@ export default function AdminDashboard() {
     router.refresh()
   }
 
-  async function assignDept(id: number, department: Dept) {
-    setLeads((ls) => ls.map((l) => (l.id === id ? { ...l, department } : l)))
-    await fetch(`/api/admin/leads/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ department }),
-    })
+  function deptDisplay(l: Lead): string {
+    if (l.department) return DEPT_LABELS[l.department as Dept]
+    const inferred = inferDepts(`${l.message ?? ''} ${l.location ?? ''}`)
+    return inferred.length ? inferred.map((d) => DEPT_LABELS[d]).join(', ') : 'General'
+  }
+
+  function primaryDept(l: Lead): Dept | '' {
+    if (l.department) return l.department as Dept
+    return inferDepts(`${l.message ?? ''} ${l.location ?? ''}`)[0] ?? ''
   }
 
   async function summarize(id: number) {
@@ -181,11 +185,11 @@ export default function AdminDashboard() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xl text-muted font-body">{greeting()}, Mr. Singh</p>
-          <h1 className="font-display text-2xl tracking-wider text-accent">Team BIR Admin</h1>
-        </div>
+        <h1 className="font-display text-2xl tracking-wider text-accent">Team BIR Admin</h1>
         <div className="flex gap-3">
+          <Link href="/" className="text-sm font-body px-3 py-2 rounded-lg border border-border text-text hover:border-accent transition-colors">
+            Home
+          </Link>
           <button onClick={exportCsv} className="text-sm font-body px-3 py-2 rounded-lg border border-border text-text hover:border-accent transition-colors">
             Export CSV
           </button>
@@ -194,6 +198,8 @@ export default function AdminDashboard() {
           </button>
         </div>
       </div>
+
+      <p className="font-anthropic text-4xl sm:text-5xl text-center text-text">{greeting()}, Mr. Singh</p>
 
       {loading ? (
         <p className="text-muted text-sm">Loading…</p>
@@ -205,28 +211,30 @@ export default function AdminDashboard() {
             <StatTile label="Top Page" value={stats?.topPages[0]?.path ?? '—'} />
           </div>
 
-          <div className="bg-surface border border-border rounded-2xl p-5">
-            <p className="font-display tracking-wide text-text text-sm mb-3">Leads by Department</p>
-            <DonutChart leads={leads} />
-          </div>
-
-          {stats && stats.daily.length > 0 && (
-            <div className="bg-surface border border-border rounded-2xl p-5 space-y-2">
-              <p className="font-display tracking-wide text-text text-sm mb-3">Traffic — last 30 days</p>
-              {stats.daily.map((d) => {
-                const max = Math.max(...stats.daily.map((x) => x.count), 1)
-                return (
-                  <div key={d.day} className="flex items-center gap-3 text-xs font-mono text-muted">
-                    <span className="w-20 shrink-0">{d.day}</span>
-                    <div className="flex-1 bg-white/[0.06] rounded h-3 overflow-hidden">
-                      <div className="bg-accent h-full" style={{ width: `${(d.count / max) * 100}%` }} />
-                    </div>
-                    <span className="w-8 text-right">{d.count}</span>
-                  </div>
-                )
-              })}
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 items-start">
+            <div className="bg-surface border border-border rounded-2xl p-5">
+              <p className="font-display tracking-wide text-text text-sm mb-3">Leads by Department</p>
+              <DonutChart leads={leads} />
             </div>
-          )}
+
+            {stats && stats.daily.length > 0 && (
+              <div className="bg-surface border border-border rounded-2xl p-4 space-y-1.5 max-h-[220px] overflow-y-auto">
+                <p className="font-display tracking-wide text-text text-xs mb-2">Traffic — 30d</p>
+                {stats.daily.map((d) => {
+                  const max = Math.max(...stats.daily.map((x) => x.count), 1)
+                  return (
+                    <div key={d.day} className="flex items-center gap-2 text-[10px] font-mono text-muted">
+                      <span className="w-12 shrink-0">{d.day}</span>
+                      <div className="flex-1 bg-white/[0.06] rounded h-2 overflow-hidden">
+                        <div className="bg-accent h-full" style={{ width: `${(d.count / max) * 100}%` }} />
+                      </div>
+                      <span className="w-6 text-right">{d.count}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
 
           <div className="space-y-3">
             <h2 className="font-display text-lg tracking-wide text-text">Leads</h2>
@@ -243,6 +251,7 @@ export default function AdminDashboard() {
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2 text-sm font-body">
                     <Field label="Location" value={l.location} />
+                    <Field label="Department" value={deptDisplay(l)} />
                     <Field label="Timeline" value={l.timeline} />
                     <Field label="Budget" value={l.budget} />
                     <Field label="Phone" value={l.phone} />
@@ -256,16 +265,6 @@ export default function AdminDashboard() {
                   )}
 
                   <div className="flex flex-wrap items-center gap-2 pt-1">
-                    <select
-                      value={l.department ?? ''}
-                      onChange={(e) => assignDept(l.id, e.target.value as Dept)}
-                      className="text-sm bg-bg border border-border rounded-lg px-2 py-1.5 text-text"
-                    >
-                      <option value="" disabled>Assign department…</option>
-                      {DEPT_CHOICES.map((d) => (
-                        <option key={d} value={d}>{DEPT_LABELS[d]}</option>
-                      ))}
-                    </select>
                     <button
                       onClick={() => summarize(l.id)}
                       disabled={summaryLoading === l.id || !!l.ai_summary || !!summaries[l.id]}
@@ -273,6 +272,16 @@ export default function AdminDashboard() {
                     >
                       {summaryLoading === l.id ? 'Summarizing…' : 'AI summary'}
                     </button>
+                    <select
+                      value={replyAs[l.id] ?? primaryDept(l)}
+                      onChange={(e) => setReplyAs((r) => ({ ...r, [l.id]: e.target.value as Dept }))}
+                      className="text-sm bg-bg border border-border rounded-lg px-2 py-1.5 text-text"
+                    >
+                      <option value="">Reply as: Team BIR</option>
+                      {DEPT_CHOICES.map((d) => (
+                        <option key={d} value={d}>Reply as: {DEPT_LABELS[d]}</option>
+                      ))}
+                    </select>
                     <button
                       onClick={() => setReplyFor(l)}
                       className="text-sm px-3 py-1.5 rounded-lg bg-accent text-bg hover:bg-accent-h transition-colors"
@@ -288,7 +297,14 @@ export default function AdminDashboard() {
         </>
       )}
 
-      {replyFor && <ReplyModal lead={replyFor} onClose={() => setReplyFor(null)} onSent={load} />}
+      {replyFor && (
+        <ReplyModal
+          lead={replyFor}
+          replyAs={replyAs[replyFor.id] ?? primaryDept(replyFor)}
+          onClose={() => setReplyFor(null)}
+          onSent={load}
+        />
+      )}
     </div>
   )
 }
@@ -312,7 +328,7 @@ function Field({ label, value }: { label: string; value: string | null }) {
   )
 }
 
-function ReplyModal({ lead, onClose, onSent }: { lead: Lead; onClose: () => void; onSent: () => void }) {
+function ReplyModal({ lead, replyAs, onClose, onSent }: { lead: Lead; replyAs: Dept | ''; onClose: () => void; onSent: () => void }) {
   const [subject, setSubject] = useState('Re: your inquiry with Team BIR')
   const [body, setBody] = useState('')
   const [sending, setSending] = useState(false)
@@ -325,7 +341,7 @@ function ReplyModal({ lead, onClose, onSent }: { lead: Lead; onClose: () => void
       const res = await fetch(`/api/admin/leads/${lead.id}/reply`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subject, body }),
+        body: JSON.stringify({ subject, body, replyAs }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {

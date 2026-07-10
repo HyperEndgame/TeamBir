@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { insertLead } from '@/lib/db'
+import { validDept } from '@/lib/lead-flow'
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -18,7 +19,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    insertLead({ source: 'contact', name, message, phone: phone ?? null, email, department: null })
+    const department = typeof company === 'string' && validDept(company) ? company : null
+    insertLead({ source: 'contact', name, message, phone: phone ?? null, email, department })
 
     if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
       return NextResponse.json({ success: true })
