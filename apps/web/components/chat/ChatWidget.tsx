@@ -58,6 +58,7 @@ export function ChatWidget() {
   const pathname = usePathname()
   const inputRef = useRef<HTMLInputElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const sendingRef = useRef(false)
 
   useEffect(() => {
     if (open) inputRef.current?.focus()
@@ -78,7 +79,8 @@ export function ChatWidget() {
 
   async function send() {
     const text = input.trim().slice(0, MAX_INPUT)
-    if (!text || loading) return
+    if (!text || sendingRef.current) return
+    sendingRef.current = true
     const next = [...messages, { role: 'user' as const, content: text }]
     setMessages(next)
     setInput('')
@@ -110,6 +112,7 @@ export function ChatWidget() {
       setMessages((m) => [...m, { role: 'assistant', content: 'Something went wrong. Please try again.' }])
     } finally {
       setLoading(false)
+      sendingRef.current = false
     }
   }
 

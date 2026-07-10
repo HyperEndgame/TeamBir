@@ -59,7 +59,7 @@ export default function PrivacyPage() {
                 companies. When you use EagleBot:
               </p>
               <ul className="list-none space-y-2 pl-4 border-l border-accent/20">
-                <li>Your messages are sent to OpenRouter, a third-party AI service provider, to generate a response</li>
+                <li>Your messages are sent to Anthropic, a third-party AI service provider, to generate a response</li>
                 <li>Chat messages are not stored on our servers after your session ends</li>
                 <li>Do not share sensitive personal information (e.g., financial or health details) in the chat</li>
               </ul>
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
                 If you request a quote through EagleBot's guided assistant, the project details you provide
                 (department, location, timeline, budget, phone, and email) are stored as an inquiry and routed to
                 the relevant Team BIR department, as described in Section 2. With your inquiry, authorized staff may
-                also generate a short AI-written summary of your request via OpenRouter to speed up internal
+                also generate a short AI-written summary of your request via Anthropic to speed up internal
                 triage — this uses the same inquiry details already described above and is only visible to our team.
               </p>
             </section>

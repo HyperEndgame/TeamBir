@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getLead, updateLead } from '@/lib/db'
-import { complete } from '@/lib/openrouter'
+import { complete } from '@/lib/anthropic'
 import { DEPT_LABELS, type Dept } from '@/lib/lead-flow'
 
 export const runtime = 'nodejs'
