@@ -58,7 +58,7 @@ export function ChatWidget() {
   const pathname = usePathname()
   const inputRef = useRef<HTMLInputElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const sendingRef = useRef(false)
+  const busyRef = useRef(false)
 
   useEffect(() => {
     if (open) inputRef.current?.focus()
@@ -79,8 +79,8 @@ export function ChatWidget() {
 
   async function send() {
     const text = input.trim().slice(0, MAX_INPUT)
-    if (!text || sendingRef.current) return
-    sendingRef.current = true
+    if (!text || busyRef.current) return
+    busyRef.current = true
     const next = [...messages, { role: 'user' as const, content: text }]
     setMessages(next)
     setInput('')
@@ -112,11 +112,12 @@ export function ChatWidget() {
       setMessages((m) => [...m, { role: 'assistant', content: 'Something went wrong. Please try again.' }])
     } finally {
       setLoading(false)
-      sendingRef.current = false
+      busyRef.current = false
     }
   }
 
   function startLead() {
+    if (busyRef.current) return
     const state: LeadState = { step: 'department' }
     setLead(state)
     setLeadError('')
@@ -142,6 +143,7 @@ export function ChatWidget() {
     } finally {
       setLoading(false)
       setLead(null)
+      busyRef.current = false
     }
   }
 
@@ -158,29 +160,42 @@ export function ChatWidget() {
     }
     setLead(merged)
     setMessages((m) => [...m, { role: 'assistant', content: promptFor(step, merged) }])
+    busyRef.current = false
   }
 
   function chooseLead(field: 'department' | 'propertyType', value: string) {
-    if (!lead) return
+    if (!lead || busyRef.current) return
+    busyRef.current = true
     setMessages((m) => [...m, { role: 'user', content: value }])
     if (field === 'department') advanceLead({ department: value as LeadState['department'] })
     else advanceLead({ propertyType: value as LeadState['propertyType'] })
   }
 
+  function pickChoice(value: string, patch: Partial<LeadState>) {
+    if (!lead || busyRef.current) return
+    busyRef.current = true
+    setMessages((m) => [...m, { role: 'user', content: value }])
+    advanceLead(patch)
+  }
+
   function submitLeadField() {
-    if (!lead) return
+    if (!lead || busyRef.current) return
     const value = input.trim()
     if (!value) return
+    busyRef.current = true
     if (lead.step === 'phone' && !validPhone(value)) {
       setLeadError('Please enter a valid phone number.')
+      busyRef.current = false
       return
     }
     if (lead.step === 'email' && !validEmail(value)) {
       setLeadError('Please enter a valid email address.')
+      busyRef.current = false
       return
     }
     if (lead.step === 'location' && value.length > 120) {
       setLeadError('Location must be 120 characters or less.')
+      busyRef.current = false
       return
     }
     setInput('')
@@ -276,7 +291,7 @@ export function ChatWidget() {
                   {TIMELINE_CHOICES.map((v) => (
                     <button
                       key={v}
-                      onClick={() => { setMessages((m) => [...m, { role: 'user', content: v }]); advanceLead({ timeline: v }) }}
+                      onClick={() => pickChoice(v, { timeline: v })}
                       className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
                     >
                       {v}
@@ -289,7 +304,7 @@ export function ChatWidget() {
                   {BUDGET_CHOICES.map((v) => (
                     <button
                       key={v}
-                      onClick={() => { setMessages((m) => [...m, { role: 'user', content: v }]); advanceLead({ budget: v }) }}
+                      onClick={() => pickChoice(v, { budget: v })}
                       className="text-sm font-body px-3 py-2 rounded-xl border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
                     >
                       {v}
