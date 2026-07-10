@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getLead, updateLead } from '@/lib/db'
+import { getLead, updateLead, deleteLead } from '@/lib/db'
 import { validDept } from '@/lib/lead-flow'
 
 export const runtime = 'nodejs'
@@ -33,4 +33,12 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
   }
 
   return NextResponse.json({ lead: updateLead(id, patch) })
+}
+
+export async function DELETE(_request: NextRequest, { params }: { params: { id: string } }) {
+  const id = Number(params.id)
+  if (!Number.isInteger(id) || !deleteLead(id)) {
+    return NextResponse.json({ error: 'Lead not found.' }, { status: 404 })
+  }
+  return NextResponse.json({ ok: true })
 }

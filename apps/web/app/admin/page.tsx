@@ -155,6 +155,12 @@ export default function AdminDashboard() {
     }
   }
 
+  async function removeLead(id: number) {
+    if (!confirm('Delete this lead? This cannot be undone.')) return
+    const res = await fetch(`/api/admin/leads/${id}`, { method: 'DELETE' })
+    if (res.ok) setLeads((ls) => ls.filter((l) => l.id !== id))
+  }
+
   function exportCsv() {
     const rows = leads.map((l) => ({
       id: String(l.id),
@@ -290,6 +296,12 @@ export default function AdminDashboard() {
                       className="text-sm px-3 py-1.5 rounded-lg bg-accent text-bg hover:bg-accent-h transition-colors"
                     >
                       Reply
+                    </button>
+                    <button
+                      onClick={() => removeLead(l.id)}
+                      className="text-sm px-3 py-1.5 rounded-lg border border-border text-red-400 hover:border-red-400 transition-colors"
+                    >
+                      Delete
                     </button>
                   </div>
                 </div>

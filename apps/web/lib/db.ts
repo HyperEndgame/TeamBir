@@ -107,6 +107,10 @@ export function updateLead(id: number, patch: { department?: string; status?: st
   return getLead(id)
 }
 
+export function deleteLead(id: number): boolean {
+  return getDb().prepare('DELETE FROM leads WHERE id = ?').run(id).changes > 0
+}
+
 export function insertPageView(path: string, referrer: string | null, createdAt?: string): void {
   if (createdAt) {
     getDb().prepare('INSERT INTO page_views (path, referrer, created_at) VALUES (?, ?, ?)').run(path, referrer, createdAt)

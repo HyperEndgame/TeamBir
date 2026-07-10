@@ -215,3 +215,19 @@ Deploy confirmed **Online** after these fixes, volume writable (DB file created 
 **Applied without a full review cycle (safe, mechanical):** deleted 4 unreferenced hero image files (`hero-eagle.jpg` 6.3MB, `hero-eagle-2400.jpg` 104KB, `hero-eagle.jxl` 2.3MB, `hero-eagle-lossless.jxl` 3.9MB) — none were referenced anywhere in the codebase; the live hero image is `hero-eagle.avif` (80KB). Cut `public/images/` from ~13.6MB to ~885KB, directly reducing mobile page weight and repo/deploy storage.
 
 Loop converged — `tsc --noEmit` clean, all `.mjs` self-checks pass.
+
+### Iteration 4 — Eaglebot spam/rate-limit fix + lead delete (Opus plan / Sonnet / Haiku)
+
+**Trigger:** user report that spamming a repeated message keeps getting generic LLM replies, and that rate limiting "is broken." Confirmed live via curl against `https://teambir-e.up.railway.app/api/chat`: sending a different spoofed `X-Forwarded-For` header per request got a fresh 200 every time, while reusing the same spoofed value correctly 429'd after a few requests — proving the old `ip = xff.split(',')[0]` picked the client-controlled *first* hop, making per-IP rate limiting trivially bypassable.
+
+**Opus plan:** duplicate-message short-circuit compares trimmed last-user-message vs prior-user-message in the array, still counts against rate limit, skips the LLM call; fix IP extraction to prefer Railway/Envoy's `x-envoy-external-address` header, fall back to the *last* (edge-appended) `x-forwarded-for` entry instead of the first, then `x-real-ip`; add a site-wide `GLOBAL_MAX` bucket as defense-in-depth since IP-based limiting behind an unverified proxy chain is inherently fragile; hard-delete leads (no audit-trail need for this small internal tool) via `DELETE /api/admin/leads/[id]`, gated by existing `/api/admin/*` middleware.
+
+**Sonnet implementation:**
+- `app/api/chat/route.ts` — `DUP_REPLY` canned response short-circuit before the LLM call; `clientIp()` helper (envoy header → last XFF hop → x-real-ip → 'unknown'); `bump()` generalizes the old `rateLimited()` into a reusable keyed fixed-window counter, used for both per-IP (`MAX_REQUESTS=6`) and a new `'__global__'` bucket (`GLOBAL_MAX=120`) sharing the same `hits` Map/`WINDOW_MS`.
+- `lib/db.ts` — `deleteLead(id): boolean`, hard `DELETE FROM leads WHERE id = ?`.
+- `app/api/admin/leads/[id]/route.ts` — added `DELETE` handler alongside existing `PATCH`, same `Number.isInteger(id)` + 404-if-missing pattern.
+- `app/admin/page.tsx` — `removeLead(id)` (confirm() → DELETE fetch → filter local state) and a "Delete" button next to "Reply" in the leads list.
+
+**Haiku findings:** none. Reviewed all 4 files for edge cases (first message, empty/whitespace messages, shared-Map bucket interference, local-dev IP fallback, auth coverage on new DELETE route, TS/import issues) — clean.
+
+Loop converged — `tsc --noEmit` clean.
