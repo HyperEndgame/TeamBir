@@ -9,7 +9,7 @@ const FALLBACK_REPLY = "I'm having trouble connecting right now. Please try agai
 // ponytail: in-memory single-instance fixed-window limiter. Fine for one
 // Railway replica; move to Redis (INCR + TTL) if the app scales to >1 instance.
 const WINDOW_MS = 5 * 60 * 1000
-const MAX_REQUESTS = 15
+const MAX_REQUESTS = 6
 const hits = new Map<string, { count: number; resetAt: number }>()
 
 function rateLimited(ip: string): boolean {
