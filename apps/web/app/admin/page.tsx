@@ -260,8 +260,11 @@ export default function AdminDashboard() {
                     <Field label="Message" value={l.message} />
                   </div>
 
-                  {summaries[l.id] && (
-                    <p className="text-sm text-accent-h bg-accent/10 rounded-lg px-3 py-2">{summaries[l.id]}</p>
+                  {(l.ai_summary || summaries[l.id]) && (
+                    <div className="bg-accent/15 rounded-lg px-3 py-2">
+                      <p className="text-[10px] uppercase tracking-wider text-accent mb-1">AI Summary</p>
+                      <p className="text-sm text-accent-h">{l.ai_summary || summaries[l.id]}</p>
+                    </div>
                   )}
 
                   <div className="flex flex-wrap items-center gap-2 pt-1">

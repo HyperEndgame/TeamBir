@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Lora } from 'next/font/google'
 
-const anthropic = Poppins({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-anthropic' })
+const anthropic = Lora({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-anthropic' })
 
 export const metadata: Metadata = {
   title: 'Admin | Team BIR',
