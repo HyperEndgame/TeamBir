@@ -30,3 +30,18 @@ Website for Team BIR — a multi-industry group operating across real estate, lu
 pnpm install
 pnpm dev
 ```
+
+## Deployment
+
+GitHub is the source of truth. A push triggers Railway to build and deploy; Cloudflare sits in front of Railway as DNS/CDN for the public domain.
+
+```
+┌──────────────┐   git push    ┌───────────────────┐   proxied DNS   ┌────────────┐
+│    GitHub     │ ────────────> │      Railway        │ <────────────── │ Cloudflare  │
+│ HyperEndgame/  │  auto-deploy  │ builds via Nixpacks  │   (CDN / SSL /  │  (public    │
+│   TeamBir      │  on push      │ (railway.toml) and   │    proxy)       │   domain)   │
+│                │               │ runs `next start`    │                 │      ▲      │
+└──────────────┘               └───────────────────┘                 └──────┼──────┘
+                                                                              │
+                                                                          visitors
+```
