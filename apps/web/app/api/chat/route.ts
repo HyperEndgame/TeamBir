@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { SYSTEM_PROMPT } from '@/lib/chatbot-knowledge'
-import { complete } from '@/lib/openrouter'
+import { complete } from '@/lib/anthropic'
 
 export const runtime = 'nodejs'
 
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Too many messages. Please wait a few minutes and try again.' }, { status: 429 })
   }
 
-  if (!process.env.OPENROUTER_API_KEY) {
+  if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json({ reply: FALLBACK_REPLY })
   }
 
