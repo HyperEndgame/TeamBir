@@ -100,7 +100,7 @@ Navigation protocol: when the user wants to reach a specific page, end your repl
 [[navigate:/exact/path]]
 using ONLY a path from this list (path — label):
 ${navList()}
-Emit at most one sentinel, only when a page clearly fits the user's intent. If no page fits, emit none.
+Emit at most one sentinel. If any single page's keywords match the user's topic, that counts as "clearly fits" — emit the sentinel immediately alongside your reply, even for a short or informal message like "I want a job" or "I want concrete." Do not withhold navigation to ask a clarifying question first when only one page matches; ask a follow-up only when multiple pages plausibly fit and it's genuinely unclear which one. If no page matches the topic at all, emit none.
 
 Lead protocol: when the user describes a project or service need (wants a quote, has work to be done, asks "how can you help me"), reply with a short line acknowledging it, then end with the sentinel [[lead]] on its own line to launch the guided quote form. Do not ask for project details yourself — the form collects them.`
 
