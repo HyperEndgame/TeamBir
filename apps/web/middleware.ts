@@ -4,7 +4,7 @@ import { verifySession, COOKIE_NAME } from '@/lib/session'
 
 // In production: materials.teambir.com → rewrite /something → /materials/something
 // In demo mode: /materials/... served directly (no rewrite needed; route group handles it)
-const SITE_SUBDOMAINS = new Set(['materials', 'luxury', 'transport', 'developments', 'travel'])
+const SITE_SUBDOMAINS = new Set(['materials', 'luxury', 'transport', 'developments', 'travel', 'fleet'])
 
 const ADMIN_PUBLIC_PATHS = new Set(['/admin/login', '/api/admin/login'])
 

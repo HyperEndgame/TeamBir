@@ -1,4 +1,4 @@
-export type SiteKey = 'main' | 'materials' | 'luxury' | 'transport' | 'developments' | 'travel'
+export type SiteKey = 'main' | 'materials' | 'luxury' | 'transport' | 'developments' | 'travel' | 'fleet'
 
 export interface SiteConfig {
   name: string
@@ -102,5 +102,14 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     ],
     address: { street: '1217 Deep Springs Rd', city: 'Dandridge', state: 'TN', zip: '37725' },
     schema: { type: 'TravelAgency', locality: 'Dandridge' },
+  },
+  fleet: {
+    name: 'BIR Fleet Services',
+    tagline: 'Coming Soon.',
+    logoSrc: '/images/mainlogo.png',
+    description: 'A new Team BIR company is on the way.',
+    url: 'https://fleet.teambir.com',
+    nav: [],
+    schema: { type: 'Organization', locality: 'Knoxville' },
   },
 }
