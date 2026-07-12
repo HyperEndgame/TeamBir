@@ -36,7 +36,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Rock Solid Results.',
     description: 'Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable materials recycling in Knoxville, TN. 865-832-6247.',
     url: 'https://materials.teambir.com',
-    logoSrc: '/images/logo-materials.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Aggregates', href: '/aggregates' },
       { label: 'Fill Dirt', href: '/fill-dirt' },
@@ -50,7 +50,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
   luxury: {
     name: 'BIR Luxury Landing',
     tagline: 'Premier Events & Luxury Living in Oak Ridge.',
-    logoSrc: '/images/logo-luxury.png',
+    logoSrc: '/images/mainlogo.png',
     description: '12,000 sq ft luxury event venue in Oak Ridge, TN — weddings, corporate events, birthday parties, pool parties, and new luxury condominiums & townhomes.',
     url: 'https://luxury.teambir.com',
     nav: [
@@ -66,7 +66,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Go With the Best.',
     description: 'Family-owned Tennessee trucking and logistics — dry van truckload, cross docking, final mile, truck parking, boat/RV storage. USDOT 717687. 540-980-7530.',
     url: 'https://transport.teambir.com',
-    logoSrc: '/images/logo-transport.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'About', href: '/about' },
@@ -79,7 +79,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Your Trusted Builder in Knoxville.',
     description: 'Custom homes, commercial construction, renovations, excavation, and electrical in Knoxville, TN. TN Contractor License #80985.',
     url: 'https://developments.teambir.com',
-    logoSrc: '/images/logo-developments.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'Projects', href: '/projects' },
@@ -94,7 +94,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Your Stop for Comfort & Convenience.',
     description: "Tennessee's premier travel plaza at 1217 Deep Springs Rd, Dandridge — Jack in the Box, Naan Stop, 100% No Ethanol fuel, 250 parking spaces, and full-hookup RV parking.",
     url: 'https://travel.teambir.com',
-    logoSrc: '/images/logo-travel.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Amenities', href: '/amenities' },
       { label: 'Location', href: '/location' },
