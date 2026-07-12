@@ -26,7 +26,6 @@ const BUSINESSES = [
     description: 'Premium aggregates, fill dirt, topsoil, contract crushing, and materials recycling across Tennessee.',
     href: siteUrl('materials'),
     badge: 'Aggregates & Crushing',
-    logo: '/images/logo-materials.png',
     num: '01',
   },
   {
@@ -36,7 +35,6 @@ const BUSINESSES = [
     description: 'Luxury duplexes, apartments, and condominiums in Oak Ridge, TN — resort-style amenities, 22 mi from Knoxville.',
     href: siteUrl('luxury'),
     badge: 'Residential Real Estate',
-    logo: '/images/logo-luxury.png',
     num: '02',
   },
   {
@@ -46,7 +44,6 @@ const BUSINESSES = [
     description: 'Cross docking, final mile, overweight assistance, drop trailer storage, and refrigerated logistics.',
     href: siteUrl('transport'),
     badge: 'Trucking & Logistics',
-    logo: '/images/logo-transport.png',
     num: '03',
   },
   {
@@ -56,7 +53,6 @@ const BUSINESSES = [
     description: 'Custom homes, commercial construction, renovations, and excavation across Knoxville and East Tennessee.',
     href: siteUrl('developments'),
     badge: 'General Contractor',
-    logo: '/images/logo-developments.png',
     num: '04',
   },
   {
@@ -66,7 +62,6 @@ const BUSINESSES = [
     description: "Tennessee's premier travel plaza in Dandridge — Jack in the Box, Naan Stop, fuel, truckers lounge, and RV hookups.",
     href: siteUrl('travel'),
     badge: 'Travel & Hospitality',
-    logo: '/images/logo-travel.png',
     num: '05',
   },
 ]
@@ -130,25 +125,17 @@ export default function HomePage() {
 
           {/* Headline */}
           <h1
-            className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] text-white mb-8 hero-animate"
+            className="font-display text-[clamp(1.1rem,5.2vw,5.5rem)] leading-[0.9] text-white mb-8 hero-animate whitespace-nowrap"
             style={{ animationDelay: '0.25s', fontWeight: 800, letterSpacing: '-0.01em' }}
           >
-            Go With<br />
-            <span style={{
-              background: 'linear-gradient(135deg, #F5D060 0%, #E8B020 50%, #B88A18 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              the Best.
-            </span>
+            <span className="text-accent">B</span>uild. <span className="text-accent">I</span>nnovate. <span className="text-accent">R</span>epeat.
           </h1>
 
           <p
             className="font-body text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-12 leading-relaxed hero-animate"
             style={{ animationDelay: '0.4s' }}
           >
-            A family of Tennessee companies founded by Jimmy Bir Singh — spanning construction, transport, real estate, and hospitality.
+            BIR stands for Build. Innovate. Repeat. — the philosophy behind this family of Tennessee companies, founded by Jimmy Bir Singh and spanning construction, transport, real estate, and hospitality.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center hero-animate" style={{ animationDelay: '0.55s' }}>
@@ -167,7 +154,7 @@ export default function HomePage() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="relative py-12 glass border-y border-accent/10 overflow-hidden">
+      <section className="relative py-12 glass border-y border-accent/20 overflow-hidden">
         <div className="ticker-track flex items-center gap-0 w-max">
           {Array(8).fill(STATS).flat().map((s, i) => (
             <div key={i} className="flex items-center">
@@ -198,9 +185,7 @@ export default function HomePage() {
                   <div className="bg-surface/40 border border-white/[0.07] rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface hover:border-accent/20">
                     <div className="flex items-start justify-between mb-6">
                       <span className="stat-num text-4xl">{b.num}</span>
-                      <div className="relative h-10 w-24 flex-shrink-0">
-                        <Image src={b.logo} alt={b.name} fill className="object-contain object-right opacity-70 group-hover:opacity-100 transition-opacity" />
-                      </div>
+                      <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/50 px-2 py-1">{b.badge}</span>
                     </div>
                     <h3 className="font-display text-2xl text-white mb-1 group-hover:text-accent transition-colors" style={{ fontWeight: 700 }}>
                       {b.name}
@@ -223,7 +208,7 @@ export default function HomePage() {
             <ScrollReveal delay={BUSINESSES.length * 60} mode="scale">
               <Link href="/naanstop" className="group block h-full">
                 <div className="border border-accent/15 rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:border-accent/35"
-                  style={{ background: 'linear-gradient(135deg, rgba(232,176,32,0.06) 0%, rgba(15,21,33,0.98) 70%)' }}
+                  style={{ background: 'linear-gradient(135deg, rgba(242,187,44,0.1) 0%, rgba(22,31,49,0.98) 70%)' }}
                 >
                   <div className="flex items-start justify-between mb-6">
                     <span className="stat-num text-4xl">06</span>
