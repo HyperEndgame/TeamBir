@@ -19,7 +19,7 @@ export function Footer({ config, pathPrefix = '' }: Props) {
   return (
     <footer style={{ background: '#0b101a', position: 'relative', zIndex: 1 }}>
       <div className="gold-line" />
-      <div className="container-site py-20 grid grid-cols-1 md:grid-cols-3 gap-14">
+      <div className="container-site pt-[15px] pb-20 grid grid-cols-1 md:grid-cols-3 gap-14">
         <div>
           <Logo className="mb-6" />
           <p className="font-body text-sm text-white/35 leading-relaxed max-w-xs">{config.description}</p>
@@ -53,7 +53,7 @@ export function Footer({ config, pathPrefix = '' }: Props) {
       </div>
 
       <div className="border-t border-white/[0.04]">
-        <div className="container-site py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container-site pt-14 pb-10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-mono text-[0.65rem] tracking-[0.2em] text-white/25">
             © {new Date().getFullYear()} Team BIR. All rights reserved.
           </p>
