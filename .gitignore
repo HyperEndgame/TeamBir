@@ -17,9 +17,9 @@ apps/web/.next/
 apps/web/out/
 
 # Env
-.env
-.env*.local
-!.env.example
+#.env
+#.env*.local
+#!.env.example
 
 # SQLite (local dev)
 apps/web/.data/
