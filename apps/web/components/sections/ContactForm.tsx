@@ -70,12 +70,12 @@ export function ContactForm({ siteName }: Props) {
       <div>
         <label className="block font-mono text-[0.6rem] tracking-[0.25em] uppercase text-accent/70 mb-2">Which company?</label>
         <select className={inputCls + ' cursor-pointer'} style={{ appearance: 'none', WebkitAppearance: 'none' }} value={fields.company} onChange={set('company')}>
-          <option value="" style={{ background: '#0f1521' }}>Team BIR (General)</option>
-          <option value="materials" style={{ background: '#0f1521' }}>BIR Materials</option>
-          <option value="luxury" style={{ background: '#0f1521' }}>BIR Luxury Landing</option>
-          <option value="transport" style={{ background: '#0f1521' }}>BIR Transport</option>
-          <option value="developments" style={{ background: '#0f1521' }}>BIR Developments</option>
-          <option value="travel" style={{ background: '#0f1521' }}>BIR Travel Plaza</option>
+          <option value="" style={{ background: '#161F31' }}>Team BIR (General)</option>
+          <option value="materials" style={{ background: '#161F31' }}>BIR Materials</option>
+          <option value="luxury" style={{ background: '#161F31' }}>BIR Luxury Landing</option>
+          <option value="transport" style={{ background: '#161F31' }}>BIR Transport</option>
+          <option value="developments" style={{ background: '#161F31' }}>BIR Developments</option>
+          <option value="travel" style={{ background: '#161F31' }}>BIR Travel Plaza</option>
         </select>
       </div>
       <div>

@@ -63,7 +63,7 @@ export function ConstellationBg({ className }: { className?: string }) {
           if (dist2 < p.LINK_DIST * p.LINK_DIST) {
             const dist = Math.sqrt(dist2)
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(232,176,32,${p.LINE_ALPHA * (1 - dist / p.LINK_DIST)})`
+            ctx.strokeStyle = `rgba(242,187,44,${p.LINE_ALPHA * (1 - dist / p.LINK_DIST)})`
             ctx.lineWidth = 0.5
             ctx.moveTo(a.x * w, a.y * h)
             ctx.lineTo(b.x * w, b.y * h)
@@ -81,7 +81,7 @@ export function ConstellationBg({ className }: { className?: string }) {
         if (dist < MOUSE_RADIUS) {
           const alpha = 0.2 * (1 - dist / MOUSE_RADIUS)
           ctx.beginPath()
-          ctx.strokeStyle = `rgba(232,176,32,${alpha})`
+          ctx.strokeStyle = `rgba(242,187,44,${alpha})`
           ctx.lineWidth = 0.6
           ctx.moveTo(mouse.x, mouse.y)
           ctx.lineTo(sx, sy)
@@ -96,7 +96,7 @@ export function ConstellationBg({ className }: { className?: string }) {
         const dy = sy - mouse.y
         const nearMouse = Math.sqrt(dx * dx + dy * dy) < MOUSE_RADIUS
         ctx.beginPath()
-        ctx.fillStyle = nearMouse ? `rgba(232,176,32,${p.STAR_ALPHA_ACTIVE})` : `rgba(232,176,32,${p.STAR_ALPHA_NORMAL})`
+        ctx.fillStyle = nearMouse ? `rgba(242,187,44,${p.STAR_ALPHA_ACTIVE})` : `rgba(242,187,44,${p.STAR_ALPHA_NORMAL})`
         ctx.arc(sx, sy, (nearMouse ? s.r * 1.6 : s.r) * p.STAR_R_SCALE, 0, Math.PI * 2)
         ctx.fill()
       })

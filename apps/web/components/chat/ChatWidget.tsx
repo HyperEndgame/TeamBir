@@ -377,7 +377,7 @@ export function ChatWidget() {
           aria-label="Open chat"
           animate={open ? { scale: 1 } : { scale: [1, 1.08, 1] }}
           transition={{ duration: 1.1, repeat: open ? 0 : Infinity, repeatDelay: 2.4, ease: 'easeInOut' }}
-          className="relative w-16 h-16 rounded-full bg-accent flex items-center justify-center shadow-[0_4px_28px_rgba(232,176,32,0.55)] hover:bg-accent-h hover:scale-105 transition-colors duration-200 overflow-hidden p-3"
+          className="relative w-16 h-16 rounded-full bg-accent flex items-center justify-center shadow-[0_4px_28px_rgba(242,187,44,0.65)] hover:bg-accent-h hover:scale-105 transition-colors duration-200 overflow-hidden p-3"
         >
           <Image src="/images/eaglebot-logo-navy.png" alt="EagleBot" width={44} height={44} className="w-full h-full object-contain" />
         </motion.button>

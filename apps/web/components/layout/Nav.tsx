@@ -28,7 +28,7 @@ export function Nav({ config, logoHref = '/', pathPrefix = '' }: Props) {
       className={clsx(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         scrolled
-          ? 'glass border-b border-accent/10 shadow-[0_4px_32px_rgba(0,0,0,0.4)]'
+          ? 'glass border-b border-accent/20 shadow-[0_4px_32px_rgba(0,0,0,0.4)]'
           : 'bg-gradient-to-b from-black/40 to-transparent'
       )}
     >

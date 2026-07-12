@@ -8,14 +8,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#0f1521',
-        surface: '#161e2e',
-        border: '#242e45',
+        bg: '#161F31',
+        surface: '#1E293E',
+        border: '#2C3854',
         text: '#fafafa',
-        muted: '#71717a',
-        accent: '#E8B020',
-        'accent-h': '#F5CC4A',
-        'accent-dim': '#B88A18',
+        muted: '#7B7B84',
+        accent: '#F2BB2C',
+        'accent-h': '#FAD357',
+        'accent-dim': '#D39C12',
         teal: '#1A5F70',
       },
       fontFamily: {
