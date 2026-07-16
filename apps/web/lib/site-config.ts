@@ -42,10 +42,12 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Fill Dirt', href: '/fill-dirt' },
       { label: 'Crushing', href: '/crushing' },
       { label: 'Recycling', href: '/recycling' },
+      { label: 'Gallery', href: '/gallery' },
       { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '2601 Western Avenue', city: 'Knoxville', state: 'TN', zip: '37921' },
+    social: { facebook: 'https://m.facebook.com/p/BIR-Developments-61561972738476/' },
     schema: { type: 'LocalBusiness', locality: 'Knoxville', phone: '865-832-6247' },
   },
   luxury: {
