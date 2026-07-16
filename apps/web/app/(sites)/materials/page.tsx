@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
+import { SocialLinks } from '@/components/ui/SocialLinks'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
@@ -49,12 +51,36 @@ const SERVICES = [
   { label: 'Recycling', desc: 'Concrete and asphalt recycling — reduce waste, lower costs, source sustainable materials.', href: p('/recycling'), num: '06' },
 ]
 
+const WHY_US = [
+  { label: 'Quality Assurance', desc: 'Materials and services held to the highest standard — durability and reliability on every project.' },
+  { label: 'Sustainability', desc: 'Green process initiatives focused on recycling and reusing materials to reduce environmental impact.' },
+  { label: 'Comprehensive Services', desc: 'From rock crushing to materials processing, a complete range of services for any construction need.' },
+  { label: 'Customer Focus', desc: 'Personalized service and support from project inception to completion.' },
+  { label: 'Competitive Pricing', desc: 'High-quality materials and services at prices that deliver real value.' },
+  { label: 'Expertise & Innovation', desc: 'An experienced team leveraging advanced techniques and technology for superior results.' },
+]
+
+const GALLERY_PREVIEW = [1, 3, 5, 7].map(n => `/images/materials-gallery/gallery-${String(n).padStart(2, '0')}.jpg`)
+
 export default function MaterialsHome() {
   return (
     <main>
       <JsonLd data={LD_JSON} />
-      <section className="pt-48 pb-24 hero-materials">
-        <div className="container-site">
+      <section className="relative pt-48 pb-24 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/materials-hero.jpg"
+            alt="BIR Materials rock crushing equipment on a jobsite"
+            fill
+            priority
+            sizes="100vw"
+            quality={90}
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-bg/80 via-bg/55 to-bg" />
+          <div className="absolute inset-0 hero-materials opacity-80" />
+        </div>
+        <div className="container-site relative z-10">
           <ScrollReveal>
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Knoxville, Tennessee · 865-832-6247</p>
             <h1 className="font-display text-[clamp(3rem,8vw,8rem)] text-white leading-none mb-6" style={{ fontWeight: 800 }}>
@@ -122,6 +148,49 @@ export default function MaterialsHome() {
         </div>
       </section>
 
+      <section className="py-24">
+        <div className="container-site">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Why Choose Us</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-16" style={{ fontWeight: 800 }}>
+              Built to Deliver
+            </h2>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {WHY_US.map((w, i) => (
+              <ScrollReveal key={w.label} delay={i * 80}>
+                <div className="p-8 h-full border border-white/[0.07] rounded-xl">
+                  <h3 className="font-display text-xl text-white mb-3" style={{ fontWeight: 700 }}>{w.label}</h3>
+                  <p className="font-body text-sm text-white/50 leading-relaxed">{w.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24">
+        <div className="container-site">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">See It For Yourself</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-10" style={{ fontWeight: 800 }}>
+              The Gallery
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {GALLERY_PREVIEW.map((src, i) => (
+              <ScrollReveal key={src} delay={i * 60} mode="scale">
+                <Link href={p('/gallery')} className="group block relative aspect-[4/5] overflow-hidden rounded-xl border border-white/[0.07] hover:border-accent/30 transition-colors">
+                  <Image src={src} alt="BIR Materials jobsite" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+          <Button as="a" href={p('/gallery')} variant="outline">View Full Gallery</Button>
+        </div>
+      </section>
+
       <section className="py-24 relative">
         <div className="absolute inset-0 gradient-mesh pointer-events-none" />
         <div className="container-site relative z-10">
@@ -169,6 +238,7 @@ export default function MaterialsHome() {
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">DOT-certified aggregate, fill dirt, and crushing — call 865-832-6247 or quote online. Delivery available.</p>
             <Button as="a" href={p('/contact')} size="lg">Get a Quote</Button>
+            <SocialLinks social={cfg.social} className="flex items-center justify-center gap-3 mt-10" />
           </ScrollReveal>
         </div>
       </section>

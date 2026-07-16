@@ -20,7 +20,6 @@ export const NAV_ROUTES: NavRoute[] = [
   { path: '/', label: 'Home', keywords: ['home', 'homepage', 'main'] },
   { path: '/about', label: 'About', keywords: ['about', 'history', 'founder', 'jimmy bir singh', 'story'] },
   { path: '/businesses', label: 'Our Businesses', keywords: ['businesses', 'companies', 'portfolio', 'all companies'] },
-  { path: '/careers', label: 'Careers', keywords: ['job', 'jobs', 'apply', 'hiring', 'career', 'careers', 'employment', 'work', 'openings', 'position'] },
   { path: '/contact', label: 'Contact', keywords: ['contact', 'reach', 'email', 'phone', 'get in touch'] },
   { path: '/privacy', label: 'Privacy Policy', keywords: ['privacy', 'policy', 'data', 'terms'] },
   { path: '/naanstop', label: 'Naanstop', keywords: ['naanstop', 'naan stop', 'food', 'restaurant'] },
@@ -30,6 +29,7 @@ export const NAV_ROUTES: NavRoute[] = [
   { path: companyPath('materials', '/crushing'), label: 'Materials — Crushing', keywords: ['crushing', 'contract crushing'] },
   { path: companyPath('materials', '/fill-dirt'), label: 'Materials — Fill Dirt', keywords: ['fill dirt', 'topsoil', 'dirt'] },
   { path: companyPath('materials', '/recycling'), label: 'Materials — Recycling', keywords: ['recycling', 'sustainable materials'] },
+  { path: companyPath('materials', '/careers'), label: 'Materials — Careers', keywords: ['materials careers', 'materials jobs', 'concrete driver'] },
   { path: companyPath('materials', '/contact'), label: 'Materials — Contact', keywords: ['materials contact', 'materials phone'] },
 
   { path: companyPath('luxury', ''), label: 'BIR Luxury Landing', keywords: ['luxury', 'luxury landing', 'event venue', 'wedding', 'oak ridge'] },
@@ -37,32 +37,38 @@ export const NAV_ROUTES: NavRoute[] = [
   { path: companyPath('luxury', '/apartments'), label: 'Luxury — Apartments', keywords: ['apartments', 'apartment', 'rent'] },
   { path: companyPath('luxury', '/condominiums'), label: 'Luxury — Condominiums', keywords: ['condominiums', 'condos', 'condo'] },
   { path: companyPath('luxury', '/duplexes'), label: 'Luxury — Duplexes', keywords: ['duplexes', 'duplex', 'townhomes'] },
+  { path: companyPath('luxury', '/packages'), label: 'Luxury — Packages', keywords: ['luxury packages', 'wedding packages', 'event pricing', 'party packages'] },
+  { path: companyPath('luxury', '/gallery'), label: 'Luxury — Gallery', keywords: ['luxury gallery', 'venue photos', 'event photos'] },
+  { path: companyPath('luxury', '/rules'), label: 'Luxury — Rules & Regulations', keywords: ['pool rules', 'luxury rules', 'regulations'] },
   { path: companyPath('luxury', '/contact'), label: 'Luxury — Contact', keywords: ['luxury contact', 'venue contact'] },
 
   { path: companyPath('transport', ''), label: 'BIR Transport', keywords: ['transport', 'trucking', 'logistics', 'dry van', 'truckload', 'cdl'] },
   { path: companyPath('transport', '/services'), label: 'Transport — Services', keywords: ['transport services', 'cross docking', 'final mile', 'truck parking'] },
+  { path: companyPath('transport', '/careers'), label: 'Transport — Careers', keywords: ['transport careers', 'transport jobs', 'cdl driver job', 'trucking job'] },
   { path: companyPath('transport', '/contact'), label: 'Transport — Contact', keywords: ['transport contact'] },
 
   { path: companyPath('developments', ''), label: 'BIR Developments', keywords: ['developments', 'construction', 'builder', 'contractor', 'custom homes'] },
   { path: companyPath('developments', '/services'), label: 'Developments — Services', keywords: ['developments services', 'excavation', 'electrical', 'renovations'] },
   { path: companyPath('developments', '/projects'), label: 'Developments — Projects', keywords: ['projects', 'portfolio', 'built'] },
+  { path: companyPath('developments', '/careers'), label: 'Developments — Careers', keywords: ['developments careers', 'developments jobs', 'construction job'] },
   { path: companyPath('developments', '/contact'), label: 'Developments — Contact', keywords: ['developments contact', 'subcontractors'] },
 
   { path: companyPath('travel', ''), label: 'BIR Travel Plaza', keywords: ['travel', 'travel plaza', 'fuel', 'gas station', 'dandridge', 'jack in the box'] },
   { path: companyPath('travel', '/amenities'), label: 'Travel — Amenities', keywords: ['travel amenities', 'rv parking', 'ethanol'] },
   { path: companyPath('travel', '/location'), label: 'Travel — Location', keywords: ['travel location', 'directions', 'address'] },
+  { path: companyPath('travel', '/careers'), label: 'Travel — Careers', keywords: ['travel careers', 'travel plaza jobs', 'jack in the box job'] },
   { path: companyPath('travel', '/contact'), label: 'Travel — Contact', keywords: ['travel contact'] },
 ]
 
 const OPENINGS = [
-  { company: 'BIR Materials', role: 'Equipment Operator', type: 'Full-time', location: 'Knoxville, TN' },
+  { company: 'BIR Materials', role: 'CDL Driver', type: 'Full-time', location: 'Knoxville, TN' },
+  { company: 'BIR Materials', role: 'Non-CDL / General Labor', type: 'Full-time', location: 'Knoxville, TN' },
   { company: 'BIR Transport', role: 'CDL-A Driver', type: 'Full-time', location: 'Knoxville, TN' },
-  { company: 'BIR Transport', role: 'Logistics Coordinator', type: 'Full-time', location: 'Knoxville, TN' },
-  { company: 'BIR Developments', role: 'Construction Superintendent', type: 'Full-time', location: 'Knoxville, TN' },
-  { company: 'BIR Developments', role: 'Estimator', type: 'Full-time', location: 'Knoxville, TN' },
-  { company: 'BIR Luxury Landing', role: 'Leasing Agent', type: 'Full-time', location: 'Oak Ridge, TN' },
-  { company: 'BIR Travel Plaza', role: 'Fuel Attendant', type: 'Part-time', location: 'Dandridge, TN' },
-  { company: 'Team BIR', role: 'General Inquiry', type: 'All types', location: 'East Tennessee' },
+  { company: 'BIR Transport', role: 'Non-CDL Driver / Support', type: 'Full-time', location: 'Knoxville, TN' },
+  { company: 'BIR Developments', role: 'CDL Driver', type: 'Full-time', location: 'Knoxville, TN' },
+  { company: 'BIR Developments', role: 'Non-CDL / General Labor', type: 'Full-time', location: 'Knoxville, TN' },
+  { company: 'BIR Travel Plaza', role: 'Travel Plaza Team Member', type: 'Full-time / Part-time', location: 'Dandridge, TN' },
+  { company: 'BIR Travel Plaza', role: 'Jack in the Box Team Member', type: 'Full-time / Part-time', location: 'Dandridge, TN' },
 ]
 
 function companyFacts(): string {
@@ -100,7 +106,7 @@ Navigation protocol: when the user wants to reach a specific page, end your repl
 [[navigate:/exact/path]]
 using ONLY a path from this list (path — label):
 ${navList()}
-Emit at most one sentinel, only when a page clearly fits the user's intent. If no page fits, emit none.
+Emit at most one sentinel. If any single page's keywords match the user's topic, that counts as "clearly fits" — emit the sentinel immediately alongside your reply, even for a short or informal message like "I want a job" or "I want concrete." Do not withhold navigation to ask a clarifying question first when only one page matches; ask a follow-up only when multiple pages plausibly fit and it's genuinely unclear which one. If no page matches the topic at all, emit none.
 
 Lead protocol: when the user describes a project or service need (wants a quote, has work to be done, asks "how can you help me"), reply with a short line acknowledging it, then end with the sentinel [[lead]] on its own line to launch the guided quote form. Do not ask for project details yourself — the form collects them.`
 

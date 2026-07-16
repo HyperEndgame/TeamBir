@@ -1,4 +1,4 @@
-export type SiteKey = 'main' | 'materials' | 'luxury' | 'transport' | 'developments' | 'travel'
+export type SiteKey = 'main' | 'materials' | 'luxury' | 'transport' | 'developments' | 'travel' | 'fleet'
 
 export interface SiteConfig {
   name: string
@@ -9,6 +9,7 @@ export interface SiteConfig {
   accentColor?: string
   logoSrc?: string
   address?: { street: string; city: string; state: string; zip: string }
+  social?: { facebook?: string; instagram?: string; linkedin?: string }
   schema: {
     type: string
     locality: string
@@ -26,7 +27,6 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     nav: [
       { label: 'Businesses', href: '/businesses' },
       { label: 'About', href: '/about' },
-      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     schema: { type: 'Organization', locality: 'Knoxville', phone: '' },
@@ -36,40 +36,52 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Rock Solid Results.',
     description: 'Premium aggregates, fill dirt, topsoil, concrete, contract crushing, and sustainable materials recycling in Knoxville, TN. 865-832-6247.',
     url: 'https://materials.teambir.com',
-    logoSrc: '/images/logo-materials.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Aggregates', href: '/aggregates' },
       { label: 'Fill Dirt', href: '/fill-dirt' },
       { label: 'Crushing', href: '/crushing' },
       { label: 'Recycling', href: '/recycling' },
+      { label: 'Gallery', href: '/gallery' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '2601 Western Avenue', city: 'Knoxville', state: 'TN', zip: '37921' },
+    social: { facebook: 'https://m.facebook.com/p/BIR-Developments-61561972738476/' },
     schema: { type: 'LocalBusiness', locality: 'Knoxville', phone: '865-832-6247' },
   },
   luxury: {
     name: 'BIR Luxury Landing',
     tagline: 'Premier Events & Luxury Living in Oak Ridge.',
-    logoSrc: '/images/logo-luxury.png',
+    logoSrc: '/images/mainlogo.png',
     description: '12,000 sq ft luxury event venue in Oak Ridge, TN — weddings, corporate events, birthday parties, pool parties, and new luxury condominiums & townhomes.',
     url: 'https://luxury.teambir.com',
     nav: [
       { label: 'Events', href: '/contact' },
-      { label: 'Condominiums', href: '/condominiums' },
+      { label: 'Packages', href: '/packages' },
+      { label: 'Gallery', href: '/gallery' },
       { label: 'Amenities', href: '/amenities' },
+      { label: 'Condominiums', href: '/condominiums' },
+      { label: 'Rules', href: '/rules' },
       { label: 'Contact', href: '/contact' },
     ],
-    schema: { type: 'EventVenue', locality: 'Oak Ridge' },
+    social: {
+      facebook: 'https://www.facebook.com/share/q88ethCXuuGpZTQ2/?mibextid=LQQJ4d',
+      instagram: 'https://www.instagram.com/birluxurylanding',
+      linkedin: 'https://www.linkedin.com/company/bir-luxury-landing/',
+    },
+    schema: { type: 'EventVenue', locality: 'Oak Ridge', phone: '865-722-4528' },
   },
   transport: {
     name: 'BIR Transport',
     tagline: 'Go With the Best.',
     description: 'Family-owned Tennessee trucking and logistics — dry van truckload, cross docking, final mile, truck parking, boat/RV storage. USDOT 717687. 540-980-7530.',
     url: 'https://transport.teambir.com',
-    logoSrc: '/images/logo-transport.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'About', href: '/about' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     schema: { type: 'MovingCompany', locality: 'Knoxville', phone: '540-980-7530' },
@@ -79,11 +91,12 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Your Trusted Builder in Knoxville.',
     description: 'Custom homes, commercial construction, renovations, excavation, and electrical in Knoxville, TN. TN Contractor License #80985.',
     url: 'https://developments.teambir.com',
-    logoSrc: '/images/logo-developments.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'Projects', href: '/projects' },
       { label: 'Subcontractors', href: '/contact' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '2225 Sycamore Drive', city: 'Knoxville', state: 'TN', zip: '37921' },
@@ -94,13 +107,23 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     tagline: 'Your Stop for Comfort & Convenience.',
     description: "Tennessee's premier travel plaza at 1217 Deep Springs Rd, Dandridge — Jack in the Box, Naan Stop, 100% No Ethanol fuel, 250 parking spaces, and full-hookup RV parking.",
     url: 'https://travel.teambir.com',
-    logoSrc: '/images/logo-travel.png',
+    logoSrc: '/images/mainlogo.png',
     nav: [
       { label: 'Amenities', href: '/amenities' },
       { label: 'Location', href: '/location' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '1217 Deep Springs Rd', city: 'Dandridge', state: 'TN', zip: '37725' },
     schema: { type: 'TravelAgency', locality: 'Dandridge' },
+  },
+  fleet: {
+    name: 'BIR Fleet Services',
+    tagline: 'Coming Soon.',
+    logoSrc: '/images/mainlogo.png',
+    description: 'A new Team BIR company is on the way.',
+    url: 'https://fleet.teambir.com',
+    nav: [],
+    schema: { type: 'Organization', locality: 'Knoxville' },
   },
 }

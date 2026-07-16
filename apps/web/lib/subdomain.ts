@@ -6,6 +6,7 @@ const SUBDOMAIN_MAP: Record<string, SiteKey> = {
   transport: 'transport',
   developments: 'developments',
   travel: 'travel',
+  fleet: 'fleet',
   teambir: 'main',
   www: 'main',
   bir: 'main',

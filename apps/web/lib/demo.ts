@@ -7,6 +7,7 @@ const SITE_URLS: Record<string, string> = {
   transport: DEMO ? '/transport' : 'https://transport.teambir.com',
   developments: DEMO ? '/developments' : 'https://developments.teambir.com',
   travel: DEMO ? '/travel' : 'https://travel.teambir.com',
+  fleet: DEMO ? '/fleet' : 'https://fleet.teambir.com',
 }
 
 export function siteUrl(key: string): string {
