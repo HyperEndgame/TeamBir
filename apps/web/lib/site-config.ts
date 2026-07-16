@@ -26,7 +26,6 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     nav: [
       { label: 'Businesses', href: '/businesses' },
       { label: 'About', href: '/about' },
-      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     schema: { type: 'Organization', locality: 'Knoxville', phone: '' },
@@ -42,6 +41,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Fill Dirt', href: '/fill-dirt' },
       { label: 'Crushing', href: '/crushing' },
       { label: 'Recycling', href: '/recycling' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '2601 Western Avenue', city: 'Knoxville', state: 'TN', zip: '37921' },
@@ -70,6 +70,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     nav: [
       { label: 'Services', href: '/services' },
       { label: 'About', href: '/about' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     schema: { type: 'MovingCompany', locality: 'Knoxville', phone: '540-980-7530' },
@@ -84,6 +85,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
       { label: 'Services', href: '/services' },
       { label: 'Projects', href: '/projects' },
       { label: 'Subcontractors', href: '/contact' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '2225 Sycamore Drive', city: 'Knoxville', state: 'TN', zip: '37921' },
@@ -98,6 +100,7 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     nav: [
       { label: 'Amenities', href: '/amenities' },
       { label: 'Location', href: '/location' },
+      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
     address: { street: '1217 Deep Springs Rd', city: 'Dandridge', state: 'TN', zip: '37725' },
