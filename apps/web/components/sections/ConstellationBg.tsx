@@ -14,12 +14,12 @@ export function ConstellationBg({ className }: { className?: string }) {
     const MOUSE_RADIUS = 160
 
     const getParams = (w: number) => ({
-      CELL: w < 500 ? 60 : 100,
-      LINE_ALPHA: w < 500 ? 0.3 : 0.18,
-      LINK_DIST: w < 500 ? 150 : 180,
-      STAR_ALPHA_NORMAL: w < 500 ? 0.75 : 0.5,
-      STAR_ALPHA_ACTIVE: w < 500 ? 1 : 0.85,
-      STAR_R_SCALE: w < 500 ? 2 : 1.5,
+      CELL: w < 500 ? 72 : 120,
+      LINE_ALPHA: w < 500 ? 0.18 : 0.08,
+      LINK_DIST: w < 500 ? 130 : 160,
+      STAR_ALPHA_NORMAL: w < 500 ? 0.55 : 0.3,
+      STAR_ALPHA_ACTIVE: w < 500 ? 0.95 : 0.6,
+      STAR_R_SCALE: w < 500 ? 1.6 : 1.0,
     })
 
     let p = getParams(0)
@@ -79,7 +79,7 @@ export function ConstellationBg({ className }: { className?: string }) {
         const dy = sy - mouse.y
         const dist = Math.sqrt(dx * dx + dy * dy)
         if (dist < MOUSE_RADIUS) {
-          const alpha = 0.35 * (1 - dist / MOUSE_RADIUS)
+          const alpha = 0.2 * (1 - dist / MOUSE_RADIUS)
           ctx.beginPath()
           ctx.strokeStyle = `rgba(242,187,44,${alpha})`
           ctx.lineWidth = 0.6
