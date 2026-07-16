@@ -37,6 +37,9 @@ export const NAV_ROUTES: NavRoute[] = [
   { path: companyPath('luxury', '/apartments'), label: 'Luxury — Apartments', keywords: ['apartments', 'apartment', 'rent'] },
   { path: companyPath('luxury', '/condominiums'), label: 'Luxury — Condominiums', keywords: ['condominiums', 'condos', 'condo'] },
   { path: companyPath('luxury', '/duplexes'), label: 'Luxury — Duplexes', keywords: ['duplexes', 'duplex', 'townhomes'] },
+  { path: companyPath('luxury', '/packages'), label: 'Luxury — Packages', keywords: ['luxury packages', 'wedding packages', 'event pricing', 'party packages'] },
+  { path: companyPath('luxury', '/gallery'), label: 'Luxury — Gallery', keywords: ['luxury gallery', 'venue photos', 'event photos'] },
+  { path: companyPath('luxury', '/rules'), label: 'Luxury — Rules & Regulations', keywords: ['pool rules', 'luxury rules', 'regulations'] },
   { path: companyPath('luxury', '/contact'), label: 'Luxury — Contact', keywords: ['luxury contact', 'venue contact'] },
 
   { path: companyPath('transport', ''), label: 'BIR Transport', keywords: ['transport', 'trucking', 'logistics', 'dry van', 'truckload', 'cdl'] },

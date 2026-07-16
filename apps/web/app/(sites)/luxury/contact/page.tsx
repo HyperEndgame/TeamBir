@@ -62,7 +62,7 @@ export default function LuxuryContactPage() {
                 <h3 className="font-display text-2xl text-text mb-6">Call to Schedule</h3>
                 <div className="bg-bg/50 p-4 rounded mb-6">
                   <p className="font-mono text-xs tracking-widest uppercase text-accent mb-2">Phone</p>
-                  <p className="text-text font-display text-2xl tracking-wider">Call Now</p>
+                  <a href="tel:8657224528" className="text-text font-display text-2xl tracking-wider hover:text-accent transition-colors">865-722-4528</a>
                   <p className="text-muted text-sm mt-2">Tours available daily, weekends included</p>
                 </div>
                 <p className="text-muted text-sm leading-relaxed">

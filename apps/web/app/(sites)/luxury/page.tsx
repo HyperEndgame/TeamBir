@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { Button } from '@/components/ui/Button'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { SocialLinks } from '@/components/ui/SocialLinks'
 import { SITE_CONFIGS } from '@/lib/site-config'
 import { subPath } from '@/lib/demo'
 
@@ -33,16 +35,19 @@ const LD_JSON = {
     addressCountry: 'US',
   },
   areaServed: 'East Tennessee',
+  telephone: cfg.schema.phone,
 }
 
 const p = (path: string) => subPath('luxury', path)
 
 const EVENTS = [
-  { label: 'Weddings', desc: 'Full ceremony and reception packages — customized planning, elegant spaces, and exceptional service to make your day unforgettable.', num: '01', href: p('/contact') },
-  { label: 'Corporate Events', desc: 'Classy conference rooms and multi-purpose spaces for meetings, retreats, and corporate galas. Full corporate packages available.', num: '02', href: p('/contact') },
-  { label: 'Birthday Parties', desc: 'Stunning celebration spaces for any age. Customizable layouts and premium amenities for a truly memorable birthday experience.', num: '03', href: p('/contact') },
-  { label: 'Pool Parties', desc: 'Exclusive pool party venue with hourly and full-day options. Perfect for intimate gatherings or large celebrations.', num: '04', href: p('/contact') },
+  { label: 'Weddings', desc: 'Full ceremony and reception packages — customized planning, elegant spaces, and exceptional service to make your day unforgettable.', num: '01', href: p('/packages') },
+  { label: 'Corporate Events', desc: 'Classy conference rooms and multi-purpose spaces for meetings, retreats, and corporate galas. Full corporate packages available.', num: '02', href: p('/packages') },
+  { label: 'Birthday Parties', desc: 'Stunning celebration spaces for any age. Customizable layouts and premium amenities for a truly memorable birthday experience.', num: '03', href: p('/packages') },
+  { label: 'Pool Parties', desc: 'Exclusive pool party venue with hourly and full-day options. Perfect for intimate gatherings or large celebrations.', num: '04', href: p('/packages') },
 ]
+
+const GALLERY_PREVIEW = [1, 9, 11, 22].map(n => `/images/luxury-gallery/gallery-${String(n).padStart(2, '0')}.jpg`)
 
 const UNITS = [
   { label: 'Condominiums', desc: 'New development — premium ownership in East Tennessee with luxury finishes and spectacular views.', href: p('/condominiums'), num: '01' },
@@ -62,8 +67,21 @@ export default function LuxuryHome() {
   return (
     <main>
       <JsonLd data={LD_JSON} />
-      <section className="pt-48 pb-28 hero-luxury">
-        <div className="container-site">
+      <section className="relative pt-48 pb-28 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/luxury-hero.jpg"
+            alt="A festive gathering at the BIR Luxury Landing pool"
+            fill
+            priority
+            sizes="100vw"
+            quality={90}
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-bg/80 via-bg/55 to-bg" />
+          <div className="absolute inset-0 hero-luxury opacity-80" />
+        </div>
+        <div className="container-site relative z-10">
           <ScrollReveal>
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">Oak Ridge, Tennessee</p>
             <h1 className="font-display text-[clamp(3rem,8vw,8rem)] text-white leading-none mb-6" style={{ fontWeight: 800 }}>
@@ -162,6 +180,27 @@ export default function LuxuryHome() {
         </div>
       </section>
 
+      <section className="py-24">
+        <div className="container-site">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-accent mb-4">See It For Yourself</p>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] text-white leading-none mb-10" style={{ fontWeight: 800 }}>
+              The Gallery
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {GALLERY_PREVIEW.map((src, i) => (
+              <ScrollReveal key={src} delay={i * 60} mode="scale">
+                <Link href={p('/gallery')} className="group block relative aspect-[4/5] overflow-hidden rounded-xl border border-white/[0.07] hover:border-accent/30 transition-colors">
+                  <Image src={src} alt="BIR Luxury Landing event" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+          <Button as="a" href={p('/gallery')} variant="outline">View Full Gallery</Button>
+        </div>
+      </section>
+
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 gradient-gold pointer-events-none" />
         <div className="absolute top-0 left-0 right-0 gold-line" />
@@ -172,6 +211,7 @@ export default function LuxuryHome() {
             </h2>
             <p className="font-body text-white/55 text-lg mb-10">Oak Ridge's premier venue for weddings, corporate events, and private gatherings. Rates from $300/hour.</p>
             <Button as="a" href={p('/contact')} size="lg">Reserve Your Date</Button>
+            <SocialLinks social={cfg.social} className="flex items-center justify-center gap-3 mt-10" />
           </ScrollReveal>
         </div>
       </section>

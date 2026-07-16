@@ -9,6 +9,7 @@ export interface SiteConfig {
   accentColor?: string
   logoSrc?: string
   address?: { street: string; city: string; state: string; zip: string }
+  social?: { facebook?: string; instagram?: string; linkedin?: string }
   schema: {
     type: string
     locality: string
@@ -55,11 +56,19 @@ export const SITE_CONFIGS: Record<SiteKey, SiteConfig> = {
     url: 'https://luxury.teambir.com',
     nav: [
       { label: 'Events', href: '/contact' },
-      { label: 'Condominiums', href: '/condominiums' },
+      { label: 'Packages', href: '/packages' },
+      { label: 'Gallery', href: '/gallery' },
       { label: 'Amenities', href: '/amenities' },
+      { label: 'Condominiums', href: '/condominiums' },
+      { label: 'Rules', href: '/rules' },
       { label: 'Contact', href: '/contact' },
     ],
-    schema: { type: 'EventVenue', locality: 'Oak Ridge' },
+    social: {
+      facebook: 'https://www.facebook.com/share/q88ethCXuuGpZTQ2/?mibextid=LQQJ4d',
+      instagram: 'https://www.instagram.com/birluxurylanding',
+      linkedin: 'https://www.linkedin.com/company/bir-luxury-landing/',
+    },
+    schema: { type: 'EventVenue', locality: 'Oak Ridge', phone: '865-722-4528' },
   },
   transport: {
     name: 'BIR Transport',
