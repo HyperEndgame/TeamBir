@@ -120,6 +120,15 @@ h1, h2, h3, h4 {
 }
 .ticker-track { animation: ticker 40s linear infinite; }
 
+.ticker-gold {
+  background: linear-gradient(135deg, #FAD66B 0%, #F2BB2C 55%, #D39C12 100%);
+}
+.ticker-gold .stat-num {
+  background: none;
+  -webkit-text-fill-color: unset;
+  color: var(--color-bg);
+}
+
 /* ── Hero fade-in keyframes ── */
 @keyframes heroFade {
   from { opacity: 0; transform: translateY(20px); }

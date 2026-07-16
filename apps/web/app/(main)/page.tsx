@@ -154,15 +154,15 @@ export default function HomePage() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="relative py-12 glass border-y border-accent/20 overflow-hidden">
+      <section className="relative py-12 ticker-gold border-y border-accent/20 overflow-hidden">
         <div className="ticker-track flex items-center gap-0 w-max">
           {Array(8).fill(STATS).flat().map((s, i) => (
             <div key={i} className="flex items-center">
               <div className="text-center px-16">
                 <p className="stat-num text-5xl md:text-6xl mb-1">{s.value}</p>
-                <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-muted">{s.label}</p>
+                <p className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-[#161F31]/70">{s.label}</p>
               </div>
-              <div className="w-px h-10 bg-white/[0.06]" />
+              <div className="w-px h-10 bg-[#161F31]/15" />
             </div>
           ))}
         </div>
@@ -182,7 +182,9 @@ export default function HomePage() {
             {BUSINESSES.map((b, i) => (
               <ScrollReveal key={b.key} delay={i * 60} mode="scale">
                 <Link href={b.href} className="group block h-full">
-                  <div className="bg-surface/40 border border-white/[0.07] rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:bg-surface hover:border-accent/20">
+                  <div className="border border-accent/15 rounded-xl p-8 h-full flex flex-col transition-all duration-300 hover:border-accent/35"
+                    style={{ background: 'linear-gradient(135deg, rgba(242,187,44,0.1) 0%, rgba(22,31,49,0.98) 70%)' }}
+                  >
                     <div className="flex items-start justify-between mb-6">
                       <span className="stat-num text-4xl">{b.num}</span>
                       <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-accent/50 px-2 py-1">{b.badge}</span>
